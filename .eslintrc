@@ -1,0 +1,36 @@
+{
+    "env": {
+        "node": true,
+        "browser": true
+    },
+    "extends": [
+        "plugin:ava/recommended",
+        "airbnb"
+    ],
+    "plugins": [
+        "ava"
+    ],
+    "rules": {
+        "indent": [2, 4],
+        "react/jsx-indent": [2, 4],
+        "react/jsx-indent-props": [2, 4],
+        "new-cap": 0,
+        "id-length": 0,
+        "no-multiple-empty-lines": [2, {
+            "max": 1
+        }],
+        "react/prop-types": 1,
+        "react/jsx-filename-extension": 0,
+        "no-underscore-dangle": 0,
+        "import/no-extraneous-dependencies": ["error", {
+            "devDependencies": [
+                "**/test.js"
+            ]
+        }],
+        "arrow-parens": 0,
+        "ava/no-ignored-test-files": ["error", {
+            "files": ["src/**/test.js"]
+        }],
+        "comma-dangle": ["error", "never"]
+    }
+}

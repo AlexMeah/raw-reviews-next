@@ -1,0 +1,18 @@
+{
+    "lines": 99,
+    "statements": 99,
+    "functions": 99,
+    "branches": 99,
+     "reporter": [
+        "html",
+        "json-summary",
+        "text-summary"
+    ],
+    "exclude": [
+        "src/themes/default.js",
+        "**/test.js",
+        "test/**",
+        "src/components/Icon/Star.js",
+        "src/components/Icon/StarEmpty.js"
+    ]
+}
