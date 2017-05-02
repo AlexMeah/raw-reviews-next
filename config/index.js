@@ -4,7 +4,7 @@ const port = process.env.PORT || 3000;
 
 module.exports = {
     host: getEnv({
-        production: 'http://raw-reviews-prod.flynn.alexmeah.com',
+        production: 'http://alexmeah-raw-reviews-next-mast.flynn.alexmeah.com',
         default: `http://local.dev:${port}`
     })
 };
