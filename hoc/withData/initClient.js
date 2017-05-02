@@ -2,10 +2,13 @@ import 'isomorphic-fetch';
 import { ApolloClient, createNetworkInterface } from 'react-apollo';
 
 let apolloClient = null;
+const NODE_ENV = process.env.NODE_ENV;
 
 function _initClient({ headers, cookies } = {}, initialState) {
     const networkInterface = createNetworkInterface({
-        uri: 'http://local.dev:3000/graphql',
+        uri: NODE_ENV === 'production'
+            ? 'http://raw-reviews-prod.flynn.alexmeah.com/graphql'
+            : 'http://local.dev:3000/graphql',
         opts: {
             credentials: 'same-origin'
             // Pass headers here if your graphql server requires them
