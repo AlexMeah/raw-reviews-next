@@ -17,7 +17,7 @@ const statusCheck = resp => {
     if (
         resp.status === 401 &&
         window.location.pathname.indexOf('login') === -1 &&
-        window.location.pathname.indexOf('register') === -1
+        window.location.pathname.indexOf('u/create') === -1
     ) {
         Router.push({
             pathname: '/u/login',
