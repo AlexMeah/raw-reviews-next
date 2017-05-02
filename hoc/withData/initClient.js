@@ -7,7 +7,7 @@ let apolloClient = null;
 
 function _initClient({ headers, cookies } = {}, initialState) {
     const networkInterface = createNetworkInterface({
-        uri: config.host,
+        uri: `${config.host}/graphql`,
         opts: {
             credentials: 'same-origin'
             // Pass headers here if your graphql server requires them
