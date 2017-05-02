@@ -2,7 +2,7 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import requireAuth from '../../hoc/requireAuth';
+import DisallowAuth from '../../hoc/disallowAuth';
 import withData from '../../hoc/withData';
 
 import BasicLayout from '../../layouts/Basic';
@@ -127,4 +127,4 @@ const createUserMutation = gql`
 
 const CreateUserWithMutation = graphql(createUserMutation)(CreateUser);
 
-export default requireAuth(withData(CreateUserWithMutation));
+export default DisallowAuth(withData(CreateUserWithMutation));
