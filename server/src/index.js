@@ -4,13 +4,14 @@ const express = require('express');
 const jwt = require('express-jwt');
 const next = require('next');
 const compression = require('compression');
-var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 
 const config = require('./config');
+const clientConfig = require('../../config');
 const me = require('./modules/user/routes/me');
 const login = require('./modules/user/routes/login');
 const sign = require('./modules/s3/routes/sign');
@@ -144,7 +145,7 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
 
         server.listen(3000, err => {
             if (err) throw err;
-            console.log('> Ready on http://local.dev:3000');
+            console.log(`> Ready on ${clientConfig.host}`);
         });
 
         process.on('uncaughtException', error => {
