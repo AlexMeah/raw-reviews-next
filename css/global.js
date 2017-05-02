@@ -12,7 +12,7 @@ export default injectGlobal`
     html {
         font-size: 62.5%;
         font-family: 'Source Sans Pro', sans-serif;
-        background-color: #74CEB7;
+        background-color: ${vars.colors.primary};
         color: ${vars.colors.body};
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;

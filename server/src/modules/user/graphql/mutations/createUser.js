@@ -30,8 +30,7 @@ module.exports = {
             })
             .then(data => ({
                 id: data.id,
-                email: data.email,
-                username: data.id
+                email: data.email
             }))
             .catch(Sequelize.ValidationError, err => {
                 console.log(err);

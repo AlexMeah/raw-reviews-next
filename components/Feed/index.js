@@ -6,6 +6,7 @@ import styled from 'styled-components';
 // import BasicLayout from '../../layouts/Basic';
 
 import Item from './Item';
+import H3 from '../H3';
 
 import vars from '../../css/vars';
 
@@ -24,6 +25,7 @@ const Feed = props => {
 
     return (
         <Container>
+            {feed.length === 0 && <H3>No posts</H3>}
             {feed.map(f => (
                 <Item
                     key={f.id}

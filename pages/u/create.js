@@ -120,7 +120,7 @@ class CreateUser extends React.Component {
 const createUserMutation = gql`
   mutation user_createUser($username: String!, $email: String!, $password: String!) {
     user_createUser(username: $username, email: $email, password: $password) {
-        username
+        id
     }
   }
 `;

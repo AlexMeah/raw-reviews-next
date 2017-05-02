@@ -2,7 +2,7 @@ const getEnv = require('./getEnv')(process.env.NODE_ENV);
 
 module.exports = {
     sequelize: getEnv({
-        production: '',
+        production: process.env.DATABASE_URL,
         test: {
             dialect: 'sqlite',
             storage: ':memory:'

@@ -26,7 +26,7 @@ module.exports = (sequelize, DataTypes) => {
                 primaryKey: true,
                 type: DataTypes.STRING,
                 validate: {
-                    is: ['^[a-z_-]+$', 'i']
+                    is: ['^[a-z_-\\d]+$', 'i']
                 },
                 unique: {
                     args: true,

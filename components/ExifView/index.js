@@ -26,37 +26,53 @@ export default ({
     focalLengthIn35mmFormat,
     iSO,
     software
-}) => (
-    <ExifView>
-        {make &&
-            model &&
-            <Camera>
-                <strong>Camera:</strong> {make} {model}
-            </Camera>}
+}) => {
+    if (
+        !make &&
+        !model &&
+        !exposureTime &&
+        !focalLength &&
+        !focalLengthIn35mmFormat &&
+        !iSO &&
+        !software
+    ) {
+        return null;
+    }
 
-        {exposureTime &&
-            <ItemBase>
-                <strong>Shutter speed:</strong> {exposureTime}
-            </ItemBase>}
+    return (
+        <ExifView>
+            {make &&
+                model &&
+                <Camera>
+                    <strong>Camera:</strong> {make} {model}
+                </Camera>}
 
-        {iSO &&
-            <ItemBase>
-                <strong>ISO:</strong> {iSO}
-            </ItemBase>}
+            {exposureTime &&
+                <ItemBase>
+                    <strong>Shutter speed:</strong> {exposureTime}
+                </ItemBase>}
 
-        {focalLength &&
-            <ItemBase>
-                <strong>Focal length:</strong> {focalLength}
-            </ItemBase>}
+            {iSO &&
+                <ItemBase>
+                    <strong>ISO:</strong> {iSO}
+                </ItemBase>}
 
-        {focalLengthIn35mmFormat &&
-            <ItemBase>
-                <strong>Focal length (50mm):</strong> {focalLengthIn35mmFormat}
-            </ItemBase>}
+            {focalLength &&
+                <ItemBase>
+                    <strong>Focal length:</strong> {focalLength}
+                </ItemBase>}
 
-        {software &&
-            <ItemBase>
-                <strong>Software:</strong> {software}
-            </ItemBase>}
-    </ExifView>
-);
+            {focalLengthIn35mmFormat &&
+                <ItemBase>
+                    <strong>Focal length (50mm):</strong>
+                    {' '}
+                    {focalLengthIn35mmFormat}
+                </ItemBase>}
+
+            {software &&
+                <ItemBase>
+                    <strong>Software:</strong> {software}
+                </ItemBase>}
+        </ExifView>
+    );
+};

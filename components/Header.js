@@ -4,6 +4,11 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import Link from './Link';
 
+const logout = () => {
+    window.localStorage.removeItem('authtoken');
+    window.location = '/';
+};
+
 const Container = styled.div`
     margin-bottom: 3rem;
     
@@ -83,6 +88,10 @@ export default class Header extends React.Component {
                     {!this.state.auth &&
                         <Link color="link" href="/u/create">
                             Register
+                        </Link>}
+                    {this.state.auth &&
+                        <Link color="link" onClick={logout}>
+                            Logout
                         </Link>}
                 </LinksContainer>
             </Container>

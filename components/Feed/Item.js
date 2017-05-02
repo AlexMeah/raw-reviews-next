@@ -59,7 +59,7 @@ const Item = ({
         </Left>
         <Right>
             <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                <H3>{description}</H3>
+                <H3 color="secondary">{description}</H3>
             </Link>
             <P color="bodyDark">
                 Submitted

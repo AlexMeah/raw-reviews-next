@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "node server/src",
     "build": "next build",
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production node server/src",
     "test": "NODE_ENV=test run-s lint ava",
     "ava": "NODE_ENV=test nyc ava --verbose src/**/test.js",
     "ava:nocoverage": "NODE_ENV=test ava --verbose src/**/test.js",
     "ava:watch": "NODE_ENV=test ava --verbose --watch src/**/test.js",
-    "lint": "prettier-eslint --write \"src/**/*.js\""
+    "lint": "prettier-eslint --write \"src/**/*.js\"",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": "6.x.x",
+    "npm": "3.x.x"
   },
   "keywords": [],
   "author": "",

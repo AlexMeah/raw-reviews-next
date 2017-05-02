@@ -11,8 +11,18 @@ const Link = styled.span`
     ${props => props.active && 'text-decoration: underline;'}
 `;
 
-export default ({ color, children, active, ...rest }) => (
-    <NextLink {...rest}>
-        <a><Link color={color} active={active}>{children}</Link></a>
-    </NextLink>
-);
+export default ({ color, children, active, onClick, ...rest }) => {
+    if (onClick) {
+        return (
+            <Link color={color} active={active} onClick={onClick}>
+                {children}
+            </Link>
+        );
+    }
+
+    return (
+        <NextLink {...rest}>
+            <a><Link color={color} active={active}>{children}</Link></a>
+        </NextLink>
+    );
+};

@@ -13,6 +13,7 @@ const SplitContainer = styled.div`
 const SplitImage = styled.img`
     display: inline-block;
     width: calc(50% - 2rem);
+    max-width: 50rem;
     border: 4px solid #fff;
     border-radius: ${styleVars.radius};
     margin: 1rem;
