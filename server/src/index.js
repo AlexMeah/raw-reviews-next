@@ -4,6 +4,7 @@ const express = require('express');
 const jwt = require('express-jwt');
 const next = require('next');
 const compression = require('compression');
+var cookieParser = require('cookie-parser');
 
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
@@ -23,6 +24,12 @@ function syncModels() {
         }),
         db.edit.sync({
             alter: true
+        }),
+        db.vote.sync({
+            alter: true
+        }),
+        db.exif.sync({
+            alter: true
         })
     ]);
 }
@@ -39,13 +46,26 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
 
         server.use(bodyParser.urlencoded({ extended: false }));
         server.use(bodyParser.json());
+        server.use(cookieParser());
 
         server.use('/api/login', login);
 
         server.use(
             jwt({
                 secret: config.secret,
-                credentialsRequired: false
+                credentialsRequired: false,
+                getToken: function fromHeaderOrQuerystring(req) {
+                    if (
+                        req.headers.authorization &&
+                        req.headers.authorization.split(' ')[0] === 'Bearer'
+                    ) {
+                        return req.headers.authorization.split(' ')[1];
+                    } else if (true) {
+                        return req.cookies.authtoken;
+                    }
+
+                    return null;
+                }
             })
         );
 
@@ -69,7 +89,6 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
         );
 
         server.get('/u/login', (req, res) => {
-            console.log(req);
             if (req.user) {
                 return res.redirect('/');
             }
@@ -83,10 +102,14 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             app.render(req, res, actualPage, req.query);
         });
 
-        server.get('/u/:username', (req, res) => {
+        server.get('/u/:userId', (req, res) => {
             const actualPage = '/u/profile';
-            const queryParams = { username: req.params.username };
-            app.render(req, res, actualPage, queryParams);
+            app.render(
+                req,
+                res,
+                actualPage,
+                Object.assign({}, req.query, req.params)
+            );
         });
 
         server.get('/e/create', (req, res) => {
@@ -99,10 +122,14 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             app.render(req, res, actualPage, req.query);
         });
 
-        server.get('/e/:id', (req, res) => {
+        server.get('/e/:editId', (req, res) => {
             const actualPage = '/e/view';
-            const queryParams = { id: req.params.id };
-            app.render(req, res, actualPage, queryParams);
+            app.render(
+                req,
+                res,
+                actualPage,
+                Object.assign({}, req.query, req.params)
+            );
         });
 
         server.get('*', (req, res) => handle(req, res));
@@ -117,7 +144,7 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
 
         server.listen(3000, err => {
             if (err) throw err;
-            console.log('> Ready on http://localhost:3000');
+            console.log('> Ready on http://local.dev:3000');
         });
 
         process.on('uncaughtException', error => {

@@ -1,6 +1,4 @@
-const {
-    test
-} = require('ava');
+const { test } = require('ava');
 const shortid = require('shortid');
 
 const dbFactory = require('../../../../test/utils/databaseFactory/index.js');
@@ -11,7 +9,7 @@ test.beforeEach(async () => {
 
 test('create', async t => {
     await dbFactory.db.user.create({
-        username: 'username',
+        id: 'id',
         password: 'password',
         email: 'email'
     });
@@ -24,7 +22,7 @@ test('create', async t => {
 
     const data = user.dataValues;
 
-    t.is(data.username, 'username');
+    t.is(data.id, 'id');
     t.is(data.email, 'email');
     t.is(data.confirmed, false);
     t.truthy(data.createdAt);

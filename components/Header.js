@@ -1,9 +1,42 @@
 import React from 'react';
-import Link from 'next/link';
+import styled from 'styled-components';
 
-const linkStyle = {
-    marginRight: 15
-};
+import Logo from './Logo';
+import Link from './Link';
+
+const Container = styled.div`
+    margin-bottom: 3rem;
+    
+    @media (min-width: 620px) {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+    }
+`;
+
+const LogoContainer = styled.div`
+    text-align: center;
+
+    @media (min-width: 620px) {
+        width: 200px;
+        text-align: left;
+    }
+`;
+
+const LinksContainer = styled.div`
+    > * {
+        margin-right: 2rem;
+
+        &:last-child {
+            margin-right: 0
+        }
+    }
+
+    @media (min-width: 620px) {
+        flex: 1;
+        text-align: right;
+    }
+`;
 
 export default class Header extends React.Component {
     constructor(props) {
@@ -22,22 +55,37 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <div>
-                <Link href="/">
-                    <a style={linkStyle}>Home</a>
-                </Link>
-                <Link href="/about">
-                    <a style={linkStyle}>About</a>
-                </Link>
-                {!this.state.auth &&
-                    <Link href="/u/login">
-                        <a style={linkStyle}>Login</a>
-                    </Link>}
-                {!this.state.auth &&
-                    <Link href="/u/create">
-                        <a style={linkStyle}>Register</a>
-                    </Link>}
-            </div>
+            <Container>
+                <LogoContainer>
+                    <Link href="/">
+                        <Logo />
+                    </Link>
+                </LogoContainer>
+
+                <LinksContainer>
+                    <Link color="link" href="/">
+                        Home
+                    </Link>
+                    <Link color="link" href="/about">
+                        About
+                    </Link>
+                    <Link color="link" href="/faq">
+                        FAQ
+                    </Link>
+                    {this.state.auth &&
+                        <Link color="link" href="/e/create">
+                            Submit Edit
+                        </Link>}
+                    {!this.state.auth &&
+                        <Link color="link" href="/u/login">
+                            Login
+                        </Link>}
+                    {!this.state.auth &&
+                        <Link color="link" href="/u/create">
+                            Register
+                        </Link>}
+                </LinksContainer>
+            </Container>
         );
     }
 }

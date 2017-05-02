@@ -64,6 +64,7 @@ export function get(url) {
 
     return fetch(url, {
         method: 'GET',
+        credentials: 'same-origin',
         headers
     })
         .then(extractToken)
@@ -86,6 +87,7 @@ export function post(url, body) {
 
     return fetch(url, {
         method: 'POST',
+        credentials: 'same-origin',
         headers,
         body: JSON.stringify(body)
     })

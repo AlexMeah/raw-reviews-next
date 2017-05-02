@@ -8,7 +8,7 @@ module.exports = {
             storage: ':memory:'
             // logging: false
         },
-        default: 'postgres://work@localhost:5432/rawreviews'
+        default: 'postgres://work@local.dev:5432/rawreviews'
     }),
     secret: getEnv({
         production: 'super-prod-secret',

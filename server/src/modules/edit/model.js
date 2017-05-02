@@ -10,7 +10,8 @@ module.exports = (sequelize, DataTypes) => {
             after: DataTypes.STRING,
             raw: DataTypes.STRING,
             description: DataTypes.STRING,
-            url: {
+            id: {
+                primaryKey: true,
                 type: DataTypes.STRING,
                 defaultValue: shortid.generate
             }
@@ -18,12 +19,13 @@ module.exports = (sequelize, DataTypes) => {
         {
             indexes: [
                 {
-                    fields: ['url']
+                    fields: ['createdAt']
                 }
             ],
             classMethods: {
                 associate: models => {
                     Edit.User = Edit.belongsTo(models.user);
+                    Edit.Vote = Edit.hasMany(models.vote);
                 }
             }
         }

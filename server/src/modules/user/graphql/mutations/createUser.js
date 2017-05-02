@@ -1,12 +1,5 @@
-const {
-    sequelize: {
-        models
-    }
-} = require('../../../../lib/sequelize');
-const {
-    GraphQLNonNull,
-    GraphQLString
-} = require('graphql');
+const { sequelize: { models } } = require('../../../../lib/sequelize');
+const { GraphQLNonNull, GraphQLString } = require('graphql');
 const Sequelize = require('sequelize');
 
 const userType = require('../type');
@@ -31,14 +24,14 @@ module.exports = {
     resolve(options, { username, password, email }) {
         return models.user
             .create({
-                username,
+                id: username,
                 password,
                 email
             })
             .then(data => ({
                 id: data.id,
                 email: data.email,
-                username: data.username
+                username: data.id
             }))
             .catch(Sequelize.ValidationError, err => {
                 console.log(err);

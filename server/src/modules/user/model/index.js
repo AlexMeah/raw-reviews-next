@@ -22,7 +22,8 @@ module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         'user',
         {
-            username: {
+            id: {
+                primaryKey: true,
                 type: DataTypes.STRING,
                 validate: {
                     is: ['^[a-z_-]+$', 'i']
@@ -30,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
                 unique: {
                     args: true,
                     msg: 'Someone beat you to that username.',
-                    fields: [sequelize.fn('lower', sequelize.col('username'))]
+                    fields: [sequelize.fn('lower', sequelize.col('id'))]
                 }
             },
             email: {
@@ -44,7 +45,7 @@ module.exports = (sequelize, DataTypes) => {
                 unique: {
                     args: true,
                     msg: 'Looks like you already have an account try logging in.',
-                    fields: [sequelize.fn('lower', sequelize.col('username'))]
+                    fields: [sequelize.fn('lower', sequelize.col('email'))]
                 }
             },
             password: {
@@ -65,10 +66,6 @@ module.exports = (sequelize, DataTypes) => {
                 {
                     unique: true,
                     fields: ['email']
-                },
-                {
-                    unique: true,
-                    fields: ['username']
                 }
             ],
             classMethods: {

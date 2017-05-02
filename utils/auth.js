@@ -3,7 +3,7 @@ import { get } from './api';
 let _isAuthenticated;
 
 const checkAuth = () =>
-    get('http://localhost:3000/api/me').then(status => {
+    get('http://local.dev:3000/api/me').then(status => {
         setTimeout(() => {
             _isAuthenticated = false;
         }, 1000 * 60 * 5);

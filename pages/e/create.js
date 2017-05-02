@@ -1,4 +1,5 @@
 import React from 'react';
+import Router from 'next/router';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -7,6 +8,7 @@ import withData from '../../hoc/withData';
 
 import { get } from '../../utils/api';
 import upload from '../../utils/upload';
+import extractExif from '../../utils/extractExif';
 
 import BasicLayout from '../../layouts/Basic';
 
@@ -18,7 +20,9 @@ class CreateEdit extends React.Component {
                 before: '',
                 after: '',
                 raw: '',
-                description: ''
+                description: '',
+                beforeExif: {},
+                afterExif: {}
             },
             uploading: {
                 before: false,
@@ -55,10 +59,10 @@ class CreateEdit extends React.Component {
             })
         });
 
-        get(
-            `/api/sign?file-type=${file.type}&file-name=${file.name}&field=${name}`
-        )
-            .then(
+        Promise.all([
+            get(
+                `/api/sign?file-type=${file.type}&file-name=${file.name}&field=${name}`
+            ).then(
                 upload(file, percent => {
                     this.setState({
                         uploading: Object.assign({}, this.state.uploading, {
@@ -66,11 +70,14 @@ class CreateEdit extends React.Component {
                         })
                     });
                 })
-            )
-            .then(url => {
+            ),
+            extractExif(file)
+        ])
+            .then(([url, exif]) => {
                 this.setState({
                     form: Object.assign({}, this.state.form, {
-                        [name]: url
+                        [name]: url,
+                        [`${name}Exif`]: exif
                     }),
                     uploading: Object.assign({}, this.state.uploading, {
                         [name]: false
@@ -104,14 +111,12 @@ class CreateEdit extends React.Component {
                     .mutate({
                         variables: this.state.form
                     })
-                    .then(() => {
-                        this.setState({
-                            signupSuccessful: true
-                        });
+                    .then(({ data: { edit_createEdit: { id } } }) => {
+                        Router.push(`/e/view?editId=${id}`, `/e/${id}`);
                     })
                     .catch(err => {
                         this.setState({
-                            signupSuccessful: false,
+                            editCreateSuccessful: false,
                             error: err.message.replace('GraphQL error: ', '')
                         });
                     });
@@ -122,9 +127,9 @@ class CreateEdit extends React.Component {
     render() {
         const { before, after, raw, description } = this.state.form;
 
-        const { signupSuccessful, error } = this.state;
+        const { editCreateSuccessful, error } = this.state;
 
-        if (signupSuccessful) {
+        if (editCreateSuccessful) {
             return (
                 <div>
                     Signup Successful
@@ -199,7 +204,6 @@ class CreateEdit extends React.Component {
                             <p>{this.state.errors.raw}</p>}
                         <input
                             type="file"
-                            required
                             id="raw"
                             name="raw"
                             onChange={this.handleFile}
@@ -225,11 +229,10 @@ class CreateEdit extends React.Component {
 }
 
 const createEditMutation = gql`
-  mutation edit_createEdit($before: String!, $raw: String!, $after: String!, $description: String!) {
-    edit_createEdit(before: $before, raw: $raw, after: $after, description: $description) {
+  mutation edit_createEdit($before: String!, $raw: String!, $after: String!, $description: String!, $beforeExif: exif, $afterExif: exif) {
+    edit_createEdit(before: $before, raw: $raw, after: $after, description: $description, beforeExif: $beforeExif, afterExif: $afterExif) {
         id,
-        userId,
-        url
+        userId
     }
   }
 `;

@@ -6,7 +6,9 @@ const sequelize = new Sequelize(config.sequelize);
 
 const db = {
     user: sequelize.import(path.join(__dirname, '../../modules/user/model')),
-    edit: sequelize.import(path.join(__dirname, '../../modules/edit/model'))
+    vote: sequelize.import(path.join(__dirname, '../../modules/vote/model')),
+    edit: sequelize.import(path.join(__dirname, '../../modules/edit/model')),
+    exif: sequelize.import(path.join(__dirname, '../../modules/exif/model'))
 };
 
 Object.keys(db).forEach(modelName => {
