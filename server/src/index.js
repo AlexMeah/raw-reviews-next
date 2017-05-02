@@ -9,6 +9,7 @@ const cookieParser = require('cookie-parser');
 const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
+const port = process.env.PORT || 3000;
 
 const config = require('./config');
 const clientConfig = require('../../config');
@@ -143,7 +144,7 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             });
         });
 
-        server.listen(3000, err => {
+        server.listen(port, err => {
             if (err) throw err;
             console.log(`> Ready on ${clientConfig.host}`);
         });
