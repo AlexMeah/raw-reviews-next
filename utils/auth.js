@@ -3,8 +3,8 @@ import { get } from './api';
 let _isAuthenticated;
 const NODE_ENV = process.env.NODE_ENV;
 const host = NODE_ENV === 'production'
-            ? 'http://raw-reviews-prod.flynn.alexmeah.com'
-            : 'http://local.dev:3000/graphql',
+    ? 'http://raw-reviews-prod.flynn.alexmeah.com'
+    : 'http://local.dev:3000/graphql';
 
 const checkAuth = () =>
     get(`${host}/api/me`).then(status => {
