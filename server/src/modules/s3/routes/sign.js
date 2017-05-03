@@ -20,14 +20,14 @@ function rateLimit(userId) {
     return cache
         .get(key)
         .then(val => {
-            if (val > 5) {
+            if (val > 30) {
                 return true;
             }
 
             return cache.client
                 .multi()
                 .incr(key)
-                .expire(key, 60)
+                .expire(key, 604800)
                 .execAsync()
                 .then(() => false);
         })
