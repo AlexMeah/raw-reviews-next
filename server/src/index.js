@@ -15,6 +15,7 @@ const config = require('./config');
 const clientConfig = require('../../config');
 const me = require('./modules/user/routes/me');
 const login = require('./modules/user/routes/login');
+const logout = require('./modules/user/routes/logout');
 const sign = require('./modules/s3/routes/sign');
 const graphqlSchema = require('./graphqlSchema');
 const db = require('./lib/sequelize');
@@ -51,6 +52,7 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
         server.use(cookieParser());
 
         server.use('/api/login', login);
+        server.use('/api/logout', logout);
 
         server.use(
             jwt({

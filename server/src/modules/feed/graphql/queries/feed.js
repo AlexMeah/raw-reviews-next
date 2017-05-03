@@ -3,6 +3,7 @@ const moment = require('moment');
 const { GraphQLList, GraphQLString, GraphQLEnumType } = require('graphql');
 
 const feedType = require('../type');
+const cache = require('../../../../lib/cache');
 
 const z = 1.96;
 
@@ -38,6 +39,9 @@ const orders = {
     latest: (a, b) =>
         new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
 };
+
+const cacheKey = args =>
+    `feed${args.order || ''}${args.time || ''}${args.userId || ''}`;
 
 function buildQuery(args) {
     const now = moment();
@@ -117,42 +121,56 @@ module.exports = {
             type: GraphQLString
         }
     },
-    resolve(options, args) {
-        return sequelize.edit
-            .findAll(
-                Object.assign(
-                    {
-                        order: [['createdAt', 'DESC']],
-                        limit: !args.userId ? 10000 : null,
-                        include: [
-                            {
-                                model: sequelize.vote,
-                                attributes: ['vote', 'userId']
-                            },
-                            {
-                                model: sequelize.user,
-                                attributes: ['id']
-                            }
-                        ]
-                    },
-                    buildQuery(args)
+    resolve: function resolve(options, args) {
+        const key = cacheKey(args);
+
+        return cache.get(key).then(cacheResult => {
+            if (cacheResult) {
+                console.log(`feed: ${key} hit`);
+                return cacheResult;
+            }
+
+            console.log(`feed: ${key} miss`);
+            return sequelize.edit
+                .findAll(
+                    Object.assign(
+                        {
+                            order: [['createdAt', 'DESC']],
+                            limit: !args.userId ? 10000 : null,
+                            include: [
+                                {
+                                    model: sequelize.vote,
+                                    attributes: ['vote', 'userId']
+                                },
+                                {
+                                    model: sequelize.user,
+                                    attributes: ['id']
+                                }
+                            ]
+                        },
+                        buildQuery(args)
+                    )
                 )
-            )
-            .then(results => results.map(r => r.dataValues))
-            .then(results =>
-                results.map(r =>
-                    Object.assign({}, r, {
-                        ups: r.votes.filter(v => v.dataValues.vote === 1)
-                            .length,
-                        downs: r.votes.filter(v => v.dataValues.vote === -1)
-                            .length,
-                        score: score(r.votes),
-                        votes: r.votes.length,
-                        userId: r.user.dataValues.id,
-                        user: null
-                    })
+                .then(results => results.map(r => r.dataValues))
+                .then(results =>
+                    results.map(r =>
+                        Object.assign({}, r, {
+                            ups: r.votes.filter(v => v.dataValues.vote === 1)
+                                .length,
+                            downs: r.votes.filter(v => v.dataValues.vote === -1)
+                                .length,
+                            score: score(r.votes),
+                            votes: r.votes.length,
+                            userId: r.user.dataValues.id,
+                            user: null
+                        })
+                    )
                 )
-            )
-            .then(r => r.sort(orders[args.order || CONSTANTS.best]));
+                .then(r => r.sort(orders[args.order || CONSTANTS.best]))
+                .then(r => {
+                    cache.set(key, r, 60);
+                    return r;
+                });
+        });
     }
 };

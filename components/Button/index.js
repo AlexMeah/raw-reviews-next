@@ -6,6 +6,7 @@ import buttonStyles from './buttonStyles';
 
 const B = styled.button`${buttonStyles}`;
 const A = styled.a`${buttonStyles}`;
+const DummyLink = styled.div`${buttonStyles}`;
 const CustomLink = styled(Link)`${buttonStyles}`;
 
 const Button = props => {
@@ -15,6 +16,10 @@ const Button = props => {
 
     if (props.to) {
         return <CustomLink href={props.to} {...props} />;
+    }
+
+    if (props.dummy) {
+        return <DummyLink {...props} />;
     }
 
     return <B {...props} />;

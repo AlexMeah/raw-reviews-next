@@ -7,10 +7,10 @@ const Container = styled.div`
     padding: 3rem;
 `;
 
-const Layout = props => (
-    <Container>
+const Layout = ({ children, ...rest }) => (
+    <Container {...rest}>
         <Header />
-        {props.children}
+        {children}
     </Container>
 );
 

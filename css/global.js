@@ -17,6 +17,7 @@ export default injectGlobal`
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         font-weight: 300;
+        line-height: 1.43;
     }
 
     body {
@@ -40,5 +41,9 @@ export default injectGlobal`
     strong {
         margin-top: 0;
         font-weight: 600;
+    }
+
+    .tac {
+        text-align: center;
     }
 `;

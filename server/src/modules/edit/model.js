@@ -9,7 +9,8 @@ module.exports = (sequelize, DataTypes) => {
             before: DataTypes.STRING,
             after: DataTypes.STRING,
             raw: DataTypes.STRING,
-            description: DataTypes.STRING,
+            title: DataTypes.STRING,
+            description: DataTypes.TEXT,
             id: {
                 primaryKey: true,
                 type: DataTypes.STRING,

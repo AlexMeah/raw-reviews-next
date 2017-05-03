@@ -98,6 +98,10 @@ module.exports = {
         description: {
             description: 'A description for the edit',
             type: new GraphQLNonNull(GraphQLString)
+        },
+        title: {
+            description: 'A title for the edit',
+            type: GraphQLString
         }
     },
     description: 'Creates a new edit',

@@ -55,7 +55,9 @@ export default function extractExif(file) {
                     make: result.tags.Make,
                     model: result.tags.Model,
                     shutterSpeedValue: result.tags.ShutterSpeedValue,
-                    software: result.tags.Software
+                    software: result.tags.Software,
+                    lensInfo: result.tags.LensInfo,
+                    lensMake: result.tags.LensMake
                 }
             });
         };

@@ -11,6 +11,11 @@ import upload from '../../utils/upload';
 import extractExif from '../../utils/extractExif';
 
 import BasicLayout from '../../layouts/Basic';
+import FileInput from '../../components/FileInput';
+import Input from '../../components/Input';
+import TextArea from '../../components/TextArea';
+import H1 from '../../components/H1';
+import Button from '../../components/Button';
 
 class CreateEdit extends React.Component {
     constructor(props) {
@@ -21,6 +26,7 @@ class CreateEdit extends React.Component {
                 after: '',
                 raw: '',
                 description: '',
+                title: '',
                 beforeExif: {},
                 afterExif: {}
             },
@@ -79,21 +85,16 @@ class CreateEdit extends React.Component {
                         [name]: url,
                         [`${name}Exif`]: exif
                     }),
-                    uploading: Object.assign({}, this.state.uploading, {
-                        [name]: false
-                    }),
-                    errors: Object.assign({}, this.state.uploading, {
+                    errors: Object.assign({}, this.state.errors, {
                         [name]: false
                     })
                 });
             })
             .catch(err => {
+                console.log(err);
                 this.setState({
                     errors: Object.assign({}, this.state.errors, {
                         [name]: err.message
-                    }),
-                    uploading: Object.assign({}, this.state.uploading, {
-                        [name]: false
                     })
                 });
             });
@@ -127,101 +128,99 @@ class CreateEdit extends React.Component {
     render() {
         const { before, after, raw, description } = this.state.form;
 
-        const { editCreateSuccessful, error } = this.state;
-
-        if (editCreateSuccessful) {
-            return (
-                <div>
-                    Signup Successful
-                </div>
-            );
-        }
+        const { error } = this.state;
+        const hasErrors = Object.keys(this.state.errors)
+            .map(k => this.state.errors[k])
+            .find(e => e);
 
         return (
             <BasicLayout>
-                <h1>Create Edit</h1>
+                <div className="tac">
+                    <H1>Create Edit</H1>
 
-                <div className="error">{error}</div>
+                    <div className="error">{error}</div>
+                </div>
 
-                <form onSubmit={this.handleSubmission}>
-                    <label htmlFor="before">
-                        <h3>before</h3>
-
-                        {this.state.uploading.before &&
-                            <p>
-                                Uploading before image
-                                {' '}
-                                {this.state.uploading.before}
-                                % ...
-                            </p>}
-                        {this.state.form.before && <p>Uploaded!</p>}
-                        {this.state.errors.before &&
-                            <p>{this.state.errors.before}</p>}
-
-                        <input
+                <form
+                    onSubmit={this.handleSubmission}
+                    className="row around-xs"
+                >
+                    <div className="col-sm-4 tac">
+                        <FileInput
+                            className="box"
+                            label="Before"
+                            progress={this.state.uploading.before}
+                            error={this.state.errors.before}
                             accept="image/jpeg"
                             type="file"
-                            required
-                            id="before"
                             name="before"
+                            id="before"
+                            required
                             onChange={this.handleFile}
                         />
-                    </label>
-                    <label htmlFor="after">
-                        <h3>after</h3>
-
-                        {this.state.uploading.after &&
-                            <p>
-                                Uploading after image
-                                {' '}
-                                {this.state.uploading.after}
-                                % ...
-                            </p>}
-                        {this.state.form.after && <p>Uploaded!</p>}
-                        {this.state.errors.after &&
-                            <p>{this.state.errors.after}</p>}
-
-                        <input
+                    </div>
+                    <div className="col-sm-4 tac">
+                        <FileInput
+                            className="box"
+                            label="After"
+                            progress={this.state.uploading.after}
+                            error={this.state.errors.after}
                             accept="image/jpeg"
                             type="file"
-                            required
-                            id="after"
                             name="after"
+                            id="after"
+                            required
                             onChange={this.handleFile}
                         />
-                    </label>
-                    <label htmlFor="raw">
-                        <h3>raw</h3>
-                        {this.state.uploading.raw &&
-                            <p>
-                                Uploading raw image
-                                {' '}
-                                {this.state.uploading.raw}
-                                % ...
-                            </p>}
-                        {this.state.form.raw && <p>Uploaded!</p>}
-                        {this.state.errors.raw &&
-                            <p>{this.state.errors.raw}</p>}
-                        <input
+                    </div>
+                    <div className="col-sm-4 tac">
+                        <FileInput
+                            className="box"
+                            label="Raw (optional)"
+                            progress={this.state.uploading.raw}
+                            error={this.state.errors.raw}
                             type="file"
                             id="raw"
                             name="raw"
                             onChange={this.handleFile}
                         />
-                    </label>
-                    <label htmlFor="description">
-                        <h3>description</h3>
-                        <p>{this.state.form.description}</p>
-                        <input
-                            type="textarea"
+                    </div>
+
+                    <div className="col-xs-12 center-xs">
+                        <Input
+                            className="box"
+                            label="Title"
+                            type="Input"
+                            required
+                            id="title"
+                            name="title"
+                            onChange={this.handleChange}
+                        />
+                    </div>
+
+                    <div className="col-xs-12 center-xs">
+                        <TextArea
+                            className="box"
+                            label="Description (optional)"
+                            type="Input"
                             required
                             id="description"
                             name="description"
                             onChange={this.handleChange}
                         />
-                    </label>
-                    <br />
-                    <button type="submit">Submit</button>
+                    </div>
+
+                    <div className="col-xs-12 center-xs">
+                        <div className="box">
+                            <Button
+                                type="submit"
+                                disabled={hasErrors}
+                                color={hasErrors ? 'negative' : 'positive'}
+                            >
+                                Submit
+                            </Button>
+                        </div>
+                    </div>
                 </form>
             </BasicLayout>
         );
@@ -229,8 +228,8 @@ class CreateEdit extends React.Component {
 }
 
 const createEditMutation = gql`
-  mutation edit_createEdit($before: String!, $raw: String!, $after: String!, $description: String!, $beforeExif: exif, $afterExif: exif) {
-    edit_createEdit(before: $before, raw: $raw, after: $after, description: $description, beforeExif: $beforeExif, afterExif: $afterExif) {
+  mutation edit_createEdit($before: String!, $raw: String!, $after: String!, $title: String!, $description: String!, $beforeExif: exif, $afterExif: exif) {
+    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, beforeExif: $beforeExif, afterExif: $afterExif) {
         id,
         userId
     }

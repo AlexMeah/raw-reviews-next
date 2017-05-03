@@ -6,7 +6,7 @@ import Link from './Link';
 
 const logout = () => {
     window.localStorage.removeItem('authtoken');
-    window.location = '/';
+    window.location = '/api/logout';
 };
 
 const Container = styled.div`

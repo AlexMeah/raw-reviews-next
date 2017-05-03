@@ -33,8 +33,6 @@ router.get('/', (req, res, next) => {
         acl = 'authenticated-read';
     }
 
-    console.log(acl);
-
     const s3Params = {
         Bucket: config.s3.bucket,
         Key: fileName,

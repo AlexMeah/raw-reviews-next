@@ -15,7 +15,6 @@ const Container = styled.div`
 `;
 
 const Feed = props => {
-    console.log(props.data);
     if (props.data && props.data.loading) {
         return <p>Loading...</p>;
     }
@@ -45,7 +44,7 @@ const feedQuery = gql`
             before,
             after,
             createdAt,
-            description,
+            title,
             ups,
             downs,
             score,

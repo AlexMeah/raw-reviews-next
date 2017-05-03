@@ -18,21 +18,19 @@ const Filter = styled.div`
     }
 `;
 
-export default ({ order, time }) => {
-    console.log(order);
-    return (
-        <FilterBar>
-            <Filter>
-                <strong>Order:</strong> <Link
-                    color="link"
-                    active={order === 'best'}
-                    href={{
-                        query: {
-                            order: 'best',
-                            time
-                        }
-                    }}
-                >
+export default ({ order, time }) => (
+    <FilterBar>
+        <Filter>
+            <strong>Order:</strong> <Link
+                color="link"
+                active={order === 'best'}
+                href={{
+                    query: {
+                        order: 'best',
+                        time
+                    }
+                }}
+            >
                     Best
                 </Link> | <Link
                     color="link"
@@ -46,20 +44,20 @@ export default ({ order, time }) => {
                 >
                     Latest
                 </Link>
-            </Filter>
-            <Filter>
-                <strong title="limited to last 10,000 posts">Time:</strong>
-                {' '}
-                <Link
-                    color="link"
-                    active={time === 'all'}
-                    href={{
-                        query: {
-                            time: 'all',
-                            order
-                        }
-                    }}
-                >
+        </Filter>
+        <Filter>
+            <strong title="limited to last 10,000 posts">Time:</strong>
+            {' '}
+            <Link
+                color="link"
+                active={time === 'all'}
+                href={{
+                    query: {
+                        time: 'all',
+                        order
+                    }
+                }}
+            >
                     All
                 </Link> | <Link
                     color="link"
@@ -117,7 +115,6 @@ export default ({ order, time }) => {
                 >
                     Hour
                 </Link>
-            </Filter>
-        </FilterBar>
+        </Filter>
+    </FilterBar>
     );
-};

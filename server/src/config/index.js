@@ -14,6 +14,10 @@ module.exports = {
         production: 'super-prod-secret',
         default: 'super-default-secret'
     }),
+    redis: getEnv({
+        production: process.env.REDIS_URL,
+        default: 'http://127.0.0.1:6379'
+    }),
     s3: {
         bucket: 'raw-reviews-original'
     }
