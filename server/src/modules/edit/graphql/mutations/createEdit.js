@@ -54,6 +54,12 @@ const exifType = new GraphQLInputObjectType({
                     lensModel: {
                         type: GraphQLString
                     },
+                    lensInfo: {
+                        type: GraphQLString
+                    },
+                    lensMake: {
+                        type: GraphQLString
+                    },
                     make: {
                         type: GraphQLString
                     },

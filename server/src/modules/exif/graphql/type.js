@@ -41,6 +41,12 @@ const tagsType = new GraphQLObjectType({
         lensModel: {
             type: GraphQLString
         },
+        lensInfo: {
+            type: GraphQLString
+        },
+        lensMake: {
+            type: GraphQLString
+        },
         make: {
             type: GraphQLString
         },
