@@ -8,7 +8,10 @@ const db = {
     user: sequelize.import(path.join(__dirname, '../../modules/user/model')),
     vote: sequelize.import(path.join(__dirname, '../../modules/vote/model')),
     edit: sequelize.import(path.join(__dirname, '../../modules/edit/model')),
-    exif: sequelize.import(path.join(__dirname, '../../modules/exif/model'))
+    exif: sequelize.import(path.join(__dirname, '../../modules/exif/model')),
+    comment: sequelize.import(
+        path.join(__dirname, '../../modules/comment/model')
+    )
 };
 
 Object.keys(db).forEach(modelName => {

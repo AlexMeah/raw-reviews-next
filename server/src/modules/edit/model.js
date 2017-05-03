@@ -27,6 +27,7 @@ module.exports = (sequelize, DataTypes) => {
                 associate: models => {
                     Edit.User = Edit.belongsTo(models.user);
                     Edit.Vote = Edit.hasMany(models.vote);
+                    Edit.Comment = Edit.hasMany(models.comment);
                 }
             }
         }

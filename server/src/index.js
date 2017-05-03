@@ -40,7 +40,6 @@ function renderAndCache(req, res, pagePath, queryParams) {
             return app
                 .renderToHTML(req, res, pagePath, queryParams)
                 .then(html => {
-                    console.log(html);
                     cache.set(key, html, 30);
                     return html;
                 });
@@ -65,6 +64,9 @@ function syncModels() {
             alter: true
         }),
         db.exif.sync({
+            alter: true
+        }),
+        db.comment.sync({
             alter: true
         })
     ]);
