@@ -29,6 +29,10 @@ function formatExposure(d) {
 }
 
 export default function extractExif(file) {
+    if (file.type !== 'image/jpeg') {
+        return Promise.resolve(null);
+    }
+
     return new Promise(res => {
         const filereader = new FileReader();
 

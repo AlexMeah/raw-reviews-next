@@ -77,7 +77,7 @@ class CreateEdit extends React.Component {
                     });
                 })
             ),
-            extractExif(file)
+            extractExif(file).catch(() => null)
         ])
             .then(([url, exif]) => {
                 this.setState({
