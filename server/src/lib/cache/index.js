@@ -14,7 +14,8 @@ if (config.redis) {
 
 module.exports = {
     set(key, value, expiry = 1) {
-        let _value;
+        let _value = value;
+
         if (client) {
             if (typeof value !== 'string') {
                 _value = JSON.stringify(value);

@@ -19,6 +19,39 @@ const logout = require('./modules/user/routes/logout');
 const sign = require('./modules/s3/routes/sign');
 const graphqlSchema = require('./graphqlSchema');
 const db = require('./lib/sequelize');
+const cache = require('./lib/cache');
+
+function getCacheKey(req) {
+    return req.originalUrl;
+}
+
+function renderAndCache(req, res, pagePath, queryParams) {
+    const key = getCacheKey(req);
+
+    cache
+        .get(key)
+        .then(content => {
+            if (content && process.env.NODE_ENV === 'production') {
+                console.log(key, 'hit');
+                return content;
+            }
+
+            console.log(key, 'miss');
+            return app
+                .renderToHTML(req, res, pagePath, queryParams)
+                .then(html => {
+                    console.log(html);
+                    cache.set(key, html, 30);
+                    return html;
+                });
+        })
+        .then(html => {
+            res.send(html);
+        })
+        .catch(err => {
+            app.renderError(err, req, res, pagePath, queryParams);
+        });
+}
 
 function syncModels() {
     return Promise.all([
@@ -108,7 +141,7 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
 
         server.get('/u/:userId', (req, res) => {
             const actualPage = '/u/profile';
-            app.render(
+            renderAndCache(
                 req,
                 res,
                 actualPage,
@@ -128,12 +161,16 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
 
         server.get('/e/:editId', (req, res) => {
             const actualPage = '/e/view';
-            app.render(
+            renderAndCache(
                 req,
                 res,
                 actualPage,
                 Object.assign({}, req.query, req.params)
             );
+        });
+
+        server.get('/', (req, res) => {
+            renderAndCache(req, res, '/', req.query);
         });
 
         server.get('*', (req, res) => handle(req, res));
