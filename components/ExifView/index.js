@@ -7,7 +7,6 @@ import FileIcon from 'react-icons/lib/fa/file-image-o';
 import ClockIcon from '../ClockIcon';
 import ShutterIcon from '../ShutterIcon';
 import ISOIcon from '../ISOIcon';
-import Card from '../Card';
 
 const ExifView = styled.div`
     margin-bottom: 2rem;
@@ -64,7 +63,7 @@ export default ({
             <ExifView className="col-xs-12">
                 <div className="row">
                     {make &&
-                        <div className="col-sm-4">
+                        <div className="col-xs-12 col-sm-4">
                             <div className="box">
                                 <CameraIcon size={30} />
                                 {' '}
@@ -72,7 +71,7 @@ export default ({
                             </div>
                         </div>}
                     {exposureTime &&
-                        <div className="col-sm-8">
+                        <div className="col-xs-12 col-sm-8">
                             <div className="box">
                                 <ClockIcon size={30} />
                                 {' '}
@@ -80,7 +79,7 @@ export default ({
                             </div>
                         </div>}
                     {focalLength &&
-                        <div className="col-sm-4">
+                        <div className="col-xs-12 col-sm-4">
                             <div className="box">
                                 <EyeIcon size={30} />
                                 {' '}
@@ -88,7 +87,7 @@ export default ({
                             </div>
                         </div>}
                     {focalLengthIn35mmFormat &&
-                        <div className="col-sm-8">
+                        <div className="col-xs-12 col-sm-8">
                             <div className="box">
                                 <EyeIcon size={30} />
                                 {' '}
@@ -98,7 +97,7 @@ export default ({
                             </div>
                         </div>}
                     {fNumber &&
-                        <div className="col-sm-4">
+                        <div className="col-xs-12 col-sm-4">
                             <div className="box">
                                 <ShutterIcon size={30} />
                                 {' '}
@@ -106,7 +105,7 @@ export default ({
                             </div>
                         </div>}
                     {(lensMake || lensModel) &&
-                        <div className="col-sm-8">
+                        <div className="col-xs-12 col-sm-8">
                             <div className="box">
                                 <EyeIcon size={30} />
                                 {' '}
@@ -114,13 +113,13 @@ export default ({
                             </div>
                         </div>}
                     {iSO &&
-                        <div className="col-sm-4">
+                        <div className="col-xs-12 col-sm-4">
                             <div className="box">
                                 <ISOIcon size={30} /> <ItemBase>{iSO}</ItemBase>
                             </div>
                         </div>}
                     {software &&
-                        <div className="col-sm-8">
+                        <div className="col-xs-12 col-sm-8">
                             <div className="box">
                                 <FileIcon size={30} />
                                 {' '}

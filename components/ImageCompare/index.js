@@ -41,8 +41,6 @@ const CompareContainer = styled.div`
     position: relative;
     font-size: 0;
     display: inline-block;
-    border: 4px solid #fff;
-    border-radius: ${styleVars.radius};
 `;
 
 const CompareBeforeImage = styled.img`
@@ -61,6 +59,12 @@ const CompareAfterImageContainer = styled.div`
     height: 100%;
 `;
 
+const CompareImageInner = styled.div`
+    position: relative;
+    border: 4px solid #fff;
+    border-radius: ${styleVars.radius};
+`;
+
 const CompareAfterImage = styled.img`
     display: block;
     height: 100%;
@@ -73,22 +77,33 @@ const Container = styled.div`
     margin-bottom: 2rem;
 `;
 
-const CompareView = ({ before, after, width }) => (
+const CompareView = ({ before, after, width, update, maskWidth }) => (
     <CompareContainer>
-        <CompareBeforeImage
-            src={`https://s3.amazonaws.com/raw-reviews/reduced/${before}`}
-            alt="before"
-        />
-        <CompareAfterImageContainer
-            style={{
-                width: `${width}%`
-            }}
-        >
-            <CompareAfterImage
-                src={`https://s3.amazonaws.com/raw-reviews/reduced/${after}`}
-                alt="after"
+        <CompareImageInner>
+            <CompareBeforeImage
+                src={`https://s3.amazonaws.com/raw-reviews/reduced/${before}`}
+                alt="before"
             />
-        </CompareAfterImageContainer>
+            <CompareAfterImageContainer
+                style={{
+                    width: `${width}%`
+                }}
+            >
+                <CompareAfterImage
+                    src={`https://s3.amazonaws.com/raw-reviews/reduced/${after}`}
+                    alt="after"
+                />
+            </CompareAfterImageContainer>
+        </CompareImageInner>
+
+        <WidthSlider
+            type="range"
+            onChange={update}
+            min="0"
+            value={maskWidth}
+            max="100"
+            step="1"
+        />
     </CompareContainer>
 );
 
@@ -152,19 +167,12 @@ class ImageCompare extends React.Component {
                         width={this.state.maskWidth}
                         before={before}
                         after={after}
+                        update={this.update}
+                        maskWidth={this.state.maskWidth}
                     />}
 
                 <div />
 
-                {!this.state.split &&
-                    <WidthSlider
-                        type="range"
-                        onChange={this.update}
-                        min="0"
-                        value={this.state.maskWidth}
-                        max="100"
-                        step="1"
-                    />}
                 {this.state.allowComparisonView &&
                     <Button onClick={this.toggle}>
                         {this.state.split ? 'Comparison' : 'Split'} View
