@@ -203,7 +203,6 @@ class CreateEdit extends React.Component {
                             className="box"
                             label="Description (optional)"
                             type="Input"
-                            required
                             id="description"
                             name="description"
                             onChange={this.handleChange}
