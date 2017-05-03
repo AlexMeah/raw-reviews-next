@@ -44,5 +44,6 @@ module.exports = {
                 }
             })
             .catch(() => null);
-    }
+    },
+    client
 };
