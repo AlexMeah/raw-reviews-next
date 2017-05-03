@@ -81,7 +81,7 @@ const CompareView = ({ before, after, width, update, maskWidth }) => (
     <CompareContainer>
         <CompareImageInner>
             <CompareBeforeImage
-                src={`https://s3.amazonaws.com/raw-reviews/reduced/${before}`}
+                src={`https://s3.amazonaws.com/raw-reviews/resized/large/${before}`}
                 alt="before"
             />
             <CompareAfterImageContainer
@@ -90,7 +90,7 @@ const CompareView = ({ before, after, width, update, maskWidth }) => (
                 }}
             >
                 <CompareAfterImage
-                    src={`https://s3.amazonaws.com/raw-reviews/reduced/${after}`}
+                    src={`https://s3.amazonaws.com/raw-reviews/resized/large/${after}`}
                     alt="after"
                 />
             </CompareAfterImageContainer>
