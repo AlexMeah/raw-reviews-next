@@ -18,32 +18,42 @@ const Filter = styled.div`
     }
 `;
 
-export default ({ order, time }) => (
+export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
     <FilterBar>
         <Filter>
             <strong>Order:</strong> <Link
                 color="link"
                 active={order === 'best'}
                 href={{
-                    query: {
-                        order: 'best',
-                        time
-                    }
+                    pathname,
+                    query: Object.assign(
+                        {
+                            order: 'best',
+                            time
+                        },
+                        query
+                    )
                 }}
+                as={alias}
             >
-                    Best
-                </Link> | <Link
-                    color="link"
-                    active={!order || order === 'latest'}
-                    href={{
-                        query: {
+                Best
+            </Link> | <Link
+                color="link"
+                active={!order || order === 'latest'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             order: 'latest',
                             time
-                        }
-                    }}
-                >
-                    Latest
-                </Link>
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Latest
+            </Link>
         </Filter>
         <Filter>
             <strong title="limited to last 10,000 posts">Time:</strong>
@@ -52,69 +62,99 @@ export default ({ order, time }) => (
                 color="link"
                 active={time === 'all'}
                 href={{
-                    query: {
-                        time: 'all',
-                        order
-                    }
+                    pathname,
+                    query: Object.assign(
+                        {
+                            time: 'all',
+                            order
+                        },
+                        query
+                    )
                 }}
+                as={alias}
             >
-                    All
-                </Link> | <Link
-                    color="link"
-                    active={time === 'year'}
-                    href={{
-                        query: {
+                All
+            </Link> | <Link
+                color="link"
+                active={time === 'year'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             time: 'year',
                             order
-                        }
-                    }}
-                >
-                    Year
-                </Link> | <Link
-                    color="link"
-                    active={time === 'month'}
-                    href={{
-                        query: {
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Year
+            </Link> | <Link
+                color="link"
+                active={time === 'month'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             time: 'month',
                             order
-                        }
-                    }}
-                >
-                    Month
-                </Link> | <Link
-                    color="link"
-                    active={!time || time === 'week'}
-                    href={{
-                        query: {
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Month
+            </Link> | <Link
+                color="link"
+                active={!time || time === 'week'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             time: 'week',
                             order
-                        }
-                    }}
-                >
-                    Week
-                </Link> | <Link
-                    color="link"
-                    active={time === 'day'}
-                    href={{
-                        query: {
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Week
+            </Link> | <Link
+                color="link"
+                active={time === 'day'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             time: 'day',
                             order
-                        }
-                    }}
-                >
-                    Day
-                </Link> | <Link
-                    color="link"
-                    active={time === 'hour'}
-                    href={{
-                        query: {
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Day
+            </Link> | <Link
+                color="link"
+                active={time === 'hour'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
                             time: 'hour',
                             order
-                        }
-                    }}
-                >
-                    Hour
-                </Link>
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+            >
+                Hour
+            </Link>
         </Filter>
     </FilterBar>
-    );
+);
