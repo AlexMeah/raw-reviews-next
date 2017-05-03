@@ -113,7 +113,7 @@ module.exports = {
     description: 'Creates a new edit',
     resolve(
         options,
-        { before, after, raw, description, beforeExif, afterExif },
+        { before, after, raw, title, description, beforeExif, afterExif },
         { req }
     ) {
         if (!req.user) {
@@ -127,6 +127,7 @@ module.exports = {
                 after,
                 raw,
                 description,
+                title,
                 userId: req.user.id
             },
             {
