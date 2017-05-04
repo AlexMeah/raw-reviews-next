@@ -67,6 +67,7 @@ export default graphql(feedQuery, {
         const query = (props.url && props.url.query) || {};
 
         return {
+            fetchPolicy: 'network-only',
             variables: {
                 order: query.order || props.order || 'latest',
                 time: query.time || props.time || 'week',
