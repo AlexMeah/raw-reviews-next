@@ -5,9 +5,9 @@ import styleVars from '../../css/vars';
 
 const P = styled.p`
     color: ${props => styleVars.colors[props.color] || styleVars.colors.body};
-    margin-top: 0;
-    margin-bottom: 1.5em;
+    margin: 0 auto 1.5em;
     ${props => props.strong && 'font-weight: 600'};
+    ${props => props.copy && 'max-width: 56rem;'}
 
     &:last-child {
         margin-bottom: 0;

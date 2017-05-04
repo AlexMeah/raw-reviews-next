@@ -16,7 +16,7 @@ const Container = styled.div`
 
 const Feed = props => {
     if (props.data && props.data.loading) {
-        return <p>Loading...</p>;
+        return <p>Loading feed...</p>;
     }
 
     const feed = props.data.feed.feed;
@@ -48,7 +48,8 @@ const feedQuery = gql`
             ups,
             downs,
             score,
-            userId
+            userId,
+            parent
         }
     }
     vote {

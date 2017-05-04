@@ -1,23 +1,23 @@
 import React from 'react';
 import Router from 'next/router';
-import { graphql } from 'react-apollo';
+import { graphql, compose } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import requireAuth from '../../hoc/requireAuth';
-import withData from '../../hoc/withData';
+import requireAuth from '../../../hoc/requireAuth';
+import withData from '../../../hoc/withData';
 
-import { get } from '../../utils/api';
-import upload from '../../utils/upload';
-import extractExif from '../../utils/extractExif';
+import { get } from '../../../utils/api';
+import upload from '../../../utils/upload';
+import extractExif from '../../../utils/extractExif';
 
-import BasicLayout from '../../layouts/Basic';
-import FileInput from '../../components/FileInput';
-import Input from '../../components/Input';
-import TextArea from '../../components/TextArea';
-import H1 from '../../components/H1';
-import Button from '../../components/Button';
+import BasicLayout from '../../../layouts/Basic';
+import FileInput from '../../../components/FileInput';
+import Input from '../../../components/Input';
+import TextArea from '../../../components/TextArea';
+import H1 from '../../../components/H1';
+import Button from '../../../components/Button';
 
-class CreateEdit extends React.Component {
+class CreateReEdit extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -27,24 +27,33 @@ class CreateEdit extends React.Component {
                 raw: '',
                 description: '',
                 title: '',
+                parent: props.url.query.editId,
                 beforeExif: {},
                 afterExif: {}
             },
             uploading: {
-                before: false,
-                after: false,
-                raw: false
+                after: false
             },
             errors: {
-                before: false,
-                after: false,
-                raw: false
+                after: false
             }
         };
 
         this.handleFile = this.handleFile.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmission = this.handleSubmission.bind(this);
+    }
+
+    componentWillReceiveProps(nextProps) {
+        if (!nextProps.data.edit.edit.loading && !this.state.form.before) {
+            this.setState({
+                form: Object.assign(
+                    {},
+                    this.state.form,
+                    nextProps.data.edit.edit
+                )
+            });
+        }
     }
 
     handleChange(e) {
@@ -136,7 +145,7 @@ class CreateEdit extends React.Component {
         return (
             <BasicLayout>
                 <div className="tac">
-                    <H1>Create Edit</H1>
+                    <H1>Create Re-Edit</H1>
 
                     <div className="error">{error}</div>
                 </div>
@@ -145,21 +154,7 @@ class CreateEdit extends React.Component {
                     onSubmit={this.handleSubmission}
                     className="row around-xs"
                 >
-                    <div className="col-sm-4 tac">
-                        <FileInput
-                            className="box"
-                            label="Before"
-                            progress={this.state.uploading.before}
-                            error={this.state.errors.before}
-                            accept="image/jpeg"
-                            type="file"
-                            name="before"
-                            id="before"
-                            required
-                            onChange={this.handleFile}
-                        />
-                    </div>
-                    <div className="col-sm-4 tac">
+                    <div className="col-xs-12 tac">
                         <FileInput
                             className="box"
                             label="After"
@@ -171,30 +166,6 @@ class CreateEdit extends React.Component {
                             id="after"
                             required
                             onChange={this.handleFile}
-                        />
-                    </div>
-                    <div className="col-sm-4 tac">
-                        <FileInput
-                            className="box"
-                            label="Raw (optional)"
-                            progress={this.state.uploading.raw}
-                            error={this.state.errors.raw}
-                            type="file"
-                            id="raw"
-                            name="raw"
-                            onChange={this.handleFile}
-                        />
-                    </div>
-
-                    <div className="col-xs-12 center-xs">
-                        <Input
-                            className="box"
-                            label="Title"
-                            type="Input"
-                            required
-                            id="title"
-                            name="title"
-                            onChange={this.handleChange}
                         />
                     </div>
 
@@ -226,15 +197,39 @@ class CreateEdit extends React.Component {
     }
 }
 
-const createEditMutation = gql`
-  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $beforeExif: exif, $afterExif: exif) {
-    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, beforeExif: $beforeExif, afterExif: $afterExif) {
-        id,
-        userId
+const createReEditMutation = gql`
+  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $afterExif: exif, $parent: String!) {
+    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, afterExif: $afterExif, parent: $parent) {
+        id
     }
   }
 `;
 
-const CreateEditWithMutation = graphql(createEditMutation)(CreateEdit);
+const createReEditQuery = gql`
+  query edit($editId: String!) {
+      edit {
+          edit(id: $editId) {
+              before
+              raw
+              title
+          }
+      }
+  }
+`;
 
-export default requireAuth(withData(CreateEditWithMutation));
+const CreateReEditWithMutation = compose(
+    graphql(createReEditMutation),
+    graphql(createReEditQuery, {
+        options: props => {
+            const query = (props.url && props.url.query) || {};
+
+            return {
+                variables: {
+                    editId: query.editId || props.editId || null
+                }
+            };
+        }
+    })
+)(CreateReEdit);
+
+export default requireAuth(withData(CreateReEditWithMutation));

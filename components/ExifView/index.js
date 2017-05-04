@@ -7,6 +7,7 @@ import FileIcon from 'react-icons/lib/fa/file-image-o';
 import ClockIcon from '../ClockIcon';
 import ShutterIcon from '../ShutterIcon';
 import ISOIcon from '../ISOIcon';
+import H3 from '../H3';
 
 const ExifView = styled.div`
     margin-bottom: 2rem;
@@ -60,6 +61,7 @@ export default ({
 
     return (
         <div className="row">
+            <H3>Exif</H3>
             <ExifView className="col-xs-12">
                 <div className="row">
                     {make &&

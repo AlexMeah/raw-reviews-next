@@ -103,17 +103,30 @@ module.exports = {
         },
         description: {
             description: 'A description for the edit',
-            type: new GraphQLNonNull(GraphQLString)
+            type: GraphQLString
+        },
+        parent: {
+            description: 'The parent edit',
+            type: GraphQLString
         },
         title: {
             description: 'A title for the edit',
-            type: GraphQLString
+            type: new GraphQLNonNull(GraphQLString)
         }
     },
     description: 'Creates a new edit',
     resolve(
         options,
-        { before, after, raw, title, description, beforeExif, afterExif },
+        {
+            before,
+            after,
+            raw,
+            title,
+            description,
+            beforeExif,
+            afterExif,
+            parent
+        },
         { req }
     ) {
         if (!req.user) {
@@ -128,6 +141,7 @@ module.exports = {
                 raw,
                 description,
                 title,
+                parent,
                 userId: req.user.id
             },
             {

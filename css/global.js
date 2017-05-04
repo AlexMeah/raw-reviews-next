@@ -46,4 +46,16 @@ export default injectGlobal`
     .tac {
         text-align: center;
     }
+
+    .mb0 {
+        margin-bottom: 0;
+    }
+
+    .mb1 {
+        margin-bottom: 1rem;
+    }
+
+    .mb2 {
+        margin-bottom: 2rem;
+    }
 `;

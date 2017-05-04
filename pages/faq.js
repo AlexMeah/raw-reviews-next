@@ -2,16 +2,34 @@
 
 import React from 'react';
 
-import CardLayout from '../layouts/Card';
-import Markdown from '../components/Markdown';
+import BasicLayout from '../layouts/Basic';
+import H1 from '../components/H1';
+import QA from '../components/QA';
 
 const Index = () => (
-    <CardLayout>
-        <h1>Frequently Asked Questions</h1>
+    <BasicLayout>
+        <H1>Frequently Asked Questions</H1>
 
-        <h2>A question</h2>
-        <Markdown>A answer</Markdown>
-    </CardLayout>
+        <QA question="A question">
+            A answer
+        </QA>
+
+        <QA question="A question">
+            A answer
+        </QA>
+
+        <QA question="A question">
+            A answer
+        </QA>
+
+        <QA question="A question">
+            A answer
+        </QA>
+
+        <QA question="A question">
+            A answer
+        </QA>
+    </BasicLayout>
 );
 
 export default Index;

@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import styleVars from '../../css/vars';
+import config from '../../config';
 
 import Button from '../Button';
 
@@ -27,13 +28,10 @@ const SplitImage = styled.img`
 const SplitView = ({ before, after }) => (
     <SplitContainer>
         <SplitImage
-            src={`https://s3.amazonaws.com/raw-reviews/reduced/${before}`}
+            src={`${config.cdn}/resized/large/${before}`}
             alt="before"
         />
-        <SplitImage
-            src={`https://s3.amazonaws.com/raw-reviews/reduced/${after}`}
-            alt="after"
-        />
+        <SplitImage src={`${config.cdn}/resized/large/${after}`} alt="after" />
     </SplitContainer>
 );
 
@@ -81,7 +79,7 @@ const CompareView = ({ before, after, width, update, maskWidth }) => (
     <CompareContainer>
         <CompareImageInner>
             <CompareBeforeImage
-                src={`https://s3.amazonaws.com/raw-reviews/resized/large/${before}`}
+                src={`${config.cdn}/resized/large/${before}`}
                 alt="before"
             />
             <CompareAfterImageContainer
@@ -90,7 +88,7 @@ const CompareView = ({ before, after, width, update, maskWidth }) => (
                 }}
             >
                 <CompareAfterImage
-                    src={`https://s3.amazonaws.com/raw-reviews/resized/large/${after}`}
+                    src={`${config.cdn}/resized/large/${after}`}
                     alt="after"
                 />
             </CompareAfterImageContainer>

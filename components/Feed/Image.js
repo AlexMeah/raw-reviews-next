@@ -4,6 +4,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import styleVars from '../../css/vars';
+import config from '../../config';
 
 const Container = styled.div`
     position: relative;
@@ -33,12 +34,8 @@ const After = styled(Img)`
 
 const Image = ({ before, after }) => (
     <Container>
-        <Img
-            src={`https://s3.amazonaws.com/raw-reviews/resized/square/${before}`}
-        />
-        <After
-            src={`https://s3.amazonaws.com/raw-reviews/resized/square/${after}`}
-        />
+        <Img src={`${config.cdn}/resized/square/${before}`} />
+        <After src={`${config.cdn}/resized/square/${after}`} />
     </Container>
 );
 

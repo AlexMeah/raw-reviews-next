@@ -47,6 +47,7 @@ const Item = ({
     after,
     before,
     title,
+    parent,
     createdAt,
     userId
 }) => (
@@ -62,7 +63,7 @@ const Item = ({
                 <H3 color="secondary">{title}</H3>
             </Link>
             <P color="bodyDark">
-                Submitted
+                {parent ? 'Re-Edited' : 'Submitted'}
                 {' '}
                 <strong>{distanceInWordsToNow(createdAt)}</strong>
                 {' '}

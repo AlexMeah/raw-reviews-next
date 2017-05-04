@@ -1,8 +1,8 @@
 import React, { PropTypes } from 'react';
 import styled from 'styled-components';
-import Link from 'next/link';
 
 import buttonStyles from './buttonStyles';
+import Link from '../Link';
 
 const B = styled.button`${buttonStyles}`;
 const A = styled.a`${buttonStyles}`;
@@ -15,7 +15,7 @@ const Button = props => {
     }
 
     if (props.to) {
-        return <CustomLink href={props.to} {...props} />;
+        return <CustomLink href={props.to} as={props.as} {...props} />;
     }
 
     if (props.dummy) {

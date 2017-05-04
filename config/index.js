@@ -6,5 +6,8 @@ module.exports = {
     host: getEnv({
         production: 'http://alexmeah-raw-reviews-next-mast.flynn.alexmeah.com',
         default: `http://local.dev:${port}`
+    }),
+    cdn: getEnv({
+        default: 'https://rawreviews-7c42.kxcdn.com'
     })
 };

@@ -9,35 +9,65 @@ import ImageCompare from '../../components/ImageCompare';
 import Card from '../../components/Card';
 import P from '../../components/P';
 import Button from '../../components/Button';
+import ReEditGrid from '../../components/ReEditGrid';
 
 import withData from '../../hoc/withData';
 
 const Post = props => {
     if (props.data.loading) {
-        return <p>Loading...</p>;
+        return (
+            <BasicLayout>
+                Loading edit...
+            </BasicLayout>
+        );
     }
 
     const edit = props.data.edit.edit;
+    const reedits = props.data.edit.reedits;
     const exif = (props.data.exif.exif || {}).afterExif || { tags: {} };
+
+    if (!edit) {
+        return (
+            <BasicLayout>
+                Not found
+            </BasicLayout>
+        );
+    }
 
     return (
         <BasicLayout>
-            <H1 style={{ textAlign: 'center' }}>{edit.title}</H1>
+            <H1 style={{ textAlign: 'center' }}>
+                {edit.title} {edit.parent ? '(Re-Edit)' : null}
+            </H1>
+
+            {edit.description &&
+                edit.description !== edit.title &&
+                <P copy>{edit.description}</P>}
+
+            <div className="tac mb2">
+                {edit.parent &&
+                    <Button
+                        to={`/e/view?editId=${edit.parent}`}
+                        as={`/e/${edit.parent}`}
+                        color="positive"
+                        type="button"
+                    >
+                        View Original
+                    </Button>}
+            </div>
 
             <ImageCompare before={edit.before} after={edit.after} />
 
             <div className="row">
+
+                {!edit.parent &&
+                    <div className="col-sm-6">
+                        <ReEditGrid reedits={reedits} />
+                    </div>}
+
                 <div className="col-sm-6">
                     <ExifView {...exif.tags} />
                 </div>
-                {edit.description &&
-                    edit.description !== edit.title &&
-                    <div className="col-sm-6">
-                        <H3>Description</H3>
-                        <Card>
-                            <P color="bodyDark">{edit.description}</P>
-                        </Card>
-                    </div>}
             </div>
 
             <br />
@@ -53,7 +83,12 @@ const Post = props => {
                             >
                                 Download Raw
                             </Button>}
-                        <Button color="positive" type="button">
+                        <Button
+                            to={`/e/r/create?editId=${edit.parent || edit.id}`}
+                            as={`/e/${edit.parent || edit.id}/r/create`}
+                            color="positive"
+                            type="button"
+                        >
                             Submit Re-edit
                         </Button>
                     </div>
@@ -76,10 +111,15 @@ const editQuery = gql`
               title
               createdAt
               userId
+              parent
               votes {
                   ups
                   downs
               }
+          }
+          reedits(parent: $editId) {
+              id
+              after
           }
       }
       exif {

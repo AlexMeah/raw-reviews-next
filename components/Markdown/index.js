@@ -12,10 +12,11 @@ marked.setOptions({
     smartypants: true
 });
 
-export default props => (
+export default ({ children, ...rest }) => (
     <div
+        {...rest}
         dangerouslySetInnerHTML={{
-            __html: marked(props.children || '')
+            __html: marked(children || '')
         }}
     />
 );

@@ -171,6 +171,26 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             );
         });
 
+        server.get('/e/:editId/r/create', (req, res) => {
+            const actualPage = '/e/r/create';
+            app.render(
+                req,
+                res,
+                actualPage,
+                Object.assign({}, req.query, req.params)
+            );
+        });
+
+        server.get('/e/:editId/r/:reeditId', (req, res) => {
+            const actualPage = '/e/r/view';
+            renderAndCache(
+                req,
+                res,
+                actualPage,
+                Object.assign({}, req.query, req.params)
+            );
+        });
+
         server.get('/', (req, res) => {
             renderAndCache(req, res, '/', req.query);
         });

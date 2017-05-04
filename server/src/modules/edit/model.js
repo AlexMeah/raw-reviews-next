@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
             raw: DataTypes.STRING,
             title: DataTypes.STRING,
             description: DataTypes.TEXT,
+            parent: DataTypes.STRING,
             id: {
                 primaryKey: true,
                 type: DataTypes.STRING,
