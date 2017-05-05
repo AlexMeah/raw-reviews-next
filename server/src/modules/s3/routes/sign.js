@@ -75,7 +75,8 @@ router.get('/', (req, res, next) => {
             Key: fileName,
             Expires: 60,
             ContentType: fileType,
-            ACL: acl
+            ACL: acl,
+            useAccelerateEndpoint: true
         };
 
         return s3.getSignedUrl('putObject', s3Params, (err, data) => {
