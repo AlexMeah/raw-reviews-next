@@ -150,26 +150,12 @@ module.exports = {
                         {
                             order: [['createdAt', 'DESC']],
                             limit: args.limit || null,
-                            offset: args.offset || 0,
-                            include: [
-                                {
-                                    model: sequelize.user,
-                                    attributes: ['id']
-                                }
-                            ]
+                            offset: args.offset || 0
                         },
                         buildQuery(args)
                     )
                 )
                 .then(results => results.map(r => r.dataValues))
-                .then(results =>
-                    results.map(r =>
-                        Object.assign({}, r, {
-                            userId: (r.user && r.user.dataValues.id) || 'anon',
-                            user: null
-                        })
-                    )
-                )
                 .then(r => {
                     cache.set(key, r, 20);
                     return r;
