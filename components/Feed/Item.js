@@ -70,12 +70,14 @@ const Item = ({
                 ago by
                 {' '}
                 <strong>
-                    <Link
-                        href={`/u/profile?userId=${userId}`}
-                        as={`/u/${userId}`}
-                    >
-                        {userId}
-                    </Link>
+                    {userId === 'anon'
+                        ? 'anon'
+                        : <Link
+                            href={`/u/profile?userId=${userId}`}
+                            as={`/u/${userId}`}
+                        >
+                            {userId}
+                        </Link>}
                 </strong>
             </P>
         </Right>

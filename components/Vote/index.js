@@ -108,7 +108,7 @@ class Vote extends React.Component {
 
     render() {
         const { id, ups, downs, userVote, color = '#2c3e50' } = this.props;
-        console.log(id, ups, downs, userVote);
+        console.log(ups - downs, this.state.vote);
 
         return (
             <Container>
@@ -118,9 +118,7 @@ class Vote extends React.Component {
                     color={upColor(userVote || this.state.vote)}
                 />
                 <Score color={color}>
-                    {ups + downs === 0
-                        ? 0
-                        : ups + downs + (userVote || this.state.vote)}
+                    {ups - downs + this.state.vote}
                 </Score>
                 <Down
                     onClick={() => this.handleClick(voteEnum.down)}
