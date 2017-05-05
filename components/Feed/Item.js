@@ -74,7 +74,7 @@ const Item = ({
                     ago by
                     {' '}
                     <strong>
-                        {userId === 'anon'
+                        {!userId
                             ? 'anon'
                             : <Link
                                 href={`/u/profile?userId=${userId}`}
