@@ -206,6 +206,7 @@ class CreateEdit extends React.Component {
                             id="description"
                             name="description"
                             onChange={this.handleChange}
+                            placeholder="What did you do?"
                         />
                     </div>
 

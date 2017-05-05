@@ -177,6 +177,7 @@ class CreateReEdit extends React.Component {
                             id="description"
                             name="description"
                             onChange={this.handleChange}
+                            placeholder="What did you change?"
                         />
                     </div>
 
