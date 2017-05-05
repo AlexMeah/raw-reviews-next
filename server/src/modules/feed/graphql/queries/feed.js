@@ -171,7 +171,7 @@ module.exports = {
                     )
                 )
                 .then(r => {
-                    cache.set(key, r, 60);
+                    cache.set(key, r, 20);
                     return r;
                 });
         });
