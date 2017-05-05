@@ -43,6 +43,7 @@ function score(edit) {
 
 function scoreEdits(end, delay) {
     let scored = 0;
+    const start = Date.now();
 
     const loop = (page = 0) =>
         fetchEdits(
@@ -67,7 +68,7 @@ function scoreEdits(end, delay) {
 
     loop(0)
         .then(() => {
-            console.log(`Scored ${scored} edits`);
+            console.log(`Scored ${scored} edits in ${Date.now() - start}ms`);
         })
         .catch(console.error);
 }
