@@ -28,7 +28,7 @@ export default injectGlobal`
     }
 
     a {
-        color: #FFF;
+        color: #fff;
         text-decoration: none;
     }
 
@@ -58,5 +58,10 @@ export default injectGlobal`
 
     .mb2 {
         margin-bottom: 2rem;
+    }
+
+    .readable {
+        max-width: 52rem;
+        margin: 0 auto;
     }
 `;
