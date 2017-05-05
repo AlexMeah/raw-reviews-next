@@ -28,7 +28,7 @@ const Edit = ({ after, id }) => (
 
 export default ({ reedits = [] }) => (
     <Container className="row">
-        {reedits.length &&
+        {reedits.length > 0 &&
             <div className="col-xs-12">
                 <H3>Re-Edits</H3>
             </div>}
