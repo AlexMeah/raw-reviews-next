@@ -2,6 +2,7 @@ import 'isomorphic-fetch';
 
 import React from 'react';
 import styled from 'styled-components';
+import LazyLoad from 'react-lazyload';
 
 import styleVars from '../../css/vars';
 import config from '../../config';
@@ -34,7 +35,9 @@ const After = styled(Img)`
 
 const Image = ({ before, after }) => (
     <Container>
-        <Img src={`${config.cdn}/resized/square/${before}`} />
+        <LazyLoad once>
+            <Img src={`${config.cdn}/resized/square/${before}`} />
+        </LazyLoad>
         <After src={`${config.cdn}/resized/square/${after}`} />
     </Container>
 );

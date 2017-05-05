@@ -69,6 +69,7 @@
     "react-dom": "^15.5.4",
     "react-icon-base": "^2.0.5",
     "react-icons": "^2.2.3",
+    "react-lazyload": "^2.2.7",
     "redis": "^2.7.1",
     "redux": "^3.0.0",
     "sequelize": "^3.30.4",
