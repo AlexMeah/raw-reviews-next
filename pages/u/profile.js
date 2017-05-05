@@ -7,8 +7,9 @@ import withData from '../../hoc/withData';
 import BasicLayout from '../../layouts/Basic';
 import Feed from '../../components/Feed';
 import FilterBar from '../../components/FilterBar';
+import FeedData from '../../queries/feed';
 
-const Post = props => (
+const User = props => (
     <BasicLayout>
         <FilterBar
             {...props.url.query}
@@ -16,8 +17,8 @@ const Post = props => (
             query={{ userId: props.url.query.userId }}
             alias={`/u/${props.url.query.userId}`}
         />
-        <Feed {...props} />
+        <Feed key={`feed-${props.url.query.userId}`} {...props} />
     </BasicLayout>
 );
 
-export default withData(Post);
+export default withData(FeedData(User));

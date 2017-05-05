@@ -8,7 +8,7 @@ const config = require('../../config');
 
 let client;
 
-if (config.redis) {
+if (config.redis && process.env.NODE_ENV === 'production') {
     client = redis.createClient(config.redis);
 }
 

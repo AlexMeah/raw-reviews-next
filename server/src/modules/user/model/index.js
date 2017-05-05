@@ -62,12 +62,6 @@ module.exports = (sequelize, DataTypes) => {
             }
         },
         {
-            indexes: [
-                {
-                    unique: true,
-                    fields: ['email']
-                }
-            ],
             classMethods: {
                 associate: models => {
                     User.Edits = User.hasMany(models.edit, { as: 'edits' });

@@ -8,7 +8,6 @@ import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import vars from '../../css/vars';
-import withData from '../../hoc/withData';
 
 const Container = styled.div`
     text-align: center;
@@ -107,8 +106,7 @@ class Vote extends React.Component {
     }
 
     render() {
-        const { id, ups, downs, userVote, color = '#2c3e50' } = this.props;
-        console.log(ups - downs, this.state.vote);
+        const { id, ups, downs, userVote } = this.props;
 
         return (
             <Container>
@@ -117,7 +115,7 @@ class Vote extends React.Component {
                     size={40}
                     color={upColor(userVote || this.state.vote)}
                 />
-                <Score color={color}>
+                <Score>
                     {ups - downs + this.state.vote}
                 </Score>
                 <Down
@@ -142,4 +140,4 @@ const createVoteMutation = gql`
 
 const CreateVoteWithMutation = graphql(createVoteMutation)(Vote);
 
-export default withData(CreateVoteWithMutation);
+export default CreateVoteWithMutation;

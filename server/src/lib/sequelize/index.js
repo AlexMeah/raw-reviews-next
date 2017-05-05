@@ -2,7 +2,9 @@ const path = require('path');
 const Sequelize = require('sequelize');
 const config = require('../../config');
 
-const sequelize = new Sequelize(config.sequelize);
+const sequelize = new Sequelize(config.sequelize, {
+    logging: process.env.NODE_ENV !== 'production'
+});
 
 const db = {
     user: sequelize.import(path.join(__dirname, '../../modules/user/model')),

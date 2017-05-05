@@ -3,6 +3,7 @@ import 'isomorphic-fetch';
 import React from 'react';
 import styled from 'styled-components';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
+import HeartIcon from 'react-icons/lib/fa/heart-o';
 
 import Vote from '../Vote';
 import Image from './Image';
@@ -13,37 +14,40 @@ import Link from '../Link';
 
 const Container = styled(Card)`
     margin-bottom: 4rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+    width: 100%;
+    max-width: 26rem;
 `;
 
-const Left = styled.div`
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-
-    > *:nth-child(1) {
-        align-self: center;
-        margin-right: 2rem;
-    }
-
-    > *:nth-child(2) {
-        flex: 1 0 0;
-    }
+const Top = styled.div`
+    width: 100%;
+    margin-bottom: 1rem;
 `;
 
-const Right = styled.div`
-    flex: 1;
-    padding-left: 2rem;
-    align-self: center;
+const Bottom = styled.div``;
+
+const SmallH3 = styled(H3)`
+    font-size: 1.8rem;
+    overflow: hidden;
+    width: 100%;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 0;
+`;
+
+const Likes = styled.div`
+    margin-top: 1rem;
+
+    > span {
+        vertical-align: middle;
+        line-height: 1;
+        margin-left: 1rem;
+    }
 `;
 
 const Item = ({
     id,
     ups,
     downs,
-    userVote,
     after,
     before,
     title,
@@ -51,36 +55,38 @@ const Item = ({
     createdAt,
     userId
 }) => (
-    <Container>
-        <Left>
-            <Vote id={id} ups={ups} downs={downs} userVote={userVote} />
+    <Container className="col">
+        <Top>
             <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
                 <Image before={before} after={after} />
             </Link>
-        </Left>
-        <Right>
+        </Top>
+        <Bottom>
             <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                <H3 color="secondary">{title}</H3>
+                <SmallH3 title={title} color="secondary">{title}</SmallH3>
             </Link>
-            <P color="bodyDark">
-                {parent ? 'Re-Edited' : 'Submitted'}
-                {' '}
-                <strong>{distanceInWordsToNow(createdAt)}</strong>
-                {' '}
-                ago by
-                {' '}
-                <strong>
-                    {userId === 'anon'
-                        ? 'anon'
-                        : <Link
-                            href={`/u/profile?userId=${userId}`}
-                            as={`/u/${userId}`}
-                        >
-                            {userId}
-                        </Link>}
-                </strong>
+            <P mb0 color="bodyDark">
+                <small>
+                    {parent ? 'Re-Edited' : 'Submitted'}
+                    {' '}
+                    <strong>{distanceInWordsToNow(createdAt)}</strong>
+                    {' '}
+                    ago by
+                    {' '}
+                    <strong>
+                        {userId === 'anon'
+                            ? 'anon'
+                            : <Link
+                                href={`/u/profile?userId=${userId}`}
+                                as={`/u/${userId}`}
+                            >
+                                {userId}
+                            </Link>}
+                    </strong>
+                </small>
             </P>
-        </Right>
+            <Likes><HeartIcon /> <span>{ups - downs}</span></Likes>
+        </Bottom>
     </Container>
 );
 

@@ -18,6 +18,7 @@ export default injectGlobal`
         -moz-osx-font-smoothing: grayscale;
         font-weight: 300;
         line-height: 1.43;
+        hyphens: auto
     }
 
     body {

@@ -56,7 +56,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
             </Link>
         </Filter>
         <Filter>
-            <strong title="limited to last 10,000 posts">Time:</strong>
+            <strong>Time:</strong>
             {' '}
             <Link
                 color="link"

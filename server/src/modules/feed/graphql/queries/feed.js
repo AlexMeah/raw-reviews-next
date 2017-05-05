@@ -1,6 +1,11 @@
 const sequelize = require('../../../../lib/sequelize');
 const moment = require('moment');
-const { GraphQLList, GraphQLString, GraphQLEnumType } = require('graphql');
+const {
+    GraphQLList,
+    GraphQLString,
+    GraphQLEnumType,
+    GraphQLInt
+} = require('graphql');
 
 const feedType = require('../type');
 const cache = require('../../../../lib/cache');
@@ -31,13 +36,13 @@ const CONSTANTS = {
     day: 'day',
     week: 'week',
     month: 'month',
-    year: 'year'
+    year: 'year',
+    all: 'all'
 };
 
 const orders = {
-    best: (a, b) => b.score - a.score,
-    latest: (a, b) =>
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+    best: [['score', 'DESC'], ['createdAt', 'DESC']],
+    latest: [['createdAt', 'DESC']]
 };
 
 const cacheKey = args =>
@@ -89,6 +94,8 @@ function buildQuery(args) {
         });
     }
 
+    query.order = orders[args.order || CONSTANTS.latest];
+
     return query;
 }
 
@@ -119,6 +126,12 @@ module.exports = {
         },
         userId: {
             type: GraphQLString
+        },
+        limit: {
+            type: GraphQLInt
+        },
+        offset: {
+            type: GraphQLInt
         }
     },
     resolve: function resolve(options, args) {
@@ -136,12 +149,9 @@ module.exports = {
                     Object.assign(
                         {
                             order: [['createdAt', 'DESC']],
-                            limit: !args.userId ? 10000 : null,
+                            limit: args.limit || null,
+                            offset: args.offset || 0,
                             include: [
-                                {
-                                    model: sequelize.vote,
-                                    attributes: ['vote', 'userId']
-                                },
                                 {
                                     model: sequelize.user,
                                     attributes: ['id']
@@ -155,18 +165,11 @@ module.exports = {
                 .then(results =>
                     results.map(r =>
                         Object.assign({}, r, {
-                            ups: r.votes.filter(v => v.dataValues.vote === 1)
-                                .length,
-                            downs: r.votes.filter(v => v.dataValues.vote === -1)
-                                .length,
-                            score: score(r.votes),
-                            votes: r.votes.length,
                             userId: (r.user && r.user.dataValues.id) || 'anon',
                             user: null
                         })
                     )
                 )
-                .then(r => r.sort(orders[args.order || CONSTANTS.best]))
                 .then(r => {
                     cache.set(key, r, 60);
                     return r;

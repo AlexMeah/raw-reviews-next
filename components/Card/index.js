@@ -11,10 +11,6 @@ const Div = styled.div`
     text-align: left;
 
     margin-bottom: 2rem;
-
-    &:last-child {
-        margin-bottom: 0;
-    }
 `;
 
 export default Div;

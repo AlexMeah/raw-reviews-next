@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
             title: DataTypes.STRING,
             description: DataTypes.TEXT,
             parent: DataTypes.STRING,
+            ups: DataTypes.INTEGER,
+            downs: DataTypes.INTEGER,
+            score: DataTypes.DOUBLE,
             id: {
                 primaryKey: true,
                 type: DataTypes.STRING,
@@ -22,6 +25,12 @@ module.exports = (sequelize, DataTypes) => {
             indexes: [
                 {
                     fields: ['createdAt']
+                },
+                {
+                    fields: ['score']
+                },
+                {
+                    fields: ['score', 'createdAt']
                 }
             ],
             classMethods: {

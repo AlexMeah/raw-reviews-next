@@ -21,6 +21,14 @@ const graphqlSchema = require('./graphqlSchema');
 const db = require('./lib/sequelize');
 const cache = require('./lib/cache');
 
+/*
+* CRON like tasks
+*/
+
+if (process.env.NODE_ENV === 'production') {
+    require('./cron/score'); // eslint-disable-line
+}
+
 function getCacheKey(req) {
     return req.originalUrl;
 }

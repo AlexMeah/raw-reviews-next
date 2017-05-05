@@ -4,36 +4,36 @@ const moment = require('moment');
 
 let i = 0;
 
-function inVotes() {
-    const votes = Array.from(Array(1000)).map(a => ({
-        vote: faker.random.arrayElement([1, -1]),
-        editId: faker.random.number({
-            min: 1,
-            max: 999999999999
-        })
-    }));
+// function inVotes() {
+//     const votes = Array.from(Array(1000)).map(a => ({
+//         vote: faker.random.arrayElement([1, -1]),
+//         editId: faker.random.number({
+//             min: 1,
+//             max: 999999999999
+//         })
+//     }));
 
-    sequelize.temp
-        .bulkCreate(votes)
-        .then(() => {
-            if (++i < 99999) {
-                inVotes();
-            } else {
-                process.exit();
-            }
-        })
-        .catch(err => {
-            if (++i < 99999) {
-                inVotes();
-            } else {
-                console.error(err);
-                process.exit();
-            }
-        });
-}
+//     sequelize.temp
+//         .bulkCreate(votes)
+//         .then(() => {
+//             if (++i < 99999) {
+//                 inVotes();
+//             } else {
+//                 process.exit();
+//             }
+//         })
+//         .catch(err => {
+//             if (++i < 99999) {
+//                 inVotes();
+//             } else {
+//                 console.error(err);
+//                 process.exit();
+//             }
+//         });
+// }
 
-// inVotes();
-sequelize.temp.sync();
+// // inVotes();
+// sequelize.temp.sync();
 
 // const users = Array.from(Array(100)).map(a => ({
 //     username: faker.random.word() + Math.random(),
@@ -46,21 +46,28 @@ sequelize.temp.sync();
 //     console.error(err);
 // });
 
-// const edits = Array.from(Array(100)).map(a => ({
-//     userId: faker.random.number({
-//         min: 10041,
-//         max: 10140
-//     }),
-//     before: faker.random.word(),
-//     after: faker.random.word(),
-//     raw: faker.random.word(),
-//     url: faker.random.word(),
-//     description: faker.random.word()
-// }));
+const edits = Array.from(Array(50000)).map(a => ({
+    userId: 'alexmeah',
+    before: faker.random.word(),
+    after: faker.random.word(),
+    raw: faker.random.word(),
+    ups: faker.random.number({
+        min: 0,
+        max: 9999
+    }),
+    downs: faker.random.number({
+        min: 0,
+        max: 9999
+    }),
+    score: 0,
+    url: faker.random.word(),
+    description: faker.random.word(),
+    createdAt: faker.date.past()
+}));
 
-// sequelize.edit.bulkCreate(edits).catch(err => {
-//     console.error(err);
-// });
+sequelize.edit.bulkCreate(edits).catch(err => {
+    console.error(err);
+});
 
 // sequelize.edit.sync();
 

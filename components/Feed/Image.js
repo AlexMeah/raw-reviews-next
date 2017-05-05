@@ -8,8 +8,8 @@ import config from '../../config';
 
 const Container = styled.div`
     position: relative;
-    width: 15rem;
-    padding-bottom: 15rem;
+    width: 22rem;
+    padding-bottom: 22rem;
     height: 0;
     margin: 0 auto;
     border-radius: ${styleVars.radius};
