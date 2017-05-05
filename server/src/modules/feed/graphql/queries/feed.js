@@ -161,7 +161,7 @@ module.exports = {
                                 .length,
                             score: score(r.votes),
                             votes: r.votes.length,
-                            userId: r.user.dataValues.id,
+                            userId: (r.user && r.user.dataValues.id) || 'anon',
                             user: null
                         })
                     )
