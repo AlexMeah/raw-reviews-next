@@ -16,7 +16,9 @@ export default ({ children, ...rest }) => (
     <div
         {...rest}
         dangerouslySetInnerHTML={{
-            __html: marked(children || '')
+            __html: marked(
+                Array.isArray(children) ? children.join('') : children || ''
+            )
         }}
     />
 );
