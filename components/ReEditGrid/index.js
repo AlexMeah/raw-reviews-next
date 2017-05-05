@@ -28,9 +28,10 @@ const Edit = ({ after, id }) => (
 
 export default ({ reedits = [] }) => (
     <Container className="row">
-        <div className="col-xs-12">
-            <H3>Re-Edits</H3>
-        </div>
+        {reedits.length &&
+            <div className="col-xs-12">
+                <H3>Re-Edits</H3>
+            </div>}
         {reedits.map(e => <Edit {...e} />)}
     </Container>
 );
