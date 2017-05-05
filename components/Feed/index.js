@@ -16,7 +16,11 @@ const Container = styled.div`
 
 const Feed = ({ loading, feed, loadMoreEdits }) => {
     if (loading) {
-        return <p>Loading feed...</p>;
+        return (
+            <div className="tac">
+                <p>Loading feed...</p>;
+            </div>
+        );
     }
 
     const feedData = (feed && feed.feed) || [];

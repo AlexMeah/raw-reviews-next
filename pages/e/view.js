@@ -16,7 +16,7 @@ import withData from '../../hoc/withData';
 const Post = props => {
     if (props.data.loading) {
         return (
-            <BasicLayout>
+            <BasicLayout className="tac">
                 Loading edit...
             </BasicLayout>
         );
