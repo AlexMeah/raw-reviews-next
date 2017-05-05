@@ -18,7 +18,7 @@ const Feed = ({ loading, feed, loadMoreEdits }) => {
     if (loading) {
         return (
             <div className="tac">
-                <p>Loading feed...</p>;
+                <p>Loading feed...</p>
             </div>
         );
     }
