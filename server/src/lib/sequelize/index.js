@@ -3,7 +3,7 @@ const Sequelize = require('sequelize');
 const config = require('../../config');
 
 const sequelize = new Sequelize(config.sequelize, {
-    logging: process.env.NODE_ENV !== 'production'
+    logging: process.env.NODE_ENV !== 'production' ? console.log : false
 });
 
 const db = {
