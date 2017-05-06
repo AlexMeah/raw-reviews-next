@@ -11,21 +11,10 @@ const logout = () => {
 
 const Container = styled.div`
     margin-bottom: 3rem;
-    
-    @media (min-width: 620px) {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
 `;
 
 const LogoContainer = styled.div`
-    text-align: center;
-
-    @media (min-width: 620px) {
-        width: 200px;
-        text-align: left;
-    }
+margin-bottom: 1rem;
 `;
 
 const LinksContainer = styled.div`
@@ -36,11 +25,6 @@ const LinksContainer = styled.div`
             margin-right: 0
         }
     }
-
-    @media (min-width: 620px) {
-        flex: 1;
-        text-align: right;
-    }
 `;
 
 export default class Header extends React.Component {
@@ -48,26 +32,21 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            auth: true
+            auth: typeof window !== 'undefined' &&
+                window.localStorage.getItem('authtoken')
         };
-    }
-
-    componentDidMount() {
-        this.setState({
-            auth: window.localStorage.getItem('authtoken')
-        });
     }
 
     render() {
         return (
-            <Container>
-                <LogoContainer>
+            <Container className="row">
+                <LogoContainer className="col-xs-12 col-sm-6 center-xs start-sm">
                     <Link href="/">
                         <Logo />
                     </Link>
                 </LogoContainer>
 
-                <LinksContainer>
+                <LinksContainer className="col-xs-12 col-sm-6 center-xs end-sm">
                     <Link color="link" href="/">
                         Home
                     </Link>
