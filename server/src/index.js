@@ -33,8 +33,8 @@ function getCacheKey(req) {
     return req.originalUrl;
 }
 
-function renderAndCache(req, res, pagePath, queryParams) {
-    const key = getCacheKey(req);
+function renderAndCache(req, res, pagePath, queryParams, duration = 30) {
+    const key = `raw-reviews:render-cache:${getCacheKey(req)}`;
 
     cache
         .get(key)
@@ -48,7 +48,7 @@ function renderAndCache(req, res, pagePath, queryParams) {
             return app
                 .renderToHTML(req, res, pagePath, queryParams)
                 .then(html => {
-                    cache.set(key, html, 30);
+                    cache.set(key, html, duration);
                     return html;
                 });
         })
