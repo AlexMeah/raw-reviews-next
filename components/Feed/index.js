@@ -32,9 +32,10 @@ const Feed = ({ loading, feed, loadMoreEdits }) => {
                 {feedData.map(f => <Item key={f.id} {...f} />)}
             </div>
 
-            <div className="tac">
-                <Button onClick={loadMoreEdits}>Load More</Button>
-            </div>
+            {feedData.length !== 0 &&
+                <div className="tac">
+                    <Button onClick={loadMoreEdits}>Load More</Button>
+                </div>}
         </Container>
     );
 };

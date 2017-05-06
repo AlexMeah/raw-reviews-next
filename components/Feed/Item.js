@@ -5,14 +5,14 @@ import styled from 'styled-components';
 import distanceInWordsToNow from 'date-fns/distance_in_words_to_now';
 import HeartIcon from 'react-icons/lib/fa/heart-o';
 
-import Vote from '../Vote';
+import styleVars from '../../css/vars';
+
 import Image from './Image';
-import Card from '../Card';
 import P from '../P';
 import H3 from '../H3';
 import Link from '../Link';
 
-const Container = styled(Card)`
+const Container = styled.div`
     margin-bottom: 4rem;
     width: 100%;
     max-width: 26rem;
@@ -36,6 +36,7 @@ const SmallH3 = styled(H3)`
 
 const Likes = styled.div`
     margin-top: 1rem;
+    color: ${styleVars.colors.body};
 
     > span {
         vertical-align: middle;
@@ -65,7 +66,7 @@ const Item = ({
             <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
                 <SmallH3 title={title} color="secondary">{title}</SmallH3>
             </Link>
-            <P mb0 color="bodyDark">
+            <P mb0 color="body">
                 <small>
                     {parent ? 'Re-Edited' : 'Submitted'}
                     {' '}

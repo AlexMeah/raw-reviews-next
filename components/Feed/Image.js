@@ -9,11 +9,12 @@ import config from '../../config';
 
 const Container = styled.div`
     position: relative;
-    width: 22rem;
-    padding-bottom: 22rem;
+    width: 26rem;
+    padding-bottom: 26rem;
     height: 0;
     margin: 0 auto;
     border-radius: ${styleVars.radius};
+    box-shadow: ${styleVars.shadow};
     overflow: hidden;
 `;
 
