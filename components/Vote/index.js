@@ -82,7 +82,8 @@ class Vote extends React.Component {
 
         this.handleClick = this.handleClick.bind(this);
         this.state = {
-            vote: 0
+            vote: 0,
+            originalVote: props.userVote || 0
         };
     }
 
@@ -95,10 +96,6 @@ class Vote extends React.Component {
         // ) {
         //     vote = voteEnum.neutral;
         // }
-
-        this.setState({
-            vote: voteValue[vote]
-        });
 
         this.props
             .mutate({
@@ -120,20 +117,31 @@ class Vote extends React.Component {
                 <Down
                     onClick={() => this.handleClick(voteEnum.down)}
                     size={40}
-                    color={downColor(userVote || this.state.vote)}
+                    color={downColor(userVote)}
                 />
                 <Score>
-                    {ups - downs + this.state.vote}
+                    {ups - downs - this.state.originalVote + userVote}
                 </Score>
                 <Up
                     onClick={() => this.handleClick(voteEnum.up)}
                     size={40}
-                    color={upColor(userVote || this.state.vote)}
+                    color={upColor(userVote)}
                 />
             </Container>
         );
     }
 }
+
+const voteQuery = gql`
+  query vote($editId: String!) {
+      vote {
+          votes(editId: [$editId]) {
+              id,
+              vote
+          }
+      }
+  }
+`;
 
 const createVoteMutation = gql`
   mutation vote_vote($vote: vote!, $editId: String!) {

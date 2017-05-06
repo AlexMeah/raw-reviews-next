@@ -1,9 +1,9 @@
-import { gql, graphql } from 'react-apollo';
+import { gql, graphql, compose } from 'react-apollo';
 import React from 'react';
+import get from 'lodash.get';
 
 import BasicLayout from '../../layouts/Basic';
 import H1 from '../../components/H1';
-import H3 from '../../components/H3';
 import ExifView from '../../components/ExifView';
 import ImageCompare from '../../components/ImageCompare';
 import Vote from '../../components/Vote';
@@ -15,7 +15,7 @@ import withData from '../../hoc/withData';
 import config from '../../config';
 
 const Post = props => {
-    if (props.data.loading) {
+    if (props.EditQuery.loading) {
         return (
             <BasicLayout className="tac">
                 Loading edit...
@@ -23,9 +23,10 @@ const Post = props => {
         );
     }
 
-    const edit = props.data.edit.edit;
-    const reedits = props.data.edit.reedits;
-    const exif = (props.data.exif.exif || {}).afterExif || { tags: {} };
+    const edit = get(props, 'EditQuery.edit.edit', false);
+    const reedits = get(props, 'EditQuery.edit.reedits', []);
+    const userVote = get(props, 'VoteQuery.vote.votes[0].vote');
+    const exif = get(props, 'EditQuery.exif.exif.afterExif', { tags: {} });
 
     if (!edit) {
         return (
@@ -45,7 +46,12 @@ const Post = props => {
                 edit.description !== edit.title &&
                 <P copy>{edit.description}</P>}
 
-            <Vote id={edit.id} ups={edit.ups} downs={edit.downs} />
+            <Vote
+                id={edit.id}
+                ups={edit.ups}
+                downs={edit.downs}
+                userVote={userVote}
+            />
 
             <div className="tac mb2">
                 {edit.parent &&
@@ -160,7 +166,33 @@ const editQuery = gql`
   }
 `;
 
-export default withData(
+const voteQuery = gql`
+  query vote($editId: String!) {
+      vote {
+          votes(editId: [$editId]) {
+              id,
+              editId,
+              vote
+          }
+      }
+  }
+`;
+
+export default compose(
+    withData,
+    graphql(voteQuery, {
+        options: props => {
+            const query = (props.url && props.url.query) || {};
+
+            return {
+                variables: {
+                    editId: query.editId || props.editId || null
+                },
+                fetchPolicy: 'network-only'
+            };
+        },
+        name: 'VoteQuery'
+    }),
     graphql(editQuery, {
         options: props => {
             const query = (props.url && props.url.query) || {};
@@ -171,6 +203,7 @@ export default withData(
                     userId: query.userId || props.userId || null
                 }
             };
-        }
-    })(Post)
-);
+        },
+        name: 'EditQuery'
+    })
+)(Post);
