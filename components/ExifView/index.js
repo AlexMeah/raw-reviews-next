@@ -8,6 +8,7 @@ import ClockIcon from '../ClockIcon';
 import ShutterIcon from '../ShutterIcon';
 import ISOIcon from '../ISOIcon';
 import H3 from '../H3';
+import P from '../P';
 
 const ExifView = styled.div`
     margin-bottom: 2rem;
@@ -56,7 +57,14 @@ export default ({
         !lensMake &&
         !lensModel
     ) {
-        return null;
+        return (
+            <div className="row">
+                <div className="col-xs-12">
+                    <H3>Exif</H3>
+                    <P>No exif data</P>
+                </div>
+            </div>
+        );
     }
 
     return (

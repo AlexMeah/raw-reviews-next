@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import H3 from '../H3';
+import P from '../P';
 import Link from '../Link';
 import config from '../../config';
 import vars from '../../css/vars';
@@ -28,10 +29,10 @@ const Edit = ({ after, id }) => (
 
 export default ({ reedits = [] }) => (
     <Container className="row">
-        {reedits.length > 0 &&
-            <div className="col-xs-12">
-                <H3>Re-Edits</H3>
-            </div>}
+        <div className="col-xs-12">
+            <H3>Re-Edits</H3>
+            {reedits.length === 0 && <P>No re-edits yet :(</P>}
+        </div>
         {reedits.map(e => <Edit {...e} />)}
     </Container>
 );
