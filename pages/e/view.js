@@ -6,12 +6,13 @@ import H1 from '../../components/H1';
 import H3 from '../../components/H3';
 import ExifView from '../../components/ExifView';
 import ImageCompare from '../../components/ImageCompare';
-import Card from '../../components/Card';
+import Vote from '../../components/Vote';
 import P from '../../components/P';
 import Button from '../../components/Button';
 import ReEditGrid from '../../components/ReEditGrid';
 
 import withData from '../../hoc/withData';
+import config from '../../config';
 
 const Post = props => {
     if (props.data.loading) {
@@ -43,6 +44,8 @@ const Post = props => {
             {edit.description &&
                 edit.description !== edit.title &&
                 <P copy>{edit.description}</P>}
+
+            <Vote id={edit.id} ups={edit.ups} downs={edit.downs} />
 
             <div className="tac mb2">
                 {edit.parent &&
@@ -80,8 +83,20 @@ const Post = props => {
                                 color="secondary"
                                 style={{ marginRight: '2rem' }}
                                 type="button"
+                                href={`${config.cdnOriginal}/${edit.raw}`}
+                                download
                             >
                                 Download Raw
+                            </Button>}
+                        {!edit.raw &&
+                            <Button
+                                color="secondary"
+                                style={{ marginRight: '2rem' }}
+                                type="button"
+                                href={`${config.cdn}/reduced/${edit.before}`}
+                                download
+                            >
+                                Download Before JPG
                             </Button>}
                         <Button
                             to={`/e/r/create?editId=${edit.parent || edit.id}`}
@@ -109,13 +124,11 @@ const editQuery = gql`
               raw
               description
               title
+              ups
+              downs
               createdAt
               userId
               parent
-              votes {
-                  ups
-                  downs
-              }
           }
           reedits(parent: $editId) {
               id

@@ -2,22 +2,29 @@ import 'isomorphic-fetch';
 
 import React from 'react';
 import styled from 'styled-components';
-import UpIcon from 'react-icons/lib/fa/angle-up';
-import DownIcon from 'react-icons/lib/fa/angle-down';
+import UpIcon from 'react-icons/lib/fa/thumbs-o-up';
+import DownIcon from 'react-icons/lib/fa/thumbs-o-down';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
 import vars from '../../css/vars';
 
+const disabled = 'rgba(238, 238, 238, 0.4)';
+
 const Container = styled.div`
     text-align: center;
-    width: 4rem;
+    margin-bottom: 2rem;
+
+    > * {
+        display: inline-block;
+    }
 `;
 
 const Score = styled.div`
     vertical-align: middle;
     font-weight: bold;
     color: ${props => props.color};
+    width: 5rem;
 `;
 
 const Up = styled(UpIcon)`
@@ -44,7 +51,7 @@ const Down = styled(DownIcon)`
 
 const downColor = vote => {
     if (vote === 1) {
-        return '#eee';
+        return disabled;
     }
 
     return vars.colors.negative;
@@ -52,7 +59,7 @@ const downColor = vote => {
 
 const upColor = vote => {
     if (vote === -1) {
-        return '#eee';
+        return disabled;
     }
 
     return vars.colors.positive;
@@ -106,22 +113,22 @@ class Vote extends React.Component {
     }
 
     render() {
-        const { id, ups, downs, userVote } = this.props;
+        const { ups, downs, userVote } = this.props;
 
         return (
             <Container>
-                <Up
-                    onClick={() => this.handleClick(voteEnum.up)}
-                    size={40}
-                    color={upColor(userVote || this.state.vote)}
-                />
-                <Score>
-                    {ups - downs + this.state.vote}
-                </Score>
                 <Down
                     onClick={() => this.handleClick(voteEnum.down)}
                     size={40}
                     color={downColor(userVote || this.state.vote)}
+                />
+                <Score>
+                    {ups - downs + this.state.vote}
+                </Score>
+                <Up
+                    onClick={() => this.handleClick(voteEnum.up)}
+                    size={40}
+                    color={upColor(userVote || this.state.vote)}
                 />
             </Container>
         );
