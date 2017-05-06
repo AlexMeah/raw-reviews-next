@@ -5,13 +5,10 @@ import Link from '../Link';
 
 const FilterBar = styled.nav`
     margin-bottom: 2rem;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
 `;
 
 const Filter = styled.div`
-    margin-right: 1rem;
+    margin-right: 3rem;
 
     &:last-child {
         margin: 0;
@@ -19,9 +16,9 @@ const Filter = styled.div`
 `;
 
 export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
-    <FilterBar>
-        <Filter>
-            <strong>Order:</strong> <Link
+    <FilterBar className="row">
+        <Filter className="col">
+            <strong>Order by:</strong> <Link
                 color="link"
                 active={order === 'best'}
                 href={{
@@ -55,7 +52,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                 Latest
             </Link>
         </Filter>
-        <Filter>
+        <Filter className="col">
             <strong>Time:</strong>
             {' '}
             <Link
