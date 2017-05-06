@@ -46,7 +46,12 @@ function renderAndCache(req, res, pagePath, queryParams, duration = 30) {
 
             console.log(key, 'miss');
             return app
-                .renderToHTML(req, res, pagePath, queryParams)
+                .renderToHTML(
+                    req,
+                    res,
+                    pagePath || req.url,
+                    queryParams || req.query
+                )
                 .then(html => {
                     cache.set(key, html, duration);
                     return html;
@@ -203,7 +208,8 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             renderAndCache(req, res, '/', req.query);
         });
 
-        server.get('*', (req, res) => handle(req, res));
+        server.get('/_next/*', (req, res) => handle(req, res));
+        server.get('*', (req, res) => renderAndCache(req, res));
 
         server.use((err, req, res, _next) => {
             console.error(err);
