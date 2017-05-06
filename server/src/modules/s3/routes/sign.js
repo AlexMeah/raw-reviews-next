@@ -6,13 +6,15 @@ const mime = require('mime-types');
 
 const router = express.Router();
 
-const s3 = new aws.S3();
+const s3 = new aws.S3({
+    useAccelerateEndpoint: true
+});
 const config = require('../../../config');
 const cache = require('../../../lib/cache');
 const isRaw = require('../utils/isRaw');
 
 function rateLimit(userId) {
-    if (!cache.client) {
+    if (!cache.client && process.env.NODE_ENV === 'production') {
         return Promise.resolve(true);
     }
 
@@ -75,8 +77,7 @@ router.get('/', (req, res, next) => {
             Key: fileName,
             Expires: 60,
             ContentType: fileType,
-            ACL: acl,
-            useAccelerateEndpoint: true
+            ACL: acl
         };
 
         return s3.getSignedUrl('putObject', s3Params, (err, data) => {
