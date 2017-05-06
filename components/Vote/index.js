@@ -83,7 +83,7 @@ class Vote extends React.Component {
         this.handleClick = this.handleClick.bind(this);
         this.state = {
             vote: 0,
-            originalVote: props.userVote || 0
+            originalVote: props.userVote !== undefined ? props.userVote : 0
         };
     }
 
@@ -96,6 +96,10 @@ class Vote extends React.Component {
         // ) {
         //     vote = voteEnum.neutral;
         // }
+
+        this.setState({
+            vote: voteValue[vote]
+        });
 
         this.props
             .mutate({
@@ -111,21 +115,22 @@ class Vote extends React.Component {
 
     render() {
         const { ups, downs, userVote } = this.props;
+        const _userVote = userVote !== undefined ? userVote : this.state.vote;
 
         return (
             <Container>
                 <Down
                     onClick={() => this.handleClick(voteEnum.down)}
                     size={40}
-                    color={downColor(userVote)}
+                    color={downColor(_userVote)}
                 />
                 <Score>
-                    {ups - downs - this.state.originalVote + userVote}
+                    {ups - downs - this.state.originalVote + _userVote}
                 </Score>
                 <Up
                     onClick={() => this.handleClick(voteEnum.up)}
                     size={40}
-                    color={upColor(userVote)}
+                    color={upColor(_userVote)}
                 />
             </Container>
         );
