@@ -41,9 +41,9 @@ class Login extends React.Component {
                 login(this.state.form)
                     .then(() => {
                         if (Router.query.returnTo) {
-                            Router.push(
-                                decodeURIComponent(Router.query.returnTo)
-                            );
+                            window.location = decodeURIComponent(
+                                Router.query.returnTo
+                            ); // Router push is flaky
                         } else {
                             Router.push('/');
                         }
