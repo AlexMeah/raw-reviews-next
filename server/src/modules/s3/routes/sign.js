@@ -77,10 +77,19 @@ router.get('/', (req, res, next) => {
             Key: fileName,
             Expires: 60,
             ContentType: fileType,
-            ACL: acl
+            ACL: acl,
+            Conditions: [
+                { bucket: config.s3.bucket },
+                { acl },
+                ['starts-with', '$key', ''],
+                ['content-length-range', 0, 8e7]
+            ],
+            Fields: {
+                acl
+            }
         };
 
-        return s3.getSignedUrl('putObject', s3Params, (err, data) => {
+        return s3.createPresignedPost(s3Params, (err, data) => {
             if (err) {
                 return next(err);
             }
