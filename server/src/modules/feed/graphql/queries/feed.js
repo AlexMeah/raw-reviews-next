@@ -78,15 +78,11 @@ function buildQuery(args) {
             }
         }
     };
-    const query = {
-        time: time[CONSTANTS.all]
-    };
+    const query = {};
 
     if (args.time) {
         Object.assign(query, {
-            where: Object.assign(query.where, {
-                time: time[args.time.toLowerCase()]
-            })
+            where: time[args.time.toLowerCase()]
         });
     }
 
