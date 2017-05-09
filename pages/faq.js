@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import config from '../config';
 
@@ -8,6 +9,9 @@ import QA from '../components/QA';
 
 const Index = () => (
     <BasicLayout>
+        <Helmet>
+            <title>Frequently Asked Questions</title>
+        </Helmet>
         <H1 className="tac">Frequently Asked Questions</H1>
 
         <QA question="Why can't I see my upload in the feed?">

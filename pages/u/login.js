@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import Router from 'next/router';
 
 import login from '../../utils/login';
@@ -66,6 +67,10 @@ class Login extends React.Component {
         if (loginSuccessful) {
             return (
                 <BasicLayout>
+                    <Helmet>
+                        <title>Login</title>
+                    </Helmet>
+
                     login Successful
                 </BasicLayout>
             );
@@ -73,6 +78,10 @@ class Login extends React.Component {
 
         return (
             <BasicLayout className="tac">
+                <Helmet>
+                    <title>Login</title>
+                </Helmet>
+
                 <h1>Login</h1>
 
                 <P color="negative" strong className="error">{error}</P>

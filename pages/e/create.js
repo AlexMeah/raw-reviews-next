@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -135,6 +136,10 @@ class CreateEdit extends React.Component {
 
         return (
             <BasicLayout>
+                <Helmet>
+                    <title>Create Edit</title>
+                </Helmet>
+
                 <div className="tac">
                     <H1>Create Edit</H1>
 

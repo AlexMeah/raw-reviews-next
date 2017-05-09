@@ -1,6 +1,5 @@
-import 'isomorphic-fetch';
-
 import React from 'react';
+import Helmet from 'react-helmet';
 
 import withData from '../../hoc/withData';
 
@@ -11,6 +10,9 @@ import FeedData from '../../queries/feed';
 
 const User = props => (
     <BasicLayout>
+        <Helmet>
+            <title>User Profile</title>
+        </Helmet>
         <FilterBar
             {...props.url.query}
             pathname="/u/profile"

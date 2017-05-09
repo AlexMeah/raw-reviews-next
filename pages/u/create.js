@@ -1,4 +1,5 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -75,6 +76,10 @@ class CreateUser extends React.Component {
 
         return (
             <BasicLayout className="tac">
+                <Helmet>
+                    <title>Login</title>
+                </Helmet>
+
                 <h1>Create user</h1>
 
                 <P color="negative" strong className="error">{error}</P>

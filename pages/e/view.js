@@ -1,5 +1,6 @@
 import { gql, graphql, compose } from 'react-apollo';
 import React from 'react';
+import Helmet from 'react-helmet';
 import get from 'lodash.get';
 
 import BasicLayout from '../../layouts/Basic';
@@ -18,6 +19,9 @@ const Post = props => {
     if (props.EditQuery.loading) {
         return (
             <BasicLayout className="tac">
+                <Helmet>
+                    <title>Loading...</title>
+                </Helmet>
                 Loading edit...
             </BasicLayout>
         );
@@ -38,6 +42,10 @@ const Post = props => {
 
     return (
         <BasicLayout>
+            <Helmet>
+                <title>{edit.title}</title>
+            </Helmet>
+
             <H1 style={{ textAlign: 'center' }}>
                 {edit.title} {edit.parent ? '(Re-Edit)' : null}
             </H1>

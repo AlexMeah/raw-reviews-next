@@ -1,6 +1,7 @@
 import React from 'react';
 import Router from 'next/router';
 import { graphql, compose } from 'react-apollo';
+import Helmet from 'react-helmet';
 import gql from 'graphql-tag';
 
 import requireAuth from '../../../hoc/requireAuth';
@@ -144,6 +145,10 @@ class CreateReEdit extends React.Component {
 
         return (
             <BasicLayout>
+                <Helmet>
+                    <title>Create re-edit</title>
+                </Helmet>
+
                 <div className="tac">
                     <H1>Create Re-Edit</H1>
 
