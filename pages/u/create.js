@@ -1,20 +1,24 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
-import requireAuth from '../../hoc/requireAuth';
+import DisallowAuth from '../../hoc/disallowAuth';
 import withData from '../../hoc/withData';
 
 import BasicLayout from '../../layouts/Basic';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import P from '../../components/P';
 
 class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             form: {
-                username: 'dsss',
-                password: 'b',
-                email: 'a@a.com'
+                username: '',
+                password: '',
+                email: ''
             }
         };
 
@@ -71,46 +75,45 @@ class CreateUser extends React.Component {
         }
 
         return (
-            <BasicLayout>
+            <BasicLayout className="tac">
+                <Helmet>
+                    <title>Login</title>
+                </Helmet>
+
                 <h1>Create user</h1>
 
-                <div className="error">{error}</div>
+                <P color="negative" strong className="error">{error}</P>
 
                 <form onSubmit={this.handleSubmission}>
-                    <label htmlFor="username">
-                        <h3>Username</h3>
-                        <input
-                            type="text"
-                            required
-                            id="username"
-                            name="username"
-                            value={username}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <label htmlFor="password">
-                        <h3>Password</h3>
-                        <input
-                            type="text"
-                            required
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <label htmlFor="email">
-                        <h3>Email</h3>
-                        <input
-                            type="email"
-                            required
-                            id="email"
-                            name="email"
-                            value={email}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <button type="submit">Submit</button>
+                    <Input
+                        label="Username"
+                        type="text"
+                        required
+                        id="username"
+                        name="username"
+                        value={username}
+                        onChange={this.handleChange}
+                    />
+                    <Input
+                        label="Password"
+                        type="password"
+                        required
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={this.handleChange}
+                    />
+                    <Input
+                        label="Email"
+                        type="text"
+                        required
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={this.handleChange}
+                    />
+
+                    <Button type="submit">Submit</Button>
                 </form>
             </BasicLayout>
         );
@@ -120,11 +123,11 @@ class CreateUser extends React.Component {
 const createUserMutation = gql`
   mutation user_createUser($username: String!, $email: String!, $password: String!) {
     user_createUser(username: $username, email: $email, password: $password) {
-        username
+        id
     }
   }
 `;
 
 const CreateUserWithMutation = graphql(createUserMutation)(CreateUser);
 
-export default requireAuth(withData(CreateUserWithMutation));
+export default DisallowAuth(withData(CreateUserWithMutation));

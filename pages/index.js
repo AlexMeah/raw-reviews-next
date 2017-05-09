@@ -1,37 +1,21 @@
-import 'isomorphic-fetch';
-
 import React from 'react';
-import Link from 'next/link';
+import Helmet from 'react-helmet';
 
 import BasicLayout from '../layouts/Basic';
+import Feed from '../components/Feed';
+import FilterBar from '../components/FilterBar';
+
+import withData from '../hoc/withData';
+import FeedData from '../queries/feed';
 
 const Index = props => (
     <BasicLayout>
-        <h1>Batman Movies</h1>
-        <ul>
-            {props.movies.map(movie => (
-                <li key={movie.imdbID}>
-                    <Link
-                        as={`/u/${movie.imdbID}`}
-                        href={`/user?id=${movie.imdbID}`}
-                    >
-                        <a>{movie.Title}</a>
-                    </Link>
-                </li>
-            ))}
-        </ul>
+        <Helmet>
+            <title>Home</title>
+        </Helmet>
+        <FilterBar {...props.url.query} />
+        <Feed key="home-feed" {...props} />
     </BasicLayout>
 );
 
-Index.getInitialProps = async function () {
-    const res = await fetch('http://www.omdbapi.com/?s=batman');
-    const data = await res.json();
-
-    console.log(`Movie data fetched. Count: ${data.Search.length}`);
-
-    return {
-        movies: data.Search
-    };
-};
-
-export default Index;
+export default withData(FeedData(Index));

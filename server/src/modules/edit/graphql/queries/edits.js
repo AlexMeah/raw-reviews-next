@@ -12,6 +12,12 @@ module.exports = {
         },
         order: {
             type: GraphQLString
+        },
+        offset: {
+            type: GraphQLString
+        },
+        userId: {
+            type: GraphQLInt
         }
     },
     resolve: resolver(models.edit)

@@ -1,8 +1,82 @@
 const { sequelize: { models } } = require('../../../../lib/sequelize');
-const { GraphQLNonNull, GraphQLString } = require('graphql');
+const {
+    GraphQLNonNull,
+    GraphQLString,
+    GraphQLFloat,
+    GraphQLInt,
+    GraphQLInputObjectType
+} = require('graphql');
 const Sequelize = require('sequelize');
 
 const editType = require('../type');
+
+const exifType = new GraphQLInputObjectType({
+    name: 'exif',
+    description: 'A object containing image exif',
+    fields: {
+        imageSize: {
+            name: 'imageSize',
+            type: new GraphQLInputObjectType({
+                name: 'imageSizeObj',
+                fields: () => ({
+                    width: {
+                        type: GraphQLInt
+                    },
+                    height: {
+                        type: GraphQLInt
+                    }
+                })
+            })
+        },
+        tags: {
+            name: 'tags',
+            type: new GraphQLInputObjectType({
+                name: 'tagsObj',
+                fields: () => ({
+                    fNumber: {
+                        type: GraphQLFloat
+                    },
+                    exposureTime: {
+                        type: GraphQLString
+                    },
+                    originalExposureTime: {
+                        type: GraphQLFloat
+                    },
+                    focalLength: {
+                        type: GraphQLString
+                    },
+                    focalLengthIn35mmFormat: {
+                        type: GraphQLString
+                    },
+                    iSO: {
+                        type: GraphQLInt
+                    },
+                    lensModel: {
+                        type: GraphQLString
+                    },
+                    lensInfo: {
+                        type: GraphQLString
+                    },
+                    lensMake: {
+                        type: GraphQLString
+                    },
+                    make: {
+                        type: GraphQLString
+                    },
+                    model: {
+                        type: GraphQLString
+                    },
+                    shutterSpeedValue: {
+                        type: GraphQLFloat
+                    },
+                    software: {
+                        type: GraphQLString
+                    }
+                })
+            })
+        }
+    }
+});
 
 module.exports = {
     type: editType,
@@ -15,37 +89,78 @@ module.exports = {
             description: 'A after url for the edit',
             type: new GraphQLNonNull(GraphQLString)
         },
+        beforeExif: {
+            description: 'The before images exif info',
+            type: exifType
+        },
+        afterExif: {
+            description: 'The after images exif info',
+            type: exifType
+        },
         raw: {
             description: 'A raw url for the edit',
-            type: new GraphQLNonNull(GraphQLString)
+            type: GraphQLString
         },
         description: {
             description: 'A description for the edit',
+            type: GraphQLString
+        },
+        parent: {
+            description: 'The parent edit',
+            type: GraphQLString
+        },
+        title: {
+            description: 'A title for the edit',
             type: new GraphQLNonNull(GraphQLString)
         }
     },
     description: 'Creates a new edit',
-    resolve(options, { before, after, raw, description }, { req }) {
+    resolve(
+        options,
+        {
+            before,
+            after,
+            raw,
+            title,
+            description,
+            beforeExif,
+            afterExif,
+            parent
+        },
+        { req }
+    ) {
         if (!req.user) {
-            return Promise.reject(new Error('No logged in.'));
+            return Promise.reject(new Error('Not logged in.'));
         }
 
         return models.edit
-            .create({
+            .create(
+            {
                 before,
                 after,
                 raw,
                 description,
+                title,
+                parent,
                 userId: req.user.id
-            })
-            .then(data => ({
-                id: data.id,
-                url: data.url
-            }))
-            .catch(Sequelize.ValidationError, err => {
-                console.log(err);
-
-                return Promise.reject(err);
-            });
+            },
+            {
+                returning: true
+            }
+            )
+            .then(data =>
+                models.exif
+                    .create({
+                        editId: data.id,
+                        beforeExif,
+                        afterExif
+                    })
+                    .then(() => data)
+                    .catch(e => {
+                        console.error(e);
+                        return data;
+                    })
+            )
+            .catch(Sequelize.ValidationError, err => Promise.reject(err));
     }
 };

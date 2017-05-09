@@ -1,17 +1,21 @@
 import React from 'react';
+import Helmet from 'react-helmet';
 import Router from 'next/router';
 
 import login from '../../utils/login';
 import BasicLayout from '../../layouts/Basic';
 import DisallowAuth from '../../hoc/disallowAuth';
+import Input from '../../components/Input';
+import Button from '../../components/Button';
+import P from '../../components/P';
 
 class Login extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             form: {
-                username: 'alexmeah',
-                password: '123456'
+                username: '',
+                password: ''
             }
         };
 
@@ -38,9 +42,9 @@ class Login extends React.Component {
                 login(this.state.form)
                     .then(() => {
                         if (Router.query.returnTo) {
-                            Router.push(
-                                decodeURIComponent(Router.query.returnTo)
-                            );
+                            window.location = decodeURIComponent(
+                                Router.query.returnTo
+                            ); // Router push is flaky
                         } else {
                             Router.push('/');
                         }
@@ -63,41 +67,46 @@ class Login extends React.Component {
         if (loginSuccessful) {
             return (
                 <BasicLayout>
+                    <Helmet>
+                        <title>Login</title>
+                    </Helmet>
+
                     login Successful
                 </BasicLayout>
             );
         }
 
         return (
-            <BasicLayout>
+            <BasicLayout className="tac">
+                <Helmet>
+                    <title>Login</title>
+                </Helmet>
+
                 <h1>Login</h1>
 
-                <div className="error">{error}</div>
+                <P color="negative" strong className="error">{error}</P>
 
                 <form onSubmit={this.handleSubmission}>
-                    <label htmlFor="username">
-                        <h3>Username</h3>
-                        <input
-                            type="text"
-                            required
-                            id="username"
-                            name="username"
-                            value={username}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <label htmlFor="password">
-                        <h3>Password</h3>
-                        <input
-                            type="text"
-                            required
-                            id="password"
-                            name="password"
-                            value={password}
-                            onChange={this.handleChange}
-                        />
-                    </label>
-                    <button type="submit">Submit</button>
+                    <Input
+                        label="Username"
+                        type="text"
+                        required
+                        id="username"
+                        name="username"
+                        value={username}
+                        onChange={this.handleChange}
+                    />
+                    <Input
+                        label="Password"
+                        type="password"
+                        required
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={this.handleChange}
+                    />
+
+                    <Button type="submit">Submit</Button>
                 </form>
             </BasicLayout>
         );

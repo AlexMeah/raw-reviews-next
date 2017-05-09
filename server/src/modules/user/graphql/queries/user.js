@@ -8,7 +8,7 @@ const utils = require('../utils');
 module.exports = {
     type: userType,
     args: {
-        username: {
+        id: {
             description: 'id of the user',
             type: new GraphQLNonNull(GraphQLString)
         }

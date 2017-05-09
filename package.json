@@ -6,12 +6,17 @@
   "scripts": {
     "dev": "node server/src",
     "build": "next build",
-    "start": "NODE_ENV=production node server",
+    "start": "NODE_ENV=production node server/src",
     "test": "NODE_ENV=test run-s lint ava",
     "ava": "NODE_ENV=test nyc ava --verbose src/**/test.js",
     "ava:nocoverage": "NODE_ENV=test ava --verbose src/**/test.js",
     "ava:watch": "NODE_ENV=test ava --verbose --watch src/**/test.js",
-    "lint": "prettier-eslint --write \"src/**/*.js\""
+    "lint": "prettier-eslint --write \"src/**/*.js\"",
+    "postinstall": "npm run build"
+  },
+  "engines": {
+    "node": "6.x.x",
+    "npm": "3.x.x"
   },
   "keywords": [],
   "author": "",
@@ -22,7 +27,6 @@
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-ava": "^4.2.0",
     "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.10.3",
     "nyc": "^10.2.0",
     "prettier-eslint-cli": "^3.2.0",
@@ -30,12 +34,17 @@
     "yarn-run-all": "^3.1.1"
   },
   "dependencies": {
-    "aws-sdk": "^2.48.0",
+    "aws-sdk": "^2.49.0",
     "babel-plugin-external-helpers": "^6.22.0",
     "bcrypt": "^1.0.2",
+    "bluebird": "^3.5.0",
     "body-parser": "^1.17.1",
     "compression": "^1.6.2",
+    "cookie-parser": "^1.4.3",
     "cors": "^2.8.3",
+    "date-fns": "^1.28.4",
+    "eslint-plugin-jsx-a11y": "4",
+    "exif-parser": "^0.1.9",
     "express": "^4.15.2",
     "express-jwt": "^5.3.0",
     "graphql": "^0.9.5",
@@ -46,14 +55,27 @@
     "isomorphic-fetch": "^2.2.1",
     "isomorphic-unfetch": "^1.0.0",
     "jsonwebtoken": "^7.4.0",
+    "lodash.get": "^4.4.2",
+    "marked": "^0.3.6",
     "mime-types": "^2.1.15",
+    "moment": "^2.18.1",
     "next": "^2.2.0",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
+    "polished": "^1.1.0",
     "react": "^15.5.4",
     "react-apollo": "^1.1.2",
     "react-dom": "^15.5.4",
+    "react-helmet": "^5.0.3",
+    "react-icon-base": "^2.0.5",
+    "react-icons": "^2.2.3",
+    "react-lazyload": "^2.2.7",
+    "redis": "^2.7.1",
+    "redux": "^3.0.0",
     "sequelize": "^3.30.4",
-    "shortid": "^2.2.8"
+    "shortid": "^2.2.8",
+    "styled-components": "^1.4.5",
+    "styled-tools": "^0.1.4",
+    "webpack-bundle-analyzer": "^2.4.0"
   }
 }

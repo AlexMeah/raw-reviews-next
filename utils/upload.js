@@ -6,6 +6,15 @@ export default (file, onProgress = () => {}) => ({ url, signedRequest }) =>
             return rej(new Error('RAW images must be under 80mb'));
         }
 
+        const formData = new FormData();
+
+        Object.keys(signedRequest.fields).forEach(key => {
+            formData.append(key, signedRequest.fields[key]);
+        });
+
+        formData.append('key', url);
+        formData.append('file', file);
+
         const xhr = new XMLHttpRequest();
         xhr.upload.addEventListener(
             'progress',
@@ -14,17 +23,17 @@ export default (file, onProgress = () => {}) => ({ url, signedRequest }) =>
             },
             false
         );
-        xhr.open('PUT', signedRequest);
+        xhr.open('POST', signedRequest.url);
         xhr.onreadystatechange = () => {
             if (xhr.readyState === 4) {
-                if (xhr.status === 200) {
+                if (xhr.status === 204) {
                     res(url);
                 } else {
                     rej(new Error('Could not upload file.'));
                 }
             }
         };
-        xhr.send(file);
+        xhr.send(formData);
 
         return xhr;
     });

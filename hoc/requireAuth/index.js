@@ -16,7 +16,6 @@ export default function withSubscription(WrappedComponent) {
         componentDidMount() {
             auth()
                 .then(authed => {
-                    console.log(authed);
                     this.setState({
                         authed
                     });

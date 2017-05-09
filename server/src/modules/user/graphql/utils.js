@@ -9,10 +9,9 @@ const secureFields = [
 
 module.exports = {
     filterSecure(options, args, context) {
-        console.log('jhbhjbh');
         return Object.assign(options, {
             attributes: options.attributes.filter(attr => {
-                if (context.user && context.user.username === args.username) {
+                if (context.user && context.user.id === args.id) {
                     return true;
                 }
 

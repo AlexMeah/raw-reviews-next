@@ -16,7 +16,8 @@ const errorHandler = err => {
 const statusCheck = resp => {
     if (
         resp.status === 401 &&
-        window.location.pathname.indexOf('login') === -1
+        window.location.pathname.indexOf('login') === -1 &&
+        window.location.pathname.indexOf('u/create') === -1
     ) {
         Router.push({
             pathname: '/u/login',
@@ -64,6 +65,7 @@ export function get(url) {
 
     return fetch(url, {
         method: 'GET',
+        credentials: 'same-origin',
         headers
     })
         .then(extractToken)
@@ -86,6 +88,7 @@ export function post(url, body) {
 
     return fetch(url, {
         method: 'POST',
+        credentials: 'same-origin',
         headers,
         body: JSON.stringify(body)
     })

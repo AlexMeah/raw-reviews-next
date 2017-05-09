@@ -1,9 +1,11 @@
 import { get } from './api';
 
+import config from '../config';
+
 let _isAuthenticated;
 
 const checkAuth = () =>
-    get('http://localhost:3000/api/me').then(status => {
+    get(`${config.host}/api/me`).then(status => {
         setTimeout(() => {
             _isAuthenticated = false;
         }, 1000 * 60 * 5);

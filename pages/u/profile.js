@@ -1,25 +1,26 @@
-import 'isomorphic-fetch';
-
 import React from 'react';
+import Helmet from 'react-helmet';
+
+import withData from '../../hoc/withData';
 
 import BasicLayout from '../../layouts/Basic';
+import Feed from '../../components/Feed';
+import FilterBar from '../../components/FilterBar';
+import FeedData from '../../queries/feed';
 
-const Post = props => (
+const User = props => (
     <BasicLayout>
-        <h1>{props.movie.Title}</h1>
-        <p>{props.movie.Plot}</p>
-        <img src={props.movie.Poster} />
+        <Helmet>
+            <title>User Profile</title>
+        </Helmet>
+        <FilterBar
+            {...props.url.query}
+            pathname="/u/profile"
+            query={{ userId: props.url.query.userId }}
+            alias={`/u/${props.url.query.userId}`}
+        />
+        <Feed key={`feed-${props.url.query.userId}`} {...props} />
     </BasicLayout>
 );
 
-Post.getInitialProps = async function (context) {
-    const { username } = context.query;
-    const res = await fetch(`http://www.omdbapi.com/?i=${username}`);
-    const movie = await res.json();
-
-    console.log(`Fetched movie: ${movie.Title}`);
-
-    return { movie };
-};
-
-export default Post;
+export default withData(FeedData(User));

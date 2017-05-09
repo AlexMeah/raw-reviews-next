@@ -1,7 +1,9 @@
 import { post } from './api';
 
+import config from '../config';
+
 export default ({ username, password }) =>
-    post('http://localhost:3000/api/login', {
+    post(`${config.host}/api/login`, {
         username,
         password
     });

@@ -4,7 +4,12 @@ import initClient from './initClient';
 
 export default Component => class extends React.Component {
     static async getInitialProps(ctx) {
-        const headers = ctx.req ? ctx.req.headers : {};
+        const headers = ctx.req
+            ? {
+                headers: ctx.req.headers,
+                cookies: ctx.req.cookies
+            }
+            : {};
         const client = initClient(headers);
 
         const props = {
