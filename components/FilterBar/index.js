@@ -20,7 +20,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
         <Filter className="col">
             <strong>Order by:</strong> <Link
                 color="link"
-                active={order === 'best'}
+                active={!order || order === 'best'}
                 href={{
                     pathname,
                     query: Object.assign(
@@ -36,7 +36,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                 Best
             </Link> | <Link
                 color="link"
-                active={!order || order === 'latest'}
+                active={order === 'latest'}
                 href={{
                     pathname,
                     query: Object.assign(
@@ -57,7 +57,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
             {' '}
             <Link
                 color="link"
-                active={time === 'all'}
+                active={!time || time === 'all'}
                 href={{
                     pathname,
                     query: Object.assign(
@@ -105,7 +105,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                 Month
             </Link> | <Link
                 color="link"
-                active={!time || time === 'week'}
+                active={time === 'week'}
                 href={{
                     pathname,
                     query: Object.assign(

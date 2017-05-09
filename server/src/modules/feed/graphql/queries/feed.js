@@ -78,11 +78,15 @@ function buildQuery(args) {
             }
         }
     };
-    const query = {};
+    const query = {
+        time: time[CONSTANTS.all]
+    };
 
     if (args.time) {
         Object.assign(query, {
-            where: time[args.time.toLowerCase()]
+            where: Object.assign(query.where, {
+                time: time[args.time.toLowerCase()]
+            })
         });
     }
 
@@ -94,7 +98,7 @@ function buildQuery(args) {
         });
     }
 
-    query.order = orders[args.order || CONSTANTS.latest];
+    query.order = orders[args.order || CONSTANTS.best];
 
     return query;
 }

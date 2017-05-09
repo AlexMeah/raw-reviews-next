@@ -29,8 +29,8 @@ const ComponentWithFeed = Component =>
             return {
                 fetchPolicy: 'network-only',
                 variables: {
-                    order: query.order || props.order || 'latest',
-                    time: query.time || props.time || 'week',
+                    order: query.order || props.order || 'best',
+                    time: query.time || props.time || 'all',
                     userId: query.userId || props.userId || null
                 }
             };
