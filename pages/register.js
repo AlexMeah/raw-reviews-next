@@ -1,21 +1,24 @@
 import React from 'react';
 import Helmet from 'react-helmet';
-import Router from 'next/router';
+import { graphql } from 'react-apollo';
+import gql from 'graphql-tag';
 
-import login from '../../utils/login';
-import BasicLayout from '../../layouts/Basic';
-import DisallowAuth from '../../hoc/disallowAuth';
-import Input from '../../components/Input';
-import Button from '../../components/Button';
-import P from '../../components/P';
+import DisallowAuth from '../hoc/disallowAuth';
+import withData from '../hoc/withData';
 
-class Login extends React.Component {
+import BasicLayout from '../layouts/Basic';
+import Input from '../components/Input';
+import Button from '../components/Button';
+import P from '../components/P';
+
+class CreateUser extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             form: {
                 username: '',
-                password: ''
+                password: '',
+                email: ''
             }
         };
 
@@ -39,20 +42,19 @@ class Login extends React.Component {
                 error: null
             },
             () => {
-                login(this.state.form)
+                this.props
+                    .mutate({
+                        variables: this.state.form
+                    })
                     .then(() => {
-                        if (Router.query.returnTo) {
-                            window.location = decodeURIComponent(
-                                Router.query.returnTo
-                            ); // Router push is flaky
-                        } else {
-                            Router.push('/');
-                        }
+                        this.setState({
+                            signupSuccessful: true
+                        });
                     })
                     .catch(err => {
                         this.setState({
-                            loginSuccessful: false,
-                            error: err.message
+                            signupSuccessful: false,
+                            error: err.message.replace('GraphQL error: ', '')
                         });
                     });
             }
@@ -60,19 +62,15 @@ class Login extends React.Component {
     }
 
     render() {
-        const { username, password } = this.state.form;
+        const { username, password, email } = this.state.form;
 
-        const { loginSuccessful, error } = this.state;
+        const { signupSuccessful, error } = this.state;
 
-        if (loginSuccessful) {
+        if (signupSuccessful) {
             return (
-                <BasicLayout>
-                    <Helmet>
-                        <title>Login</title>
-                    </Helmet>
-
-                    login Successful
-                </BasicLayout>
+                <div>
+                    Signup Successful
+                </div>
             );
         }
 
@@ -82,7 +80,7 @@ class Login extends React.Component {
                     <title>Login</title>
                 </Helmet>
 
-                <h1>Login</h1>
+                <h1>Create user</h1>
 
                 <P color="negative" strong className="error">{error}</P>
 
@@ -105,6 +103,15 @@ class Login extends React.Component {
                         value={password}
                         onChange={this.handleChange}
                     />
+                    <Input
+                        label="Email"
+                        type="text"
+                        required
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={this.handleChange}
+                    />
 
                     <Button type="submit">Submit</Button>
                 </form>
@@ -113,4 +120,14 @@ class Login extends React.Component {
     }
 }
 
-export default DisallowAuth(Login);
+const createUserMutation = gql`
+  mutation user_createUser($username: String!, $email: String!, $password: String!) {
+    user_createUser(username: $username, email: $email, password: $password) {
+        id
+    }
+  }
+`;
+
+const CreateUserWithMutation = graphql(createUserMutation)(CreateUser);
+
+export default DisallowAuth(withData(CreateUserWithMutation));

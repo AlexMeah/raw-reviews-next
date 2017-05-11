@@ -140,20 +140,6 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
             })
         );
 
-        server.get('/u/login', (req, res) => {
-            if (req.user) {
-                return res.redirect('/');
-            }
-
-            const actualPage = '/u/login';
-            return app.render(req, res, actualPage, req.query);
-        });
-
-        server.get('/u/create', (req, res) => {
-            const actualPage = '/u/create';
-            app.render(req, res, actualPage, req.query);
-        });
-
         server.get('/u/:userId', (req, res) => {
             const actualPage = '/u/profile';
             renderAndCache(

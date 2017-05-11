@@ -60,11 +60,11 @@ export default class Header extends React.Component {
                             Submit Edit
                         </Link>}
                     {!this.state.auth &&
-                        <Link color="link" href="/u/login">
+                        <Link color="link" href="/login">
                             Login
                         </Link>}
                     {!this.state.auth &&
-                        <Link color="link" href="/u/create">
+                        <Link color="link" href="/register">
                             Register
                         </Link>}
                     {this.state.auth &&
