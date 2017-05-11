@@ -42,7 +42,7 @@ export default class MyDocument extends Document {
                     {this.props.helmet.title.toComponent()}
                     {this.props.helmet.meta.toComponent()}
                     <link
-                        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,600"
+                        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
                         rel="stylesheet"
                     />
                     <link

@@ -12,13 +12,14 @@ export default injectGlobal`
     html {
         font-size: 62.5%;
         font-family: 'Source Sans Pro', sans-serif;
-        background-color: ${vars.colors.primary};
+        background: ${vars.colors.bodyBackground};
         color: ${vars.colors.body};
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
-        font-weight: 300;
+        font-weight: 400;
         line-height: 1.43;
         hyphens: auto
+        min-height: 100vh;
     }
 
     body {
@@ -28,7 +29,7 @@ export default injectGlobal`
     }
 
     a {
-        color: #fff;
+        color: ${vars.colors.link};
         text-decoration: none;
     }
 
@@ -41,7 +42,7 @@ export default injectGlobal`
     b,
     strong {
         margin-top: 0;
-        font-weight: 600;
+        font-weight: ${vars.font.bold};
     }
 
     .tac {
@@ -63,5 +64,16 @@ export default injectGlobal`
     .readable {
         max-width: 52rem;
         margin: 0 auto;
+    }
+
+    hr {
+        &.short {
+            display: block;
+            height: 1px;
+            margin: 1.5rem auto 1.2rem;
+            background: ${vars.colors.body};
+            border: 0;
+            width: 4rem;
+        }
     }
 `;

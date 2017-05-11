@@ -7,7 +7,7 @@ import styleVars from '../../css/vars';
 const Link = styled.span`
     color: ${props => styleVars.colors[props.color] || styleVars.colors.secondary};
     cursor: pointer;
-    font-weight: 600;
+    font-weight: ${styleVars.font.bold};
     ${props => props.active && 'text-decoration: underline;'}
 `;
 

@@ -4,6 +4,8 @@ import styled from 'styled-components';
 import Logo from './Logo';
 import Link from './Link';
 
+import styleVars from '../css/vars';
+
 const logout = () => {
     window.localStorage.removeItem('authtoken');
     window.location = '/api/logout';
@@ -42,7 +44,7 @@ export default class Header extends React.Component {
             <Container className="row">
                 <LogoContainer className="col-xs-12 col-sm-6 center-xs start-sm">
                     <Link href="/">
-                        <Logo />
+                        <Logo color={styleVars.colors.primary} />
                     </Link>
                 </LogoContainer>
 

@@ -16,14 +16,19 @@ const Container = styled.div`
     margin-bottom: 4rem;
     width: 100%;
     max-width: 26rem;
+    background: #fff;
+    border-radius: ${styleVars.radius};
+    box-shadow: ${styleVars.shadow};
 `;
 
 const Top = styled.div`
     width: 100%;
-    margin-bottom: 1rem;
 `;
 
-const Bottom = styled.div``;
+const Bottom = styled.div`
+    padding: 3rem;
+    text-align: center;
+`;
 
 const SmallH3 = styled(H3)`
     font-size: 1.8rem;
@@ -64,8 +69,9 @@ const Item = ({
         </Top>
         <Bottom>
             <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                <SmallH3 title={title} color="secondary">{title}</SmallH3>
+                <SmallH3 title={title} color="primary">{title}</SmallH3>
             </Link>
+            <hr className="short" />
             <P mb0 color="body">
                 <small>
                     {parent ? 'Re-Edited' : 'Submitted'}
@@ -78,6 +84,7 @@ const Item = ({
                         {!userId
                             ? 'anon'
                             : <Link
+                                color="primary"
                                 href={`/u/profile?userId=${userId}`}
                                 as={`/u/${userId}`}
                             >

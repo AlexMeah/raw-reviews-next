@@ -109,7 +109,7 @@ const WidthSlider = styled.input`
     -webkit-appearance:none;
     width:100%;
     height:2px;
-    background: #fff;
+    background: ${styleVars.colors.body};
     background-position:center;
     background-repeat:no-repeat;
     margin: 4rem auto;
@@ -120,9 +120,9 @@ const WidthSlider = styled.input`
         width:4rem;
         height:4rem;
         border-radius: 100%;
-        background: ${styleVars.colors.primary};
+        background: ${styleVars.colors.bodyBackground};
         position:relative;
-        border: 3px solid #fff;
+        border: 3px solid ${styleVars.colors.body};
         z-index:3;
         cursor: pointer;
     }

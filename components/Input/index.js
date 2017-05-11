@@ -19,11 +19,12 @@ const InputContainer = styled.label`
 const Input = styled.input`
 border: 0;
 box-shadow: ${styleVars.shadow};
-padding: 1rem 2rem;
+border-radius: ${styleVars.radius};
+padding: 1.5rem 2rem;
 font-size: inherit;
 outline: none;
 width: 100%;
-max-width: 60rem;
+max-width: 50rem;
 `;
 
 export default ({ progress = false, label = false, name, error, ...rest }) => (

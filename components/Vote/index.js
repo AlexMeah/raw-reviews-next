@@ -109,7 +109,7 @@ class Vote extends React.Component {
                 }
             })
             .catch(err => {
-                alert(err.message);
+                alert(err.message.replace('GraphQL error: ', ''));
             });
     }
 

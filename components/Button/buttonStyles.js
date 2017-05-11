@@ -35,8 +35,8 @@ const buttonStyles = css`
     font-size: ${props => `${(sizes[props.size] || 1) * 1}em`}    ;
     border-radius: ${styleVars.radius};
     font-family: inherit;
-    color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
-    background-color: ${props => styleVars.colors[props.color] || styleVars.colors.secondary};
+    color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+    background-color: ${props => styleVars.colors[props.color] || styleVars.colors.primary};
     margin-bottom: 2rem;
     ${props => props.block && 'width: 100%;'}
 
@@ -45,25 +45,25 @@ const buttonStyles = css`
     }
 
     &:hover {
-        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
-        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.secondary)};
+        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.primary)};
     }
 
     &:focus {
-        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
-        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.secondary)};
+        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.primary)};
     }
 
     &:active {
-        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
-        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.secondary)};
+        color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+        background-color: ${props => dark(styleVars.colors[props.color] || styleVars.colors.primary)};
         background-image: none;
         outline: 0;
 
         &:focus,
         &:hover {
-            color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
-            background-color: ${props => darker(styleVars.colors[props.color] || styleVars.colors.secondary)};
+            color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+            background-color: ${props => darker(styleVars.colors[props.color] || styleVars.colors.primary)};
         }
     }
 
@@ -73,11 +73,11 @@ const buttonStyles = css`
 
         &.focus,
         &:focus {
-            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
+            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
         }
 
         &:hover {
-            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.secondaryColor};
+            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
         }
     }
 `;

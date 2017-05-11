@@ -115,7 +115,7 @@ const Post = props => {
                         <Button
                             to={`/e/r/create?editId=${edit.parent || edit.id}`}
                             as={`/e/${edit.parent || edit.id}/r/create`}
-                            color="positive"
+                            color="primary"
                             type="button"
                         >
                             Submit Re-edit

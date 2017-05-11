@@ -1,10 +1,14 @@
 export default {
-    shadow: '0 2px 2px 0 rgba(0,0,0,0.14), 0 1px 5px 0 rgba(0,0,0,0.12), 0 3px 1px -2px rgba(0,0,0,0.2)',
+    shadow: '0 3px 20px #CFD2D7',
     radius: '.2rem',
+    font: {
+        bold: 600
+    },
     colors: {
-        primary: '#34495e',
+        bodyBackground: 'linear-gradient(to bottom, #fff, #E3E6EA)',
+        primary: '#529AFB',
         primaryColor: '#FFF',
-        secondary: '#448DC9',
+        secondary: '#705afb',
         secondaryColor: '#FFF',
         muted: '#D9F0FF',
         mutedColor: '#333',
@@ -14,9 +18,9 @@ export default {
         positiveColor: '#fff',
         negative: '#F46A4E',
         negativeColor: '#fff',
-        link: '#FFF',
+        link: '#529AFB',
         mono: '#7E8287',
-        body: '#FFF',
-        bodyDark: '#2c3e50'
+        body: '#8e9fa7',
+        bodyDark: '#8e9fa7'
     }
 };
