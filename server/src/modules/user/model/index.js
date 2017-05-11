@@ -3,6 +3,7 @@
 
 const bcrypt = require('bcrypt');
 const shortid = require('shortid');
+const sequelizeTransforms = require('sequelize-transforms');
 
 function hashPassword(user) {
     if (user.changed('password')) {
@@ -42,6 +43,8 @@ module.exports = (sequelize, DataTypes) => {
                         msg: 'The email you entered is invalid'
                     }
                 },
+                lowercase: true,
+                trim: true,
                 unique: {
                     args: true,
                     msg: 'Looks like you already have an account try logging in.',
@@ -78,6 +81,8 @@ module.exports = (sequelize, DataTypes) => {
             }
         }
     );
+
+    sequelizeTransforms(User);
 
     return User;
 };

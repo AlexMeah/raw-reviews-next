@@ -73,6 +73,7 @@
     "redis": "^2.7.1",
     "redux": "^3.0.0",
     "sequelize": "^3.30.4",
+    "sequelize-transforms": "^1.0.0",
     "shortid": "^2.2.8",
     "styled-components": "^1.4.5",
     "styled-tools": "^0.1.4",
