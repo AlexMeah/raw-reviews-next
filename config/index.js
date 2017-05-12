@@ -5,7 +5,7 @@ const port = process.env.PORT || 3000;
 module.exports = {
     siteName: 'Raw Progress',
     host: getEnv({
-        production: `${typeof window !== 'undefined' ? '' : 'http:'}//rawprogress.com`,
+        production: `${typeof window !== 'undefined' ? '' : 'https:'}//rawprogress.com`,
         default: `http://local.dev:${port}`
     }),
     cdn: getEnv({
