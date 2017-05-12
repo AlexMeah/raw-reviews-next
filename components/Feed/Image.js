@@ -4,13 +4,12 @@ import React from 'react';
 import styled from 'styled-components';
 import LazyLoad from 'react-lazyload';
 
-import styleVars from '../../css/vars';
 import config from '../../config';
 
 const Container = styled.div`
     position: relative;
-    width: 26rem;
-    padding-bottom: 26rem;
+    width: 100%;
+    padding-bottom: 100%;
     height: 0;
     margin: 0 auto;
     overflow: hidden;

@@ -13,12 +13,20 @@ import H3 from '../H3';
 import Link from '../Link';
 
 const Container = styled.div`
-    margin-bottom: 4rem;
+    padding-bottom: 2rem;
     width: 100%;
-    max-width: 26rem;
+
+@media only screen and (min-width: ${styleVars.breakpoints.sm}) {
+    padding: 2rem;
+}
+`;
+
+const Inner = styled.div`
+    height: 100%;
     background: #fff;
     border-radius: ${styleVars.radius};
     box-shadow: ${styleVars.shadow};
+    padding: 0;
 `;
 
 const Top = styled.div`
@@ -61,27 +69,28 @@ const Item = ({
     createdAt,
     userId
 }) => (
-    <Container className="col">
-        <Top>
-            <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                <Image before={before} after={after} />
-            </Link>
-        </Top>
-        <Bottom>
-            <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                <SmallH3 title={title} color="primary">{title}</SmallH3>
-            </Link>
-            <hr className="short" />
-            <P mb0 color="body">
-                <small>
-                    {parent ? 'Re-Edited' : 'Submitted'}
-                    {' '}
-                    <strong>{distanceInWordsToNow(createdAt)}</strong>
-                    {' '}
+    <Container className="col-sm-6 col-md-4 col-lg-3">
+        <Inner>
+            <Top>
+                <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
+                    <Image before={before} after={after} />
+                </Link>
+            </Top>
+            <Bottom>
+                <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
+                    <SmallH3 title={title} color="primary">{title}</SmallH3>
+                </Link>
+                <hr className="short" />
+                <P mb0 color="body">
+                    <small>
+                        {parent ? 'Re-Edited' : 'Submitted'}
+                        {' '}
+                        <strong>{distanceInWordsToNow(createdAt)}</strong>
+                        {' '}
                     ago by
                     {' '}
-                    <strong>
-                        {!userId
+                        <strong>
+                            {!userId
                             ? 'anon'
                             : <Link
                                 color="primary"
@@ -90,11 +99,12 @@ const Item = ({
                             >
                                 {userId}
                             </Link>}
-                    </strong>
-                </small>
-            </P>
-            <Likes><HeartIcon /> <span>{ups - downs}</span></Likes>
-        </Bottom>
+                        </strong>
+                    </small>
+                </P>
+                <Likes><HeartIcon /> <span>{ups - downs}</span></Likes>
+            </Bottom>
+        </Inner>
     </Container>
 );
 

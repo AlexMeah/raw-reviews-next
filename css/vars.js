@@ -4,6 +4,11 @@ export default {
     font: {
         bold: 600
     },
+    breakpoints: {
+        sm: '480px',
+        md: '640px',
+        lg: '960px'
+    },
     colors: {
         bodyBackground: 'linear-gradient(to bottom, #fff, #E3E6EA)',
         primary: '#529AFB',

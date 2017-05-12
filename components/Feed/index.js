@@ -27,7 +27,7 @@ const Feed = ({ loading, feed, loadMoreEdits }) => {
 
     return (
         <Container>
-            <div className="row around-xs">
+            <div className="row between-xs">
                 {feedData.length === 0 && <H3>No posts</H3>}
                 {feedData.map(f => <Item key={f.id} {...f} />)}
             </div>

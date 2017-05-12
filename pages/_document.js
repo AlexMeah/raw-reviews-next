@@ -32,13 +32,8 @@ export default class MyDocument extends Document {
                     <Helmet
                         htmlAttributes={{ lang: 'en' }}
                         titleTemplate={`%s | ${config.siteName}`}
-                        meta={[
-                            {
-                                name: 'viewport',
-                                content: 'width=device-width, initial-scale=1'
-                            }
-                        ]}
                     />
+                    <meta name="viewport" content="width=device-width, initial-scale=1" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png" />
                     <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png" />
                     <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png" />
@@ -60,10 +55,6 @@ export default class MyDocument extends Document {
                     {this.props.helmet.meta.toComponent()}
                     <link
                         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
-                        rel="stylesheet"
-                    />
-                    <link
-                        href="https://unpkg.com/flexboxgrid@6.3.1/dist/flexboxgrid.min.css"
                         rel="stylesheet"
                     />
                 </Head>
