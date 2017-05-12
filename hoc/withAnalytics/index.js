@@ -9,7 +9,7 @@ if (process.browser) {
     ReactGA = require('react-ga'); // eslint-disable-line global-require
 }
 
-const GOOGLE_ANALYTICS_UA = 'UA-87013101-1';
+const GOOGLE_ANALYTICS_UA = 'UA-99023461-1';
 
 export default ComposedComponent => class WithAnalytics extends React.Component {
     constructor(props) {
