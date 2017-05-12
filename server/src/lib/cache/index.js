@@ -31,7 +31,7 @@ module.exports = {
     },
     delPattern(pattern) {
         if (client) {
-            return client.keysAsync(pattern).then(keys => client.delAsync(keys));
+            return client.keysAsync(pattern).then(keys => client.delAsync(...keys));
         }
 
         return Promise.resolve();
