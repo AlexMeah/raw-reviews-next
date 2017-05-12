@@ -34,6 +34,7 @@ export default class MyDocument extends Document {
                         titleTemplate={`%s | ${config.siteName}`}
                     />
                     <meta name="viewport" content="width=device-width, initial-scale=1" />
+                    <meta name="google-site-verification" content="mkM-b5KZOWo2v-eA_xrv6S1t6kQE8pZJFqDbs4oDSAg" />
                     <link rel="apple-touch-icon" sizes="57x57" href="/static/apple-icon-57x57.png" />
                     <link rel="apple-touch-icon" sizes="60x60" href="/static/apple-icon-60x60.png" />
                     <link rel="apple-touch-icon" sizes="72x72" href="/static/apple-icon-72x72.png" />
