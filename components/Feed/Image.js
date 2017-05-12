@@ -37,7 +37,9 @@ const Image = ({ before, after }) => (
         <LazyLoad once>
             <Img src={`${config.cdn}/resized/square/${before}`} />
         </LazyLoad>
-        <After src={`${config.cdn}/resized/square/${after}`} />
+        <LazyLoad once>
+            <After src={`${config.cdn}/resized/square/${after}`} />
+        </LazyLoad>
     </Container>
 );
 
