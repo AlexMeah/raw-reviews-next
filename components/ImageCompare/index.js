@@ -6,6 +6,26 @@ import config from '../../config';
 
 import Button from '../Button';
 
+const getSize = (imgUrl) => new Promise((res) => {
+    const img = new Image();
+    img.onload = function () {
+        res({
+            w: img.width,
+            h: img.height
+        });
+    };
+
+    img.src = `${config.cdn}/resized/large/${imgUrl}`;
+});
+
+function sameSize(before, after) {
+    return Promise.all([
+        getSize(before),
+        getSize(after)
+    ])
+    .then(([bSize, aSize]) => bSize.w === aSize.w && bSize.h === aSize.h);
+}
+
 const SplitContainer = styled.div`
     font-size: 0;
     margin-bottom: 2rem;
@@ -140,6 +160,16 @@ class ImageCompare extends React.Component {
 
         this.update = this.update.bind(this);
         this.toggle = this.toggle.bind(this);
+    }
+
+    componentDidMount() {
+        sameSize(this.props.before, this.props.after)
+            .then((sameSizeResult) => {
+                this.setState({
+                    allowComparisonView: sameSizeResult,
+                    split: sameSizeResult ? this.state.split : true
+                });
+            });
     }
 
     update(e) {
