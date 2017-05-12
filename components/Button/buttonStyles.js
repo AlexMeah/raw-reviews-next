@@ -69,15 +69,17 @@ const buttonStyles = css`
 
     &:disabled {
         cursor: not-allowed;
-        opacity: .65;
+        opacity: .2;
+        background-color: ${styleVars.colors.muted};
+        color: ${styleVars.colors.mutedColor};
 
         &.focus,
         &:focus {
-            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+            background-color: ${styleVars.colors.muted};
         }
 
         &:hover {
-            background-color: ${props => styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};
+            background-color: ${styleVars.colors.muted};
         }
     }
 `;
