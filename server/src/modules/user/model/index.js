@@ -3,7 +3,6 @@
 
 const bcrypt = require('bcrypt');
 const shortid = require('shortid');
-const sequelizeTransforms = require('sequelize-transforms');
 
 function hashPassword(user) {
     if (user.changed('password')) {
@@ -18,7 +17,6 @@ function hashPassword(user) {
 
     return Promise.resolve();
 }
-
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define(
         'user',
@@ -28,6 +26,9 @@ module.exports = (sequelize, DataTypes) => {
                 type: DataTypes.STRING,
                 validate: {
                     is: ['^[a-z_-\\d]+$', 'i']
+                },
+                set: function set(val) {
+                    this.setDataValue('id', val.toLowerCase());
                 },
                 unique: {
                     args: true,
@@ -43,8 +44,9 @@ module.exports = (sequelize, DataTypes) => {
                         msg: 'The email you entered is invalid'
                     }
                 },
-                lowercase: true,
-                trim: true,
+                set: function set(val) {
+                    this.setDataValue('email', val.toLowerCase());
+                },
                 unique: {
                     args: true,
                     msg: 'Looks like you already have an account try logging in.',
@@ -77,12 +79,21 @@ module.exports = (sequelize, DataTypes) => {
             },
             hooks: {
                 beforeCreate: hashPassword,
-                beforeSave: hashPassword
+                beforeSave: hashPassword,
+                beforeFindAfterOptions: (query) => {
+                    if (query.where.id) {
+                        return Object.assign(query, {
+                            where: Object.assign(query.where, {
+                                id: query.where.id.toString().toLowerCase()
+                            })
+                        });
+                    }
+
+                    return query;
+                }
             }
         }
     );
-
-    sequelizeTransforms(User);
 
     return User;
 };

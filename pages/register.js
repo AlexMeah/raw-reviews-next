@@ -2,6 +2,7 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import Router from 'next/router';
 
 import DisallowAuth from '../hoc/disallowAuth';
 import withData from '../hoc/withData';
@@ -47,9 +48,13 @@ class CreateUser extends React.Component {
                         variables: this.state.form
                     })
                     .then(() => {
-                        this.setState({
-                            signupSuccessful: true
-                        });
+                        if (Router.query.returnTo) {
+                            window.location = decodeURIComponent(
+                                Router.query.returnTo
+                            ); // Router push is flaky
+                        } else {
+                            Router.push('/');
+                        }
                     })
                     .catch(err => {
                         this.setState({
@@ -77,7 +82,7 @@ class CreateUser extends React.Component {
         return (
             <BasicLayout className="tac">
                 <Helmet>
-                    <title>Login</title>
+                    <title>Register</title>
                 </Helmet>
 
                 <h1>Create user</h1>
