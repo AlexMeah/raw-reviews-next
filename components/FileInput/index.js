@@ -17,7 +17,11 @@ const FileInputContainer = styled.label`
 `;
 
 const FileInput = styled.input`
-    display: none;
+    width: 1px;
+    height: 1px;
+    opacity: 0;
+    position: relative;
+    top: 4rem;
 `;
 
 const progressText = p => {
