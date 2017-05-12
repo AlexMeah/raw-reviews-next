@@ -18,6 +18,14 @@ import TextArea from '../../components/TextArea';
 import H1 from '../../components/H1';
 import Button from '../../components/Button';
 
+function isUploading(state) {
+    return (
+        (state.uploading.before && (state.uploading.before !== 100)) ||
+        (state.uploading.after && (state.uploading.after !== 100)) ||
+        (state.uploading.raw && (state.uploading.raw !== 100))
+    );
+}
+
 class CreateEdit extends React.Component {
     constructor(props) {
         super(props);
@@ -92,7 +100,6 @@ class CreateEdit extends React.Component {
                 });
             })
             .catch(err => {
-                console.log(err);
                 this.setState({
                     errors: Object.assign({}, this.state.errors, {
                         [name]: err.message
@@ -127,8 +134,6 @@ class CreateEdit extends React.Component {
     }
 
     render() {
-        const { before, after, raw, description } = this.state.form;
-
         const { error } = this.state;
         const hasErrors = Object.keys(this.state.errors)
             .map(k => this.state.errors[k])
@@ -219,7 +224,7 @@ class CreateEdit extends React.Component {
                         <div className="box">
                             <Button
                                 type="submit"
-                                disabled={hasErrors}
+                                disabled={hasErrors || isUploading(this.state)}
                                 color={hasErrors ? 'negative' : 'positive'}
                             >
                                 Submit

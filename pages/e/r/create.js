@@ -13,10 +13,15 @@ import extractExif from '../../../utils/extractExif';
 
 import BasicLayout from '../../../layouts/Basic';
 import FileInput from '../../../components/FileInput';
-import Input from '../../../components/Input';
 import TextArea from '../../../components/TextArea';
 import H1 from '../../../components/H1';
 import Button from '../../../components/Button';
+
+function isUploading(state) {
+    return (
+        (state.uploading.after && (state.uploading.after !== 100))
+    );
+}
 
 class CreateReEdit extends React.Component {
     constructor(props) {
@@ -190,7 +195,7 @@ class CreateReEdit extends React.Component {
                         <div className="box">
                             <Button
                                 type="submit"
-                                disabled={hasErrors}
+                                disabled={hasErrors || isUploading(this.state)}
                                 color={hasErrors ? 'negative' : 'positive'}
                             >
                                 Submit
