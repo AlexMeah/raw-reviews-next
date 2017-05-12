@@ -99,6 +99,8 @@ Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
         server.use(bodyParser.json());
         server.use(cookieParser());
 
+        server.use('/static', express.static('static'));
+
         server.use('/api/login', login);
         server.use('/api/logout', logout);
 
