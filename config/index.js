@@ -3,7 +3,7 @@ const getEnv = require('./getEnv')(process.env.NODE_ENV);
 const port = process.env.PORT || 3000;
 
 module.exports = {
-    siteName: 'Raw Reviews',
+    siteName: 'Raw Progress',
     host: getEnv({
         production: `${process.env.BROWSER ? '' : 'http:'}//rawprogress.com`,
         default: `http://local.dev:${port}`
