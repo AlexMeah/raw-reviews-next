@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga';
+
 import { get } from './api';
 
 import config from '../config';
@@ -6,6 +8,7 @@ let _isAuthenticated;
 
 const checkAuth = () =>
     get(`${config.host}/api/me`).then(status => {
+        ReactGA.set({ userId: status.id });
         setTimeout(() => {
             _isAuthenticated = false;
         }, 1000 * 60 * 5);

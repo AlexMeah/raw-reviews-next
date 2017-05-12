@@ -1,5 +1,6 @@
 import React from 'react';
 import Router from 'next/router';
+import ReactGA from 'react-ga';
 import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -121,12 +122,25 @@ class CreateEdit extends React.Component {
                         variables: this.state.form
                     })
                     .then(({ data: { edit_createEdit: { id } } }) => {
+                        ReactGA.event({
+                            category: 'Edit',
+                            action: 'Submitted',
+                            label: id
+                        });
                         Router.push(`/e/view?editId=${id}`, `/e/${id}`);
                     })
                     .catch(err => {
+                        const error = err.message.replace('GraphQL error: ', '');
+
                         this.setState({
                             editCreateSuccessful: false,
-                            error: err.message.replace('GraphQL error: ', '')
+                            error
+                        });
+                        ReactGA.event({
+                            category: 'Edit',
+                            action: 'Failed',
+                            label: error,
+                            nonInteraction: true
                         });
                     });
             }

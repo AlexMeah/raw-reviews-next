@@ -27,7 +27,6 @@ const ComponentWithFeed = Component =>
             const query = (props.url && props.url.query) || {};
 
             return {
-                fetchPolicy: 'network-only',
                 variables: {
                     order: query.order || props.order || 'best',
                     time: query.time || props.time || 'all',

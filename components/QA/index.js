@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ReactGA from 'react-ga';
 
 import Markdown from '../Markdown';
 import H3 from '../H3';
@@ -32,6 +33,12 @@ class QA extends React.Component {
     toggle() {
         this.setState({
             visible: !this.state.visible
+        }, () => {
+            ReactGA.event({
+                category: 'FAQ',
+                action: 'Toggled',
+                label: this.state.visible ? 'Opened' : 'Closed'
+            });
         });
     }
 

@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Header from '../components/Header';
 import Footer from '../components/Footer';
+import withAnalytics from '../hoc/withAnalytics';
 
 const Container = styled.div`
     padding: 3rem;
@@ -16,4 +17,4 @@ const Layout = ({ children, ...rest }) => (
     </Container>
 );
 
-export default Layout;
+export default withAnalytics(Layout);

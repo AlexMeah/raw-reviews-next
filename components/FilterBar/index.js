@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import React from 'react';
+import ReactGA from 'react-ga';
 
 import Link from '../Link';
 
@@ -14,6 +15,14 @@ const Filter = styled.div`
         margin: 0;
     }
 `;
+
+const track = (val) => () => {
+    ReactGA.event({
+        category: 'Filter Bar',
+        action: 'Click',
+        label: val
+    });
+};
 
 export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
     <FilterBar className="row">
@@ -32,6 +41,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('best')}
             >
                 Best
             </Link> | <Link
@@ -48,6 +58,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('latest')}
             >
                 Latest
             </Link>
@@ -69,6 +80,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('all')}
             >
                 All
             </Link> | <Link
@@ -85,6 +97,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('year')}
             >
                 Year
             </Link> | <Link
@@ -101,6 +114,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('month')}
             >
                 Month
             </Link> | <Link
@@ -117,6 +131,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('week')}
             >
                 Week
             </Link> | <Link
@@ -133,6 +148,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('day')}
             >
                 Day
             </Link> | <Link
@@ -149,6 +165,7 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
                     )
                 }}
                 as={alias}
+                onClick={track('hour')}
             >
                 Hour
             </Link>
