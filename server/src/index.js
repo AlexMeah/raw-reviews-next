@@ -85,7 +85,11 @@ function syncModels() {
     ]);
 }
 
-Promise.all([app.prepare(), db.sequelize.authenticate().then(syncModels)])
+Promise.all([
+    app.prepare(),
+    db.sequelize.authenticate().then(syncModels),
+    cache.delPattern('raw-reviews:render-cache:*')
+])
     .then(() => {
         const server = express();
 
