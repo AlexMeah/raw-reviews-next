@@ -15,6 +15,14 @@ const checkAuth = () =>
 
         _isAuthenticated = Boolean(status);
 
+        if (
+            typeof window !== 'undefined' &&
+            _isAuthenticated &&
+            !window.localStorage.getItem('authtoken')
+        ) {
+            _isAuthenticated = false;
+        }
+
         return _isAuthenticated;
     });
 

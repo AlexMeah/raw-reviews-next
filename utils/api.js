@@ -8,6 +8,10 @@ const delToken = () => window.localStorage.removeItem('authtoken');
 const errorHandler = err => {
     if (err.code === 'invalid_token') {
         delToken();
+
+        if (typeof window !== 'undefined') {
+            window.location = '/api/logout';
+        }
     }
 
     return Promise.reject(err);

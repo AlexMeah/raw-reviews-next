@@ -5,7 +5,6 @@ import auth from '../../utils/auth';
 import BasicLayout from '../../layouts/Basic';
 
 export default function withSubscription(WrappedComponent) {
-    // ...and returns another component...
     return class extends React.Component {
         constructor(props) {
             super(props);
