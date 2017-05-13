@@ -4,7 +4,7 @@ import React from 'react';
 // 3129031971
 
 export default ({ slot }) => (
-    <div className="row center-xs">
+    <div className="row center-xs p0 mb2">
         <Helmet
             script={[
                 {
