@@ -53,13 +53,7 @@ class CreateUser extends React.Component {
                             category: 'Register',
                             action: 'Success'
                         });
-                        if (Router.query.returnTo) {
-                            window.location = decodeURIComponent(
-                                Router.query.returnTo
-                            ); // Router push is flaky
-                        } else {
-                            Router.push('/');
-                        }
+                        Router.push('/login');
                     })
                     .catch(err => {
                         const error = err.message.replace(
