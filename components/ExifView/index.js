@@ -10,6 +10,8 @@ import ISOIcon from '../ISOIcon';
 import H3 from '../H3';
 import P from '../P';
 
+const defaultExif = '---';
+
 const ExifView = styled.div`
     margin-bottom: 2rem;
 
@@ -72,70 +74,76 @@ export default ({
             <H3>Exif</H3>
             <ExifView className="col-xs-12">
                 <div className="row">
-                    {make &&
-                        <div className="col-xs-12 col-sm-4">
-                            <div className="box">
-                                <CameraIcon size={30} />
-                                {' '}
-                                <ItemBase>{make} {model}</ItemBase>
-                            </div>
-                        </div>}
-                    {exposureTime &&
-                        <div className="col-xs-12 col-sm-8">
-                            <div className="box">
-                                <ClockIcon size={30} />
-                                {' '}
-                                <ItemBase>{exposureTime}</ItemBase>
-                            </div>
-                        </div>}
-                    {focalLength &&
-                        <div className="col-xs-12 col-sm-4">
-                            <div className="box">
-                                <EyeIcon size={30} />
-                                {' '}
-                                <ItemBase>{focalLength}mm</ItemBase>
-                            </div>
-                        </div>}
-                    {focalLengthIn35mmFormat &&
-                        <div className="col-xs-12 col-sm-8">
-                            <div className="box">
-                                <EyeIcon size={30} />
-                                {' '}
-                                <ItemBase>
-                                    {focalLengthIn35mmFormat}mm (Full Frame)
-                                </ItemBase>
-                            </div>
-                        </div>}
-                    {fNumber &&
-                        <div className="col-xs-12 col-sm-4">
-                            <div className="box">
-                                <ShutterIcon size={30} />
-                                {' '}
-                                <ItemBase>ƒ/{fNumber}</ItemBase>
-                            </div>
-                        </div>}
-                    {(lensMake || lensModel) &&
-                        <div className="col-xs-12 col-sm-8">
-                            <div className="box">
-                                <EyeIcon size={30} />
-                                {' '}
-                                <ItemBase>{lensMake} {lensModel}</ItemBase>
-                            </div>
-                        </div>}
-                    {iSO &&
-                        <div className="col-xs-12 col-sm-4">
-                            <div className="box">
-                                <ISOIcon size={30} /> <ItemBase>{iSO}</ItemBase>
-                            </div>
-                        </div>}
-                    {software &&
-                        <div className="col-xs-12 col-sm-8">
-                            <div className="box">
-                                <FileIcon size={30} />
-                                {' '}
-                                <ItemBase>{software}</ItemBase>
-                            </div>
-                        </div>}
+                    <div className="col-xs-12 col-sm-4">
+                        <div className="box">
+                            <CameraIcon size={30} />
+                            {' '}
+                            <ItemBase>
+                                {make ? `${make} ${model}` : defaultExif}
+                            </ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-8">
+                        <div className="box">
+                            <ClockIcon size={30} />
+                            {' '}
+                            <ItemBase>{exposureTime || defaultExif}</ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-4">
+                        <div className="box">
+                            <EyeIcon size={30} />
+                            {' '}
+                            <ItemBase>
+                                {focalLength ? `${focalLength}mm` : defaultExif}
+                            </ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-8">
+                        <div className="box">
+                            <EyeIcon size={30} />
+                            {' '}
+                            <ItemBase>
+                                {focalLengthIn35mmFormat
+                                    ? `${focalLengthIn35mmFormat}mm (Full Frame)`
+                                    : defaultExif}
+                            </ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-4">
+                        <div className="box">
+                            <ShutterIcon size={30} />
+                            {' '}
+                            <ItemBase>
+                                {fNumber ? `ƒ/${fNumber}` : defaultExif}
+                            </ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-8">
+                        <div className="box">
+                            <EyeIcon size={30} />
+                            {' '}
+                            <ItemBase>
+                                {lensMake || lensModel
+                                    ? `${lensMake || ''} ${lensModel}`
+                                    : defaultExif}
+                            </ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-4">
+                        <div className="box">
+                            <ISOIcon size={30} />
+                            {' '}
+                            <ItemBase>{iSO || defaultExif}</ItemBase>
+                        </div>
+                    </div>
+                    <div className="col-xs-12 col-sm-8">
+                        <div className="box">
+                            <FileIcon size={30} />
+                            {' '}
+                            <ItemBase>{software || defaultExif}</ItemBase>
+                        </div>
+                    </div>
                 </div>
             </ExifView>
         </div>
