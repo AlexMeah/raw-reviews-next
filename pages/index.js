@@ -4,6 +4,7 @@ import Helmet from 'react-helmet';
 import BasicLayout from '../layouts/Basic';
 import Feed from '../components/Feed';
 import FilterBar from '../components/FilterBar';
+import Ad from '../components/Ad';
 
 import withData from '../hoc/withData';
 import FeedData from '../queries/feed';
@@ -14,6 +15,7 @@ const Index = props => (
             <title>Home</title>
         </Helmet>
         <FilterBar {...props.url.query} />
+        <Ad slot={3129031971} />
         <Feed key="home-feed" {...props} />
     </BasicLayout>
 );

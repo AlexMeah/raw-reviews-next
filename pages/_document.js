@@ -119,6 +119,7 @@ export default class MyDocument extends Document {
                     <meta name="theme-color" content="#529AFB" />
                     {this.props.helmet.title.toComponent()}
                     {this.props.helmet.meta.toComponent()}
+                    {this.props.helmet.script.toComponent()}
                     <link
                         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
                         rel="stylesheet"
