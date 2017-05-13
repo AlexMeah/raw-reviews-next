@@ -3,6 +3,7 @@ import Helmet from 'react-helmet';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import Router from 'next/router';
+import ReactGA from 'react-ga';
 
 import DisallowAuth from '../hoc/disallowAuth';
 import withData from '../hoc/withData';
@@ -48,6 +49,10 @@ class CreateUser extends React.Component {
                         variables: this.state.form
                     })
                     .then(() => {
+                        ReactGA.event({
+                            category: 'Register',
+                            action: 'Success'
+                        });
                         if (Router.query.returnTo) {
                             window.location = decodeURIComponent(
                                 Router.query.returnTo
@@ -57,9 +62,18 @@ class CreateUser extends React.Component {
                         }
                     })
                     .catch(err => {
+                        const error = err.message.replace(
+                            'GraphQL error: ',
+                            ''
+                        );
+                        ReactGA.event({
+                            category: 'Register',
+                            action: 'Failure',
+                            label: error
+                        });
                         this.setState({
                             signupSuccessful: false,
-                            error: err.message.replace('GraphQL error: ', '')
+                            error
                         });
                     });
             }
