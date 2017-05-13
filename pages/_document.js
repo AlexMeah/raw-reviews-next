@@ -114,7 +114,7 @@ export default class MyDocument extends Document {
                     <meta name="msapplication-TileColor" content="#529AFB" />
                     <meta
                         name="msapplication-TileImage"
-                        content="/ms-icon-144x144.png"
+                        content="/static/ms-icon-144x144.png"
                     />
                     <meta name="theme-color" content="#529AFB" />
                     {this.props.helmet.title.toComponent()}
