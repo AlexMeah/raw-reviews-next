@@ -46,7 +46,7 @@ const orders = {
 };
 
 const cacheKey = args =>
-    `feed${args.order || ''}${args.time || ''}${args.userId || ''}`;
+    `feed${args.order || ''}${args.time || ''}${args.userId || ''}${args.limit || ''}${args.offset || ''}`;
 
 function buildQuery(args) {
     const now = moment();
