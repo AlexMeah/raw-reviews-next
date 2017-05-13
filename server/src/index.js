@@ -172,7 +172,8 @@ Promise.all([
                 req,
                 res,
                 actualPage,
-                Object.assign({}, req.query, req.params)
+                Object.assign({}, req.query, req.params),
+                300
             );
         });
 
