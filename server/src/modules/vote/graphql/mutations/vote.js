@@ -37,7 +37,6 @@ function submitVote(userId, editId, dir, data) {
     const _data = data || {};
     const prevVote = _data.dataValues && _data.dataValues.vote;
     const prevDir = prevVote && prevVote !== vote;
-    console.log(dir, prevDir, opposite);
     const createVote = values => {
         if (_data.update) {
             return _data.update(values).then(n =>

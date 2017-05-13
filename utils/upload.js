@@ -1,3 +1,5 @@
+import ReactGA from 'react-ga';
+
 export default (file, onProgress = () => {}) => ({ url, signedRequest }) =>
     new Promise((res, rej) => {
         if (file.type === 'image/jpeg' && file.size > 5e6) {
@@ -29,6 +31,12 @@ export default (file, onProgress = () => {}) => ({ url, signedRequest }) =>
                 if (xhr.status === 204) {
                     res(url);
                 } else {
+                    ReactGA.event({
+                        category: 'Upload',
+                        action: 'Failed',
+                        label: xhr.responseText,
+                        nonInteraction: true
+                    });
                     rej(new Error('Could not upload file.'));
                 }
             }
