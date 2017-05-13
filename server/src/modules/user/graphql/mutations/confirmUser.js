@@ -1,13 +1,5 @@
-const {
-    sequelize: {
-        models
-    }
-} = require('../../../../lib/sequelize');
-const {
-    GraphQLNonNull,
-    GraphQLString,
-    GraphQLInt
-} = require('graphql');
+const { sequelize: { models } } = require('../../../../lib/sequelize');
+const { GraphQLNonNull, GraphQLString, GraphQLInt } = require('graphql');
 
 const userType = require('../type');
 
@@ -27,17 +19,17 @@ module.exports = {
     resolve(obj, { id, validationToken }) {
         return models.user
             .update(
-            {
-                confirmed: true
-            },
-            {
-                where: {
-                    id,
-                    validationToken
+                {
+                    confirmed: true
                 },
-                returning: true,
-                plain: true
-            }
+                {
+                    where: {
+                        id,
+                        validationToken
+                    },
+                    returning: true,
+                    plain: true
+                }
             )
             .then(result => result[1]);
     }

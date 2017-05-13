@@ -14,7 +14,7 @@ const Index = () => (
             <H1>Terms</H1>
             <Markdown>
                 {`
-Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the https://rawreviews.co/ website (the "Service") operated by Raw Reviews ("us", "we", or "our").
+Please read these Terms and Conditions ("Terms", "Terms and Conditions") carefully before using the https://rawprogress.com/ website (the "Service") operated by Raw Reviews ("us", "we", or "our").
 
 Your access to and use of the Service is conditioned on your acceptance of and compliance with these Terms. These Terms apply to all visitors, users and others who access or use the Service.
 
@@ -26,7 +26,10 @@ Our Service allows you to post, link, store, share and otherwise make available 
 
 By posting Content to the Service, you grant us the right and license to use, modify, publicly perform, publicly display, reproduce, and distribute such Content on and through the Service.
 
-Notwithstanding any other provision herein, please be aware that by submitting, uploading, or otherwise making available pictures, images, graphics and similar items to the rawreviews.co, you agree to make, and are hereby making, the pictures, images, graphics and similar items available to rawreviews.co and all users under the terms of [Creative Commons Zero](https://creativecommons.org/publicdomain/zero/1.0/), which means you permanently and irrevocably waive, abandon, and surrender your copyrights in and to the pictures, images, graphics and similar items.
+Notwithstanding any other provision herein, please be aware that by submitting, uploading, or otherwise making available 
+pictures, images, graphics and similar items to rawprogress.com, you agree to make, and are hereby making, the pictures, 
+images, graphics and similar items available to rawprogress.com and all users under the terms of 
+[Attribution-NonCommercial 4.0 International (CC BY-NC 4.0)](https://creativecommons.org/licenses/by-nc/4.0/).
 
 You represent and warrant that: (i) the Content is yours (you own it) or you have the right to use it and grant us the rights and license as provided in these Terms, and (ii) the posting of your Content on or through the Service does not violate the privacy rights, publicity rights, copyrights, contract rights or any other rights of any person.
 

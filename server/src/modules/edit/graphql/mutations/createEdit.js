@@ -135,18 +135,18 @@ module.exports = {
 
         return models.edit
             .create(
-            {
-                before,
-                after,
-                raw,
-                description,
-                title,
-                parent,
-                userId: req.user.id
-            },
-            {
-                returning: true
-            }
+                {
+                    before,
+                    after,
+                    raw,
+                    description,
+                    title,
+                    parent,
+                    userId: req.user.id
+                },
+                {
+                    returning: true
+                }
             )
             .then(data =>
                 models.exif

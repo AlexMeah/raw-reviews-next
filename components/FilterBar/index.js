@@ -16,7 +16,7 @@ const Filter = styled.div`
     }
 `;
 
-const track = (val) => () => {
+const track = val => () => {
     ReactGA.event({
         category: 'Filter Bar',
         action: 'Click',

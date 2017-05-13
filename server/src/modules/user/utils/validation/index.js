@@ -1,10 +1,4 @@
-module.exports = (
-    {
-        username,
-        password,
-        email
-    }
-) => {
+module.exports = ({ username, password, email }) => {
     const errors = [];
 
     if (!username) {

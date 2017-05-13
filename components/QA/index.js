@@ -31,15 +31,18 @@ class QA extends React.Component {
     }
 
     toggle() {
-        this.setState({
-            visible: !this.state.visible
-        }, () => {
-            ReactGA.event({
-                category: 'FAQ',
-                action: 'Toggled',
-                label: this.state.visible ? 'Opened' : 'Closed'
-            });
-        });
+        this.setState(
+            {
+                visible: !this.state.visible
+            },
+            () => {
+                ReactGA.event({
+                    category: 'FAQ',
+                    action: 'Toggled',
+                    label: this.state.visible ? 'Opened' : 'Closed'
+                });
+            }
+        );
     }
 
     render() {

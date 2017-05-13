@@ -80,7 +80,7 @@ module.exports = (sequelize, DataTypes) => {
             hooks: {
                 beforeCreate: hashPassword,
                 beforeSave: hashPassword,
-                beforeFindAfterOptions: (query) => {
+                beforeFindAfterOptions: query => {
                     if (query.where.id) {
                         return Object.assign(query, {
                             where: Object.assign(query.where, {

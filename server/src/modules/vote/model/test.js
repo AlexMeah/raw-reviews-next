@@ -1,6 +1,4 @@
-const {
-    test
-} = require('ava');
+const { test } = require('ava');
 const shortid = require('shortid');
 
 const dbFactory = require('../../../../test/utils/databaseFactory/index.js');

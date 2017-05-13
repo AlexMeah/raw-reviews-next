@@ -2,7 +2,7 @@ const sequelize = require('./server/src/lib/sequelize');
 const faker = require('faker');
 const moment = require('moment');
 
-let i = 0;
+const i = 0;
 
 // function inVotes() {
 //     const votes = Array.from(Array(1000)).map(a => ({

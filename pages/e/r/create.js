@@ -19,9 +19,7 @@ import H1 from '../../../components/H1';
 import Button from '../../../components/Button';
 
 function isUploading(state) {
-    return (
-        (state.uploading.after && (state.uploading.after !== 100))
-    );
+    return state.uploading.after && state.uploading.after !== 100;
 }
 
 class CreateReEdit extends React.Component {
@@ -137,7 +135,10 @@ class CreateReEdit extends React.Component {
                         Router.push(`/e/view?editId=${id}`, `/e/${id}`);
                     })
                     .catch(err => {
-                        const error = err.message.replace('GraphQL error: ', '');
+                        const error = err.message.replace(
+                            'GraphQL error: ',
+                            ''
+                        );
 
                         this.setState({
                             editCreateSuccessful: false,

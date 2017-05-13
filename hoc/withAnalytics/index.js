@@ -11,23 +11,24 @@ if (process.browser) {
 
 const GOOGLE_ANALYTICS_UA = 'UA-99023461-1';
 
-export default ComposedComponent => class WithAnalytics extends React.Component {
-    constructor(props) {
-        super(props);
+export default ComposedComponent =>
+    class WithAnalytics extends React.Component {
+        constructor(props) {
+            super(props);
 
-        if (process.browser && !gaInitialised) {
-            gaInitialised = true;
-            ReactGA.initialize(GOOGLE_ANALYTICS_UA);
+            if (process.browser && !gaInitialised) {
+                gaInitialised = true;
+                ReactGA.initialize(GOOGLE_ANALYTICS_UA);
+            }
         }
-    }
 
-    componentDidMount() {
-        const page = window.location.pathname;
-        ReactGA.set({ page });
-        ReactGA.pageview(page);
-    }
+        componentDidMount() {
+            const page = window.location.pathname;
+            ReactGA.set({ page });
+            ReactGA.pageview(page);
+        }
 
-    render() {
-        return <ComposedComponent {...this.props} />;
-    }
-};
+        render() {
+            return <ComposedComponent {...this.props} />;
+        }
+    };

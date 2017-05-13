@@ -6,8 +6,8 @@ const db = require('../../../src/lib/sequelize');
 module.exports = {
     sync() {
         return db.sequelize.sync({
-            force: true,
+            force: true
         });
     },
-    db: db.sequelize.models,
+    db: db.sequelize.models
 };

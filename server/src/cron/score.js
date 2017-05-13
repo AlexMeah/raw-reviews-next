@@ -49,10 +49,10 @@ function scoreEdits(end, delay) {
         fetchEdits(
             end
                 ? {
-                    createdAt: {
-                        $gt: end
-                    }
-                }
+                      createdAt: {
+                          $gt: end
+                      }
+                  }
                 : {},
             page
         ).then(data => {

@@ -21,9 +21,9 @@ import Button from '../../components/Button';
 
 function isUploading(state) {
     return (
-        (state.uploading.before && (state.uploading.before !== 100)) ||
-        (state.uploading.after && (state.uploading.after !== 100)) ||
-        (state.uploading.raw && (state.uploading.raw !== 100))
+        (state.uploading.before && state.uploading.before !== 100) ||
+        (state.uploading.after && state.uploading.after !== 100) ||
+        (state.uploading.raw && state.uploading.raw !== 100)
     );
 }
 
@@ -130,7 +130,10 @@ class CreateEdit extends React.Component {
                         Router.push(`/e/view?editId=${id}`, `/e/${id}`);
                     })
                     .catch(err => {
-                        const error = err.message.replace('GraphQL error: ', '');
+                        const error = err.message.replace(
+                            'GraphQL error: ',
+                            ''
+                        );
 
                         this.setState({
                             editCreateSuccessful: false,

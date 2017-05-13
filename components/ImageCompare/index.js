@@ -6,24 +6,23 @@ import config from '../../config';
 
 import Button from '../Button';
 
-const getSize = (imgUrl) => new Promise((res) => {
-    const img = new Image();
-    img.onload = function () {
-        res({
-            w: img.width,
-            h: img.height
-        });
-    };
+const getSize = imgUrl =>
+    new Promise(res => {
+        const img = new Image();
+        img.onload = function() {
+            res({
+                w: img.width,
+                h: img.height
+            });
+        };
 
-    img.src = `${config.cdn}/resized/large/${imgUrl}`;
-});
+        img.src = `${config.cdn}/resized/large/${imgUrl}`;
+    });
 
 function sameSize(before, after) {
-    return Promise.all([
-        getSize(before),
-        getSize(after)
-    ])
-    .then(([bSize, aSize]) => bSize.w === aSize.w && bSize.h === aSize.h);
+    return Promise.all([getSize(before), getSize(after)]).then(
+        ([bSize, aSize]) => bSize.w === aSize.w && bSize.h === aSize.h
+    );
 }
 
 const SplitContainer = styled.div`
@@ -163,13 +162,12 @@ class ImageCompare extends React.Component {
     }
 
     componentDidMount() {
-        sameSize(this.props.before, this.props.after)
-            .then((sameSizeResult) => {
-                this.setState({
-                    allowComparisonView: sameSizeResult,
-                    split: sameSizeResult ? this.state.split : true
-                });
+        sameSize(this.props.before, this.props.after).then(sameSizeResult => {
+            this.setState({
+                allowComparisonView: sameSizeResult,
+                split: sameSizeResult ? this.state.split : true
             });
+        });
     }
 
     update(e) {
@@ -192,12 +190,12 @@ class ImageCompare extends React.Component {
                 {this.state.split
                     ? <SplitView before={before} after={after} />
                     : <CompareView
-                        width={this.state.maskWidth}
-                        before={before}
-                        after={after}
-                        update={this.update}
-                        maskWidth={this.state.maskWidth}
-                    />}
+                          width={this.state.maskWidth}
+                          before={before}
+                          after={after}
+                          update={this.update}
+                          maskWidth={this.state.maskWidth}
+                      />}
 
                 <div />
 

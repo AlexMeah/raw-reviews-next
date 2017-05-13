@@ -1,6 +1,4 @@
-const {
-    test
-} = require('ava');
+const { test } = require('ava');
 
 const validSchema = {
     username: 'defined',

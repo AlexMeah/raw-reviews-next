@@ -87,18 +87,18 @@ const Item = ({
                         {' '}
                         <strong>{distanceInWordsToNow(createdAt)}</strong>
                         {' '}
-                    ago by
-                    {' '}
+                        ago by
+                        {' '}
                         <strong>
                             {!userId
-                            ? 'anon'
-                            : <Link
-                                color="primary"
-                                href={`/u/profile?userId=${userId}`}
-                                as={`/u/${userId}`}
-                            >
-                                {userId}
-                            </Link>}
+                                ? 'anon'
+                                : <Link
+                                      color="primary"
+                                      href={`/u/profile?userId=${userId}`}
+                                      as={`/u/${userId}`}
+                                  >
+                                      {userId}
+                                  </Link>}
                         </strong>
                     </small>
                 </P>
