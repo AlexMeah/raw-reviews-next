@@ -49,10 +49,6 @@ export default injectGlobal`
         text-align: center;
     }
 
-    .p0 {
-      padding: 0;
-    }
-
     .mb0 {
         margin-bottom: 0;
     }
