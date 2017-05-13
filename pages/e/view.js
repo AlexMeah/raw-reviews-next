@@ -8,6 +8,7 @@ import H1 from '../../components/H1';
 import ExifView from '../../components/ExifView';
 import ImageCompare from '../../components/ImageCompare';
 import Vote from '../../components/Vote';
+import Ad from '../../components/Ad';
 import P from '../../components/P';
 import Button from '../../components/Button';
 import ReEditGrid from '../../components/ReEditGrid';
@@ -74,6 +75,8 @@ const Post = props => {
             </div>
 
             <ImageCompare before={edit.before} after={edit.after} />
+
+            <Ad slot={7323729177} />
 
             <div className="row">
 
