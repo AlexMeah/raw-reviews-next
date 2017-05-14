@@ -1,6 +1,7 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 import Router from 'next/router';
+import ReactGA from 'react-ga';
 
 import login from '../utils/login';
 import BasicLayout from '../layouts/Basic';
@@ -40,7 +41,12 @@ class Login extends React.Component {
             },
             () => {
                 login(this.state.form)
-                    .then(() => {
+                    .then(({ id }) => {
+                        ReactGA.event({
+                            category: 'Login',
+                            action: 'Success',
+                            label: id
+                        });
                         if (Router.query.returnTo) {
                             window.location = decodeURIComponent(
                                 Router.query.returnTo
@@ -50,6 +56,11 @@ class Login extends React.Component {
                         }
                     })
                     .catch(err => {
+                        ReactGA.event({
+                            category: 'Login',
+                            action: 'Failed',
+                            label: err.message
+                        });
                         this.setState({
                             loginSuccessful: false,
                             error: err.message

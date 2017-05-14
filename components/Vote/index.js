@@ -6,6 +6,7 @@ import UpIcon from 'react-icons/lib/fa/thumbs-o-up';
 import DownIcon from 'react-icons/lib/fa/thumbs-o-down';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+import ReactGA from 'react-ga';
 
 import vars from '../../css/vars';
 
@@ -108,8 +109,22 @@ class Vote extends React.Component {
                     vote
                 }
             })
+            .then(() => {
+                ReactGA.event({
+                    category: 'Vote',
+                    action: 'Click',
+                    label: dir
+                });
+            })
             .catch(err => {
-                alert(err.message.replace('GraphQL error: ', ''));
+                const error = err.message.replace('GraphQL error: ', '');
+
+                ReactGA.event({
+                    category: 'Vote',
+                    action: 'Failure',
+                    label: error
+                });
+                alert(error);
             });
     }
 
