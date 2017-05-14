@@ -60,7 +60,7 @@ const CompareContainer = styled.div`
     display: inline-block;
 `;
 
-const CompareBeforeImage = styled.img`
+const CompareAfterImage = styled.img`
     display: block;
     max-height: 70vh;
     max-width: 100%;
@@ -68,7 +68,7 @@ const CompareBeforeImage = styled.img`
     margin: 0 auto;
 `;
 
-const CompareAfterImageContainer = styled.div`
+const CompareImageBeforeContainer = styled.div`
     position: absolute;
     top: 0;
     left: 0;
@@ -82,7 +82,7 @@ const CompareImageInner = styled.div`
     border-radius: ${styleVars.radius};
 `;
 
-const CompareAfterImage = styled.img`
+const CompareImageBefore = styled.img`
     display: block;
     height: 100%;
     width: auto;
@@ -97,20 +97,20 @@ const Container = styled.div`
 const CompareView = ({ before, after, width, update, maskWidth }) => (
     <CompareContainer>
         <CompareImageInner>
-            <CompareBeforeImage
-                src={`${config.cdn}/resized/large/${before}`}
-                alt="before"
+            <CompareAfterImage
+                src={`${config.cdn}/resized/large/${after}`}
+                alt="after"
             />
-            <CompareAfterImageContainer
+            <CompareImageBeforeContainer
                 style={{
                     width: `${width}%`
                 }}
             >
-                <CompareAfterImage
-                    src={`${config.cdn}/resized/large/${after}`}
-                    alt="after"
+                <CompareImageBefore
+                    src={`${config.cdn}/resized/large/${before}`}
+                    alt="before"
                 />
-            </CompareAfterImageContainer>
+            </CompareImageBeforeContainer>
         </CompareImageInner>
 
         <WidthSlider
