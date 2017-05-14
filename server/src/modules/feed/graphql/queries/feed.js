@@ -64,7 +64,7 @@ function buildQuery(args) {
         },
         week: {
             createdAt: {
-                $gt: now.clone().startOf('week')
+                $gt: now.clone().startOf('isoWeek')
             }
         },
         month: {
