@@ -70,6 +70,7 @@
     "polished": "^1.1.0",
     "react": "^15.5.4",
     "react-apollo": "^1.1.2",
+    "react-cursor-position": "AlexMeah/react-cursor-position#expose-element-dimensions",
     "react-dom": "^15.5.4",
     "react-ga": "^2.2.0",
     "react-helmet": "^5.0.3",

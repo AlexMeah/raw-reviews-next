@@ -4498,7 +4498,7 @@ object.entries@1.0.4:
     function-bind "^1.1.0"
     has "^1.0.1"
 
-object.omit@^2.0.0:
+object.omit@^2.0.0, object.omit@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/object.omit/-/object.omit-2.0.1.tgz#1a9c744829f39dbb858c76ca3579ae2a54ebd1fa"
   dependencies:
@@ -5124,6 +5124,22 @@ react-apollo@^1.1.2:
     prop-types "^15.5.8"
   optionalDependencies:
     react-dom "0.14.x || 15.* || ^15.0.0 || ^16.0.0-alpha"
+
+react-cursor-position@AlexMeah/react-cursor-position#expose-element-dimensions:
+  version "2.0.2"
+  resolved "https://codeload.github.com/AlexMeah/react-cursor-position/tar.gz/f89224fc284ddf51fabd99e45177235fe98297cc"
+  dependencies:
+    object-assign "^4.1.1"
+    object.omit "^2.0.1"
+    prop-types "^15.5.8"
+
+react-cursor-position@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-cursor-position/-/react-cursor-position-2.0.2.tgz#03cd054b962ae45de9ce45c401148e62eac863c5"
+  dependencies:
+    object-assign "^4.1.1"
+    object.omit "^2.0.1"
+    prop-types "^15.5.8"
 
 react-deep-force-update@^2.0.1:
   version "2.0.1"

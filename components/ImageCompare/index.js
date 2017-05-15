@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import styleVars from '../../css/vars';
 import config from '../../config';
+import ReactCursorPosition from '../CursorPosition';
 
 import Button from '../Button';
 
@@ -76,7 +77,7 @@ const CompareImageBeforeContainer = styled.div`
     height: 100%;
 `;
 
-const CompareImageInner = styled.div`
+const CompareImageInner = styled(ReactCursorPosition)`
     position: relative;
     border: 4px solid #fff;
     border-radius: ${styleVars.radius};
@@ -94,16 +95,22 @@ const Container = styled.div`
     margin-bottom: 2rem;
 `;
 
-const CompareView = ({ before, after, width, update, maskWidth }) => (
+const CompareView = ({
+    before,
+    after,
+    update,
+    maskWidth,
+    onPositionChanged
+}) => (
     <CompareContainer>
-        <CompareImageInner>
+        <CompareImageInner onPositionChanged={onPositionChanged}>
             <CompareAfterImage
                 src={`${config.cdn}/resized/large/${after}`}
                 alt="after"
             />
             <CompareImageBeforeContainer
                 style={{
-                    width: `${width}%`
+                    width: `${maskWidth}%`
                 }}
             >
                 <CompareImageBefore
@@ -159,6 +166,7 @@ class ImageCompare extends React.Component {
 
         this.update = this.update.bind(this);
         this.toggle = this.toggle.bind(this);
+        this.onPositionChanged = this.onPositionChanged.bind(this);
     }
 
     componentDidMount() {
@@ -167,6 +175,12 @@ class ImageCompare extends React.Component {
                 allowComparisonView: sameSizeResult,
                 split: sameSizeResult ? this.state.split : true
             });
+        });
+    }
+
+    onPositionChanged({ position }) {
+        this.setState({
+            maskWidth: Math.min(100, Math.round(position.x / position.w * 100))
         });
     }
 
@@ -190,6 +204,7 @@ class ImageCompare extends React.Component {
                 {this.state.split
                     ? <SplitView before={before} after={after} />
                     : <CompareView
+                          onPositionChanged={this.onPositionChanged}
                           width={this.state.maskWidth}
                           before={before}
                           after={after}
