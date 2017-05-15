@@ -103,7 +103,10 @@ const CompareView = ({
     onPositionChanged
 }) => (
     <CompareContainer>
-        <CompareImageInner onPositionChanged={onPositionChanged}>
+        <CompareImageInner
+            onPositionChanged={onPositionChanged}
+            shouldDecorateChildren={false}
+        >
             <CompareAfterImage
                 src={`${config.cdn}/resized/large/${after}`}
                 alt="after"

@@ -4,7 +4,7 @@ import objectAssign from 'object-assign';
 import omit from 'object.omit';
 import addEventListener from './utils/addEventListener';
 
-const noop = () => { };
+const noop = () => {};
 
 export default class extends React.Component {
     constructor(props) {
@@ -41,7 +41,6 @@ export default class extends React.Component {
     static displayName = 'ReactCursorPosition';
 
     static propTypes = {
-        children: PropTypes.any,
         className: PropTypes.string,
         isActivatedOnTouch: PropTypes.bool,
         mapChildProps: PropTypes.func,
@@ -50,22 +49,28 @@ export default class extends React.Component {
         pressDuration: PropTypes.number,
         pressMoveThreshold: PropTypes.number,
         shouldDecorateChildren: PropTypes.bool,
-        style: PropTypes.object
+        style: PropTypes.object // eslint-disable-line
     };
 
     static defaultProps = {
+        className: '',
         isActivatedOnTouch: false,
         mapChildProps: props => props,
         onActivationChanged: noop,
         onPositionChanged: noop,
         pressDuration: 500,
         pressMoveThreshold: 5,
-        shouldDecorateChildren: true
+        shouldDecorateChildren: true,
+        style: {}
     };
 
     onTouchStart(e) {
-        const position = this.getDocumentRelativePosition(this.getTouchEvent(e));
-        this.elementOffset = this.getDocumentRelativeElementOffset(e.currentTarget);
+        const position = this.getDocumentRelativePosition(
+            this.getTouchEvent(e)
+        );
+        this.elementOffset = this.getDocumentRelativeElementOffset(
+            e.currentTarget
+        );
         this.setPositionState(position);
 
         if (this.props.isActivatedOnTouch) {
@@ -75,11 +80,13 @@ export default class extends React.Component {
         }
 
         this.initPressEventCriteria(position);
-        this.setPressEventTimer()
+        this.setPressEventTimer();
     }
 
     onTouchMove(e) {
-        const position = this.getDocumentRelativePosition(this.getTouchEvent(e));
+        const position = this.getDocumentRelativePosition(
+            this.getTouchEvent(e)
+        );
 
         if (!this.state.isActive) {
             this.setPressEventCriteria(position);
@@ -91,9 +98,11 @@ export default class extends React.Component {
     }
 
     onMouseEnter(e) {
-        this.elementOffset = this.getDocumentRelativeElementOffset(e.currentTarget);
+        this.elementOffset = this.getDocumentRelativeElementOffset(
+            e.currentTarget
+        );
         this.activate();
-        this.setPositionState(this.getDocumentRelativePosition(e))
+        this.setPositionState(this.getDocumentRelativePosition(e));
     }
 
     onMouseMove(e) {
@@ -119,15 +128,18 @@ export default class extends React.Component {
     deactivate() {
         this.clearPressDurationTimer();
 
-        this.setState({
-            isActive: false
-        }, () => {
-            const { isPositionOutside, position } = this.state;
-            this.props.onPositionChanged({
-                isPositionOutside,
-                position
-            });
-        });
+        this.setState(
+            {
+                isActive: false
+            },
+            () => {
+                const { isPositionOutside, position } = this.state;
+                this.props.onPositionChanged({
+                    isPositionOutside,
+                    position
+                });
+            }
+        );
 
         this.props.onActivationChanged({ isActive: false });
     }
@@ -136,22 +148,25 @@ export default class extends React.Component {
         const offsetPosition = this.getOffsetPosition(position);
         const isPositionOutside = this.getIsPositionOutside(position);
 
-        this.setState({
-            isPositionOutside,
-            position: offsetPosition
-        }, () => {
-            this.triggerOnPositionChanged();
-        });
+        this.setState(
+            {
+                isPositionOutside,
+                position: offsetPosition
+            },
+            () => {
+                this.triggerOnPositionChanged();
+            }
+        );
     }
 
     setPressEventTimer() {
-        const {
-            pressDuration,
-            pressMoveThreshold
-        } = this.props;
+        const { pressDuration, pressMoveThreshold } = this.props;
 
         this.pressDurationTimerId = setTimeout(() => {
-            if (Math.abs(this.currentElTop - this.initialElTop) < pressMoveThreshold) {
+            if (
+                Math.abs(this.currentElTop - this.initialElTop) <
+                pressMoveThreshold
+            ) {
                 this.activate();
             }
         }, pressDuration);
@@ -162,7 +177,7 @@ export default class extends React.Component {
     }
 
     initPressEventCriteria(position) {
-        const top = position.y
+        const top = position.y;
         this.initialElTop = top;
         this.currentElTop = top;
     }
@@ -171,12 +186,7 @@ export default class extends React.Component {
         const { x, y } = position;
         const { x: elx, y: ely, w: elw, h: elh } = this.elementOffset;
 
-        return (
-            x < elx ||
-            x > elx + elw ||
-            y < ely ||
-            y > ely + elh
-        );
+        return x < elx || x > elx + elw || y < ely || y > ely + elh;
     }
 
     getOffsetPosition(position) {
@@ -193,10 +203,7 @@ export default class extends React.Component {
 
     getDocumentRelativeElementOffset(el) {
         const rootEl = this.getRootOfEl(el);
-        const {
-            left: docLeft,
-            top: docTop
-        } = rootEl.getBoundingClientRect();
+        const { left: docLeft, top: docTop } = rootEl.getBoundingClientRect();
 
         const {
             left: elLeft,
@@ -244,7 +251,9 @@ export default class extends React.Component {
     }
 
     shouldDecorateChild(child) {
-        return this.isReactComponent(child) && this.props.shouldDecorateChildren;
+        return (
+            this.isReactComponent(child) && this.props.shouldDecorateChildren
+        );
     }
 
     decorateChild(child, props) {
@@ -252,9 +261,13 @@ export default class extends React.Component {
     }
 
     decorateChildren(children, props) {
-        return Children.map(children, (child) => {
-            return this.shouldDecorateChild(child) ? this.decorateChild(child, props) : child;
-        });
+        return Children.map(
+            children,
+            child =>
+                this.shouldDecorateChild(child)
+                    ? this.decorateChild(child, props)
+                    : child
+        );
     }
 
     clearPressDurationTimer() {
@@ -263,10 +276,18 @@ export default class extends React.Component {
 
     addEventListeners() {
         this.eventListeners.push(
-            addEventListener(this.el, 'touchstart', this.onTouchStart, { passive: false }),
-            addEventListener(this.el, 'touchmove', this.onTouchMove, { passive: false }),
-            addEventListener(this.el, 'touchend', this.deactivate, { passive: true }),
-            addEventListener(this.el, 'touchcancel', this.deactivate, { passive: true })
+            addEventListener(this.el, 'touchstart', this.onTouchStart, {
+                passive: false
+            }),
+            addEventListener(this.el, 'touchmove', this.onTouchMove, {
+                passive: false
+            }),
+            addEventListener(this.el, 'touchend', this.deactivate, {
+                passive: true
+            }),
+            addEventListener(this.el, 'touchcancel', this.deactivate, {
+                passive: true
+            })
         );
     }
 
@@ -286,7 +307,7 @@ export default class extends React.Component {
     }
 
     getPassThroughProps() {
-        const ownPropNames = Object.keys(this.constructor.propTypes);
+        const ownPropNames = Object.keys(this.constructor.propTypes || {});
         return omit(this.props, ownPropNames);
     }
 
@@ -304,18 +325,20 @@ export default class extends React.Component {
         );
 
         return (
-            <div { ...{
-                className,
-                onMouseMove: this.onMouseMove,
-                onMouseEnter: this.onMouseEnter,
-                onMouseLeave: this.onMouseLeave,
-                ref: (el) => this.el = el,
-                style: objectAssign({}, style, {
-                    WebkitUserSelect: 'none'
-                })
-            }}>
-                { this.decorateChildren(children, props) }
+            <div
+                {...{
+                    className,
+                    onMouseMove: this.onMouseMove,
+                    onMouseEnter: this.onMouseEnter,
+                    onMouseLeave: this.onMouseLeave,
+                    ref: el => (this.el = el),
+                    style: objectAssign({}, style, {
+                        WebkitUserSelect: 'none'
+                    })
+                }}
+            >
+                {this.decorateChildren(children, props)}
             </div>
         );
     }
-};
+}

@@ -3,6 +3,7 @@
         "node": true,
         "browser": true
     },
+    "parser": "babel-eslint",
     "extends": [
         "plugin:ava/recommended",
         "airbnb",
