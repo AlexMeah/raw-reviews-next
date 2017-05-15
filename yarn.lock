@@ -3197,6 +3197,14 @@ inferno-create-element@3.1.2:
     inferno-shared "3.1.1"
     inferno-vnode-flags "^3.0.0"
 
+inferno-server@^3.1.2:
+  version "3.1.2"
+  resolved "https://registry.yarnpkg.com/inferno-server/-/inferno-server-3.1.2.tgz#3295715fc4ceb46318f214c38a3cf785b09fa0a7"
+  dependencies:
+    inferno "3.1.2"
+    inferno-shared "3.1.1"
+    inferno-vnode-flags "^3.0.0"
+
 inferno-shared@3.1.1:
   version "3.1.1"
   resolved "https://registry.yarnpkg.com/inferno-shared/-/inferno-shared-3.1.1.tgz#70376e29a56c53f6ba1e942191fe5cb710654f73"
@@ -3271,13 +3279,13 @@ interpret@^1.0.0:
   version "1.0.3"
   resolved "https://registry.yarnpkg.com/interpret/-/interpret-1.0.3.tgz#cbc35c62eeee73f19ab7b10a801511401afc0f90"
 
-invariant@2.2.1, invariant@^2.2.1:
+invariant@2.2.1, invariant@^2.2.0, invariant@^2.2.1:
   version "2.2.1"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.1.tgz#b097010547668c7e337028ebe816ebe36c8a8d54"
   dependencies:
     loose-envify "^1.0.0"
 
-invariant@^2.2.0, invariant@^2.2.2:
+invariant@^2.2.2:
   version "2.2.2"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.2.tgz#9e1f56ac0acdb6bf303306f338be3b204ae60360"
   dependencies:
@@ -4195,6 +4203,10 @@ mkdirp-then@1.2.0:
   resolved "https://registry.yarnpkg.com/mkdirp/-/mkdirp-0.5.1.tgz#30057438eac6cf7f8c4767f38648d6697d75c903"
   dependencies:
     minimist "0.0.8"
+
+module-alias@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/module-alias/-/module-alias-2.0.0.tgz#9bff2cba6eb181dac8e379d69fe34b066a970988"
 
 moment-timezone@^0.5.4:
   version "0.5.13"
