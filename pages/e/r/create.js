@@ -10,6 +10,7 @@ import withData from '../../../hoc/withData';
 
 import { get } from '../../../utils/api';
 import upload from '../../../utils/upload';
+import config from '../../../config';
 import extractExif from '../../../utils/extractExif';
 
 import BasicLayout from '../../../layouts/Basic';
@@ -167,7 +168,7 @@ class CreateReEdit extends React.Component {
         return (
             <BasicLayout>
                 <Helmet>
-                    <title>Create re-edit</title>
+                    <title>{`${config.siteName} | Create re-edit`}</title>
                 </Helmet>
 
                 <div className="tac">

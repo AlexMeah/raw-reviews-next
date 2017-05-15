@@ -10,7 +10,7 @@ import QA from '../components/QA';
 const Index = () => (
     <BasicLayout>
         <Helmet>
-            <title>Frequently Asked Questions</title>
+            <title>{`${config.siteName} | Frequently Asked Questions`}</title>
         </Helmet>
         <H1 className="tac">Frequently Asked Questions</H1>
 

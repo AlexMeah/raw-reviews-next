@@ -7,6 +7,7 @@ import ReactGA from 'react-ga';
 
 import DisallowAuth from '../hoc/disallowAuth';
 import withData from '../hoc/withData';
+import config from '../config';
 
 import BasicLayout from '../layouts/Basic';
 import Input from '../components/Input';
@@ -90,7 +91,7 @@ class CreateUser extends React.Component {
         return (
             <BasicLayout className="tac">
                 <Helmet>
-                    <title>Register</title>
+                    <title>{`${config.siteName} | Register`}</title>
                 </Helmet>
 
                 <h1>Create user</h1>

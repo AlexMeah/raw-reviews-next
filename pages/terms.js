@@ -2,13 +2,14 @@ import React from 'react';
 import Helmet from 'react-helmet';
 
 import BasicLayout from '../layouts/Basic';
+import config from '../config';
 import Markdown from '../components/Markdown';
 import H1 from '../components/H1';
 
 const Index = () => (
     <BasicLayout>
         <Helmet>
-            <title>Terms</title>
+            <title>{`${config.siteName} | Terms`}</title>
         </Helmet>
         <div className="readable">
             <H1>Terms</H1>

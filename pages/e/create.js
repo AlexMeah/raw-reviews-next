@@ -11,6 +11,7 @@ import withData from '../../hoc/withData';
 import { get } from '../../utils/api';
 import upload from '../../utils/upload';
 import extractExif from '../../utils/extractExif';
+import config from '../../config';
 
 import BasicLayout from '../../layouts/Basic';
 import FileInput from '../../components/FileInput';
@@ -159,7 +160,7 @@ class CreateEdit extends React.Component {
         return (
             <BasicLayout>
                 <Helmet>
-                    <title>Create Edit</title>
+                    <title>{`${config.siteName} | Create Edit`}</title>
                 </Helmet>
 
                 <div className="tac">

@@ -29,10 +29,7 @@ export default class MyDocument extends Document {
         return (
             <html lang="en" {...htmlAttrs}>
                 <Head>
-                    <Helmet
-                        htmlAttributes={{ lang: 'en' }}
-                        titleTemplate={`%s | ${config.siteName}`}
-                    />
+                    <Helmet />
                     <meta
                         name="viewport"
                         content="width=device-width, initial-scale=1"

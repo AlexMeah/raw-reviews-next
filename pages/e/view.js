@@ -21,7 +21,7 @@ const Post = props => {
         return (
             <BasicLayout className="tac">
                 <Helmet>
-                    <title>Loading...</title>
+                    <title>{`${config.siteName} | Loading...`}</title>
                 </Helmet>
                 Loading edit...
             </BasicLayout>
@@ -44,7 +44,7 @@ const Post = props => {
     return (
         <BasicLayout>
             <Helmet>
-                <title>{edit.title}</title>
+                <title>{`${config.siteName} | ${edit.title}`}</title>
             </Helmet>
 
             <H1 style={{ textAlign: 'center' }}>

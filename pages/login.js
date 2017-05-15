@@ -4,6 +4,7 @@ import Router from 'next/router';
 import ReactGA from 'react-ga';
 
 import login from '../utils/login';
+import config from '../config';
 import BasicLayout from '../layouts/Basic';
 import DisallowAuth from '../hoc/disallowAuth';
 import Input from '../components/Input';
@@ -79,7 +80,7 @@ class Login extends React.Component {
             return (
                 <BasicLayout>
                     <Helmet>
-                        <title>Login</title>
+                        <title>{`${config.siteName} | Login<`}</title>
                     </Helmet>
 
                     login Successful
@@ -90,7 +91,7 @@ class Login extends React.Component {
         return (
             <BasicLayout className="tac">
                 <Helmet>
-                    <title>Login</title>
+                    <title>{`${config.siteName} | Login`}</title>
                 </Helmet>
 
                 <h1>Login</h1>
