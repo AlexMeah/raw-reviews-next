@@ -10,25 +10,6 @@ const {
 const feedType = require('../type');
 const cache = require('../../../../lib/cache');
 
-const z = 1.96;
-
-function score(votes) {
-    const pos = votes.filter(v => v.dataValues.vote === 1).length;
-    const n = votes.length;
-
-    if (n === 0) {
-        return 0;
-    }
-
-    const phat = 1.0 * pos / n;
-
-    return (
-        (phat +
-            z * z / (2 * n) -
-            z * Math.sqrt((phat * (1 - phat) + z * z / (4 * n)) / n)) /
-        (1 + z * z / n)
-    );
-}
 const CONSTANTS = {
     best: 'best',
     latest: 'latest',
