@@ -28,7 +28,7 @@ const ComponentWithFeed = Component =>
 
             return {
                 variables: {
-                    order: query.order || props.order || 'best',
+                    order: query.order || props.order || 'hot',
                     time: query.time || props.time || 'all',
                     userId: query.userId || props.userId || null
                 }

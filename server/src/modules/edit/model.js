@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
             ups: DataTypes.INTEGER,
             downs: DataTypes.INTEGER,
             score: DataTypes.DOUBLE,
+            hot: DataTypes.DOUBLE,
             id: {
                 primaryKey: true,
                 type: DataTypes.STRING,

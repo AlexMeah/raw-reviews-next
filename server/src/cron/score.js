@@ -31,13 +31,23 @@ const calc = (pos, n) => {
     );
 };
 
+function redditHot(s, date) {
+    const decay = 45000;
+    const order = Math.log(Math.max(Math.abs(s), 1)) / Math.LN10;
+    const secAge = (Date.now() - date.getTime()) / 1000;
+
+    return order - secAge / decay;
+}
+
 function score(edit) {
     const pos = edit.dataValues.ups;
     const n = edit.dataValues.ups + edit.dataValues.downs;
     const scoreVal = calc(pos, n);
+    const scoreHot = redditHot(n, edit.dataValues.createdAt);
 
     return edit.update({
-        score: scoreVal
+        score: scoreVal,
+        hot: scoreHot
     });
 }
 

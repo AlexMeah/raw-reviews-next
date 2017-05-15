@@ -13,6 +13,7 @@ const cache = require('../../../../lib/cache');
 const CONSTANTS = {
     best: 'best',
     latest: 'latest',
+    hot: 'hot',
     hour: 'hour',
     day: 'day',
     week: 'week',
@@ -23,7 +24,8 @@ const CONSTANTS = {
 
 const orders = {
     best: [['score', 'DESC'], ['createdAt', 'DESC']],
-    latest: [['createdAt', 'DESC']]
+    latest: [['createdAt', 'DESC']],
+    hot: [['hot', 'DESC'], ['createdAt', 'DESC']]
 };
 
 const cacheKey = args =>
@@ -75,7 +77,7 @@ function buildQuery(args) {
         });
     }
 
-    query.order = orders[args.order || CONSTANTS.best];
+    query.order = orders[args.order || CONSTANTS.hot];
 
     return query;
 }
@@ -88,7 +90,8 @@ module.exports = {
                 name: 'order',
                 values: {
                     latest: { value: CONSTANTS.latest },
-                    best: { value: CONSTANTS.best }
+                    best: { value: CONSTANTS.best },
+                    hot: { value: CONSTANTS.hot }
                 }
             })
         },

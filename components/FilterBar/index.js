@@ -29,7 +29,24 @@ export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
         <Filter className="col">
             <strong>Order by:</strong> <Link
                 color="link"
-                active={!order || order === 'best'}
+                active={!order || order === 'hot'}
+                href={{
+                    pathname,
+                    query: Object.assign(
+                        {
+                            order: 'hot',
+                            time
+                        },
+                        query
+                    )
+                }}
+                as={alias}
+                onClick={track('hot')}
+            >
+                Hot
+            </Link> | <Link
+                color="link"
+                active={order === 'best'}
                 href={{
                     pathname,
                     query: Object.assign(
