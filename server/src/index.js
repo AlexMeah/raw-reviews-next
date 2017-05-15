@@ -118,7 +118,7 @@ Promise.all([
                         req.headers.authorization.split(' ')[0] === 'Bearer'
                     ) {
                         return req.headers.authorization.split(' ')[1];
-                    } else if (true) {
+                    } else if (req.cookies.authtoken) {
                         return req.cookies.authtoken;
                     }
 
