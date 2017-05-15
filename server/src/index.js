@@ -1,3 +1,15 @@
+const dev = process.env.NODE_ENV !== 'production';
+const moduleAlias = require('module-alias');
+
+// For the development version, we'll use React.
+// Because, it support react hot loading and so on.
+if (!dev) {
+    console.log('aeds');
+    moduleAlias.addAlias('react', 'inferno-compat');
+    moduleAlias.addAlias('react-dom/server', 'inferno-server');
+    moduleAlias.addAlias('react-dom', 'inferno-compat');
+}
+
 const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const bodyParser = require('body-parser');
 const express = require('express');
@@ -5,9 +17,7 @@ const jwt = require('express-jwt');
 const next = require('next');
 const compression = require('compression');
 const cookieParser = require('cookie-parser');
-const moduleAlias = require('module-alias');
 
-const dev = process.env.NODE_ENV !== 'production';
 const app = next({ dev });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
@@ -84,14 +94,6 @@ function syncModels() {
             alter: true
         })
     ]);
-}
-
-// For the development version, we'll use React.
-// Because, it support react hot loading and so on.
-if (!dev) {
-    moduleAlias.addAlias('react', 'inferno-compat');
-    moduleAlias.addAlias('react-dom/server', 'inferno-server');
-    moduleAlias.addAlias('react-dom', 'inferno-compat');
 }
 
 Promise.all([
