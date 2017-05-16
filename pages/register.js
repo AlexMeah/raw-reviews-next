@@ -92,6 +92,10 @@ class CreateUser extends React.Component {
             <BasicLayout className="tac">
                 <Helmet>
                     <title>{`${config.siteName} | Register`}</title>
+                    <meta
+                        name="description"
+                        content="Share your edits, post before and after pics and practice your editing with re-edits."
+                    />
                 </Helmet>
 
                 <h1>Create user</h1>

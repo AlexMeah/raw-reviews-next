@@ -14,6 +14,10 @@ const Index = props => (
     <BasicLayout>
         <Helmet>
             <title>{`${config.siteName} | Home`}</title>
+            <meta
+                name="description"
+                content="Share your edits, post before and after pics and practice your editing with re-edits."
+            />
         </Helmet>
         <FilterBar {...props.url.query} />
         <Ad slot={3129031971} />
