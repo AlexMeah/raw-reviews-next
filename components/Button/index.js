@@ -15,7 +15,7 @@ const Button = props => {
     }
 
     if (props.to) {
-        return <CustomLink href={props.to} as={props.as} {...props} />;
+        return <CustomLink {...props} href={props.to} />;
     }
 
     if (props.dummy) {
