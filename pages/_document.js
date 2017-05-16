@@ -29,7 +29,12 @@ export default class MyDocument extends Document {
         return (
             <html lang="en" {...htmlAttrs}>
                 <Head>
-                    <Helmet />
+                    <Helmet>
+                        <meta
+                            name="description"
+                            content="Share your edits, post before and after pics and practice your editing with re-edits."
+                        />
+                    </Helmet>
                     <meta
                         name="viewport"
                         content="width=device-width, initial-scale=1"
