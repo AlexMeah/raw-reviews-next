@@ -1,14 +1,14 @@
 const dev = process.env.NODE_ENV !== 'production';
-const moduleAlias = require('module-alias');
+// const moduleAlias = require('module-alias');
 
-// For the development version, we'll use React.
-// Because, it support react hot loading and so on.
-if (!dev) {
-    console.log('aeds');
-    moduleAlias.addAlias('react', 'inferno-compat');
-    moduleAlias.addAlias('react-dom/server', 'inferno-server');
-    moduleAlias.addAlias('react-dom', 'inferno-compat');
-}
+// // For the development version, we'll use React.
+// // Because, it support react hot loading and so on.
+// if (!dev) {
+//     console.log('aeds');
+//     moduleAlias.addAlias('react', 'inferno-compat');
+//     moduleAlias.addAlias('react-dom/server', 'inferno-server');
+//     moduleAlias.addAlias('react-dom', 'inferno-compat');
+// }
 
 const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const bodyParser = require('body-parser');
