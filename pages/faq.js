@@ -6,9 +6,10 @@ import config from '../config';
 import BasicLayout from '../layouts/Basic';
 import H1 from '../components/H1';
 import QA from '../components/QA';
+import isAuthed from '../hoc/isAuthed';
 
 const Index = () => (
-    <BasicLayout>
+    <BasicLayout loggedIn={this.props.loggedIn}>
         <Helmet>
             <title>{`${config.siteName} | Frequently Asked Questions`}</title>
         </Helmet>
@@ -35,4 +36,4 @@ const Index = () => (
     </BasicLayout>
 );
 
-export default Index;
+export default isAuthed(Index);

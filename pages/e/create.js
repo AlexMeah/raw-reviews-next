@@ -19,6 +19,7 @@ import Input from '../../components/Input';
 import TextArea from '../../components/TextArea';
 import H1 from '../../components/H1';
 import Button from '../../components/Button';
+import isAuthed from '../../hoc/isAuthed';
 
 function isUploading(state) {
     return (
@@ -158,7 +159,7 @@ class CreateEdit extends React.Component {
             .find(e => e);
 
         return (
-            <BasicLayout>
+            <BasicLayout loggedIn={this.props.loggedIn}>
                 <Helmet>
                     <title>{`${config.siteName} | Create Edit`}</title>
                 </Helmet>
@@ -266,4 +267,4 @@ const createEditMutation = gql`
 
 const CreateEditWithMutation = graphql(createEditMutation)(CreateEdit);
 
-export default requireAuth(withData(CreateEditWithMutation));
+export default requireAuth(withData(isAuthed(CreateEditWithMutation)));

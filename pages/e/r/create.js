@@ -18,6 +18,7 @@ import FileInput from '../../../components/FileInput';
 import TextArea from '../../../components/TextArea';
 import H1 from '../../../components/H1';
 import Button from '../../../components/Button';
+import isAuthed from '../../../hoc/isAuthed';
 
 function isUploading(state) {
     return state.uploading.after && state.uploading.after !== 100;
@@ -158,15 +159,13 @@ class CreateReEdit extends React.Component {
     }
 
     render() {
-        const { before, after, raw, description } = this.state.form;
-
         const { error } = this.state;
         const hasErrors = Object.keys(this.state.errors)
             .map(k => this.state.errors[k])
             .find(e => e);
 
         return (
-            <BasicLayout>
+            <BasicLayout loggedIn={this.props.loggedIn}>
                 <Helmet>
                     <title>{`${config.siteName} | Create re-edit`}</title>
                 </Helmet>
@@ -260,4 +259,4 @@ const CreateReEditWithMutation = compose(
     })
 )(CreateReEdit);
 
-export default requireAuth(withData(CreateReEditWithMutation));
+export default requireAuth(withData(isAuthed(CreateReEditWithMutation)));
