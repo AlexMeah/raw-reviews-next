@@ -38,9 +38,16 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            auth: typeof window !== 'undefined' &&
-                window.localStorage.getItem('authtoken')
+            auth: false
         };
+    }
+
+    componentDidMount() {
+        if (window.localStorage.getItem('authtoken')) {
+            this.setState({
+                auth: true
+            });
+        }
     }
 
     render() {
