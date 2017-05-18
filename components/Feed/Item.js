@@ -9,7 +9,7 @@ import styleVars from '../../css/vars';
 
 import Image from './Image';
 import P from '../P';
-import H3 from '../H3';
+import H2 from '../H2';
 import Link from '../Link';
 
 const Container = styled.div`
@@ -38,7 +38,7 @@ const Bottom = styled.div`
     text-align: center;
 `;
 
-const SmallH3 = styled(H3)`
+const SmallH2 = styled(H2)`
     font-size: 1.8rem;
     overflow: hidden;
     width: 100%;
@@ -78,7 +78,7 @@ const Item = ({
             </Top>
             <Bottom>
                 <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
-                    <SmallH3 title={title} color="primary">{title}</SmallH3>
+                    <SmallH2 title={title} color="primary">{title}</SmallH2>
                 </Link>
                 <hr className="short" />
                 <P mb0 color="body">
