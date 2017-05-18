@@ -13,14 +13,13 @@ import P from '../../components/P';
 import Button from '../../components/Button';
 import ReEditGrid from '../../components/ReEditGrid';
 
-import isAuthed from '../../hoc/isAuthed';
 import withData from '../../hoc/withData';
 import config from '../../config';
 
 const Post = props => {
     if (props.EditQuery.loading) {
         return (
-            <BasicLayout loggedIn={props.loggedIn} className="tac">
+            <BasicLayout className="tac">
                 <Helmet>
                     <title>{`${config.siteName} | Loading...`}</title>
                 </Helmet>
@@ -36,14 +35,14 @@ const Post = props => {
 
     if (!edit) {
         return (
-            <BasicLayout loggedIn={props.loggedIn}>
+            <BasicLayout>
                 Not found
             </BasicLayout>
         );
     }
 
     return (
-        <BasicLayout loggedIn={props.loggedIn}>
+        <BasicLayout>
             <Helmet>
                 <title>{`${config.siteName} | ${edit.title}`}</title>
             </Helmet>
@@ -192,7 +191,6 @@ const voteQuery = gql`
 
 export default compose(
     withData,
-    isAuthed,
     graphql(voteQuery, {
         options: props => {
             const query = (props.url && props.url.query) || {};

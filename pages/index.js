@@ -7,12 +7,11 @@ import FilterBar from '../components/FilterBar';
 import Ad from '../components/Ad';
 
 import withData from '../hoc/withData';
-import isAuthed from '../hoc/isAuthed';
 import FeedData from '../queries/feed';
 import config from '../config';
 
 const Index = props => (
-    <BasicLayout loggedIn={props.loggedIn}>
+    <BasicLayout>
         <Helmet>
             <title>{`${config.siteName} | Home`}</title>
             <meta
@@ -26,4 +25,4 @@ const Index = props => (
     </BasicLayout>
 );
 
-export default withData(FeedData(isAuthed(Index)));
+export default withData(FeedData(Index));

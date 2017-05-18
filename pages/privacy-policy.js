@@ -5,10 +5,9 @@ import config from '../config';
 import BasicLayout from '../layouts/Basic';
 import Markdown from '../components/Markdown';
 import H1 from '../components/H1';
-import isAuthed from '../hoc/isAuthed';
 
-const Index = props => (
-    <BasicLayout loggedIn={props.loggedIn}>
+const Index = () => (
+    <BasicLayout>
         <Helmet>
             <title>{`${config.siteName} | Privacy Policy`}</title>
         </Helmet>
@@ -75,11 +74,11 @@ This Privacy Policy is incorporated into and forms part of the Terms of Use, whi
 
 ## Persons Under 18
 
-The Website is not marketed toward persons under the age of 18. If Raw Reviews discovers that it has inadvertently collected Personal Information about individuals under the age 18, it will promptly delete such information.
+The Website is not marketed toward persons under the age of 18\. If Raw Reviews discovers that it has inadvertently collected Personal Information about individuals under the age 18, it will promptly delete such information.
 `}
             </Markdown>
         </div>
     </BasicLayout>
 );
 
-export default isAuthed(Index);
+export default Index;

@@ -1,7 +1,6 @@
 import React from 'react';
 import Helmet from 'react-helmet';
 
-import isAuthed from '../../hoc/isAuthed';
 import withData from '../../hoc/withData';
 import config from '../../config';
 
@@ -11,7 +10,7 @@ import FilterBar from '../../components/FilterBar';
 import FeedData from '../../queries/feed';
 
 const User = props => (
-    <BasicLayout loggedIn={props.loggedIn}>
+    <BasicLayout>
         <Helmet>
             <title>{`${config.siteName} | User Profile`}</title>
         </Helmet>
@@ -25,4 +24,4 @@ const User = props => (
     </BasicLayout>
 );
 
-export default withData(FeedData(isAuthed(User)));
+export default withData(FeedData(User));

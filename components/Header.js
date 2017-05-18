@@ -38,7 +38,8 @@ export default class Header extends React.Component {
         super(props);
 
         this.state = {
-            auth: props.loggedIn
+            auth: typeof window !== 'undefined' &&
+                window.localStorage.getItem('authtoken')
         };
     }
 

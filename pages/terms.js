@@ -6,10 +6,8 @@ import config from '../config';
 import Markdown from '../components/Markdown';
 import H1 from '../components/H1';
 
-import isAuthed from '../hoc/isAuthed';
-
-const Index = props => (
-    <BasicLayout loggedIn={props.loggedIn}>
+const Index = () => (
+    <BasicLayout>
         <Helmet>
             <title>{`${config.siteName} | Terms`}</title>
         </Helmet>
@@ -107,4 +105,4 @@ By continuing to access or use our Service after those revisions become effectiv
     </BasicLayout>
 );
 
-export default isAuthed(Index);
+export default Index;

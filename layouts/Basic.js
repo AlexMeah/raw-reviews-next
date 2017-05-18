@@ -9,9 +9,9 @@ const Container = styled.div`
     padding: 3rem;
 `;
 
-const Layout = ({ children, loggedIn, ...rest }) => (
+const Layout = ({ children, ...rest }) => (
     <Container {...rest}>
-        <Header loggedIn={loggedIn} />
+        <Header />
         {children}
         <Footer />
     </Container>
