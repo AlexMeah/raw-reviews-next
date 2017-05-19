@@ -16,13 +16,15 @@ export default ({ slot }) => {
                     }
                 ]}
             />
-            <ins
-                className="adsbygoogle col-xs-12"
-                style={{ display: 'block' }}
-                data-ad-client="ca-pub-8155196363770236"
-                data-ad-slot={slot}
-                data-ad-format="auto"
-            />
+            <div className="col-xs-12">
+                <ins
+                    className="adsbygoogle"
+                    style={{ display: 'block', marginBottom: '2rem' }}
+                    data-ad-client="ca-pub-8155196363770236"
+                    data-ad-slot={slot}
+                    data-ad-format="auto"
+                />
+            </div>
             <script
                 dangerouslySetInnerHTML={{
                     __html: '(adsbygoogle = window.adsbygoogle || []).push({});'
