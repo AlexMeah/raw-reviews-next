@@ -37,7 +37,7 @@ function buildQuery(args) {
         all: {},
         hour: {
             createdAt: {
-                $gt: now.clone().startOf('hour')
+                $gt: now.clone().subtract(1, 'hour')
             }
         },
         day: {
@@ -61,7 +61,9 @@ function buildQuery(args) {
             }
         }
     };
-    const query = {};
+    const query = {
+        where: {}
+    };
 
     if (args.time) {
         Object.assign(query, {
@@ -73,6 +75,16 @@ function buildQuery(args) {
         Object.assign(query, {
             where: Object.assign(query.where, {
                 userId: args.userId
+            })
+        });
+    }
+
+    if (args.tags) {
+        Object.assign(query, {
+            where: Object.assign(query.where, {
+                tags: {
+                    $contains: args.tags
+                }
             })
         });
     }
@@ -116,6 +128,9 @@ module.exports = {
         },
         offset: {
             type: GraphQLInt
+        },
+        tags: {
+            type: new GraphQLList(GraphQLString)
         }
     },
     resolve: function resolve(options, args) {

@@ -21,9 +21,10 @@ border: 0;
 box-shadow: ${styleVars.shadow};
 padding: 2rem;
 width: 100%;
-max-width: 60rem;
+max-width: 50rem;
 min-height: 13rem;
 font-size: inherit;
+vertical-align: middle;
 `;
 
 export default ({ progress = false, label = false, name, error, ...rest }) => (

@@ -27,9 +27,17 @@ width: 100%;
 max-width: 50rem;
 `;
 
-export default ({ progress = false, label = false, name, error, ...rest }) => (
-    <InputContainer htmlFor={name}>
+export default ({
+    label = false,
+    name,
+    error,
+    className,
+    info = null,
+    ...rest
+}) => (
+    <InputContainer htmlFor={name} className={className}>
         {label && <H3>{label}</H3>}
+        {info && <p>{info}</p>}
         {error && <P>{error}</P>}
         <Input {...rest} name={name} id={name} />
     </InputContainer>

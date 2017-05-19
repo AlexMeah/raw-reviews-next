@@ -4,7 +4,8 @@ const {
     GraphQLString,
     GraphQLFloat,
     GraphQLInt,
-    GraphQLInputObjectType
+    GraphQLInputObjectType,
+    GraphQLList
 } = require('graphql');
 const Sequelize = require('sequelize');
 
@@ -105,6 +106,10 @@ module.exports = {
             description: 'A description for the edit',
             type: GraphQLString
         },
+        tags: {
+            description: 'The edits tags',
+            type: new GraphQLList(GraphQLString)
+        },
         parent: {
             description: 'The parent edit',
             type: GraphQLString
@@ -125,7 +130,8 @@ module.exports = {
             description,
             beforeExif,
             afterExif,
-            parent
+            parent,
+            tags
         },
         { req }
     ) {
@@ -142,7 +148,8 @@ module.exports = {
                     description,
                     title,
                     parent,
-                    userId: req.user.id
+                    userId: req.user.id,
+                    tags
                 },
                 {
                     returning: true

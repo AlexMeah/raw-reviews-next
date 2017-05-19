@@ -1,11 +1,12 @@
 import { gql, graphql } from 'react-apollo';
+import arrify from 'arrify';
 
 const ITEMS_PER_PAGE = 20;
 
 const feedQuery = gql`
-  query feed($order: order, $time: time, $userId: String, $offset: Int) {
+  query feed($order: order, $time: time, $userId: String, $tags: [String], $offset: Int) {
       feed {
-          feed(order: $order, time: $time, userId: $userId, offset: $offset, limit: ${ITEMS_PER_PAGE}) {
+          feed(order: $order, time: $time, userId: $userId, offset: $offset, tags: $tags, limit: ${ITEMS_PER_PAGE}) {
               id,
               before,
               after,
@@ -30,7 +31,10 @@ const ComponentWithFeed = Component =>
                 variables: {
                     order: query.order || props.order || 'hot',
                     time: query.time || props.time || 'all',
-                    userId: query.userId || props.userId || null
+                    tags: query.tags || props.tags || null,
+                    userId: query.userId || props.userId
+                        ? arrify(query.userId || props.userId)
+                        : null
                 }
             };
         },

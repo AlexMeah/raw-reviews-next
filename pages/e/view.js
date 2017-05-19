@@ -8,8 +8,10 @@ import H1 from '../../components/H1';
 import ExifView from '../../components/ExifView';
 import ImageCompare from '../../components/ImageCompare';
 import Vote from '../../components/Vote';
+import Link from '../../components/Link';
 import Ad from '../../components/Ad';
 import P from '../../components/P';
+import TagList from '../../components/TagList';
 import Button from '../../components/Button';
 import ReEditGrid from '../../components/ReEditGrid';
 
@@ -47,8 +49,16 @@ const Post = props => {
                 <title>{`${config.siteName} | ${edit.title}`}</title>
             </Helmet>
 
-            <H1 style={{ textAlign: 'center' }}>
-                {edit.title} {edit.parent ? '(Re-Edit)' : null}
+            <H1 className="tac">
+                {edit.title} {edit.parent ? '(Re-Edit)' : null} <span>
+                    by <Link
+                        to={`/u/profile?userId=${edit.userId}`}
+                        as={`/u/${edit.userId}`}
+                        color="primary"
+                    >
+                        {edit.userId}
+                    </Link>
+                </span>
             </H1>
 
             {edit.description &&
@@ -79,10 +89,10 @@ const Post = props => {
             <Ad slot={7323729177} />
 
             <div className="row">
-
                 {!edit.parent &&
                     <div className="col-sm-6">
                         <ReEditGrid reedits={reedits} />
+                        <TagList tags={edit.tags} />
                     </div>}
 
                 <div className="col-sm-6">
@@ -145,7 +155,8 @@ const editQuery = gql`
               downs
               createdAt
               userId
-              parent
+              parent,
+              tags
           }
           reedits(parent: $editId) {
               id

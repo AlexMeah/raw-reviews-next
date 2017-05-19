@@ -13,6 +13,7 @@ import upload from '../../utils/upload';
 import extractExif from '../../utils/extractExif';
 import config from '../../config';
 
+import TagInput from '../../components/TagInput';
 import BasicLayout from '../../layouts/Basic';
 import FileInput from '../../components/FileInput';
 import Input from '../../components/Input';
@@ -39,7 +40,8 @@ class CreateEdit extends React.Component {
                 description: '',
                 title: '',
                 beforeExif: {},
-                afterExif: {}
+                afterExif: {},
+                tags: []
             },
             uploading: {
                 before: false,
@@ -54,6 +56,7 @@ class CreateEdit extends React.Component {
         };
 
         this.handleFile = this.handleFile.bind(this);
+        this._onTagsChange = this._onTagsChange.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmission = this.handleSubmission.bind(this);
     }
@@ -62,6 +65,14 @@ class CreateEdit extends React.Component {
         this.setState({
             form: Object.assign(this.state.form, {
                 [e.target.name]: e.target.value
+            })
+        });
+    }
+
+    _onTagsChange(tags) {
+        this.setState({
+            form: Object.assign(this.state.form, {
+                tags
             })
         });
     }
@@ -173,7 +184,7 @@ class CreateEdit extends React.Component {
                     onSubmit={this.handleSubmission}
                     className="row around-xs"
                 >
-                    <div className="col-sm-4 tac">
+                    <div className="col-xs-12 col-md-4 tac">
                         <FileInput
                             className="box"
                             label="Before"
@@ -185,9 +196,10 @@ class CreateEdit extends React.Component {
                             id="before"
                             required
                             onChange={this.handleFile}
+                            info="Max 5mb"
                         />
                     </div>
-                    <div className="col-sm-4 tac">
+                    <div className="col-xs-12 col-md-4 tac">
                         <FileInput
                             className="box"
                             label="After"
@@ -199,9 +211,10 @@ class CreateEdit extends React.Component {
                             id="after"
                             required
                             onChange={this.handleFile}
+                            info="Max 5mb"
                         />
                     </div>
-                    <div className="col-sm-4 tac">
+                    <div className="col-xs-12 col-md-4 tac">
                         <FileInput
                             className="box"
                             label="Raw (optional)"
@@ -211,6 +224,7 @@ class CreateEdit extends React.Component {
                             id="raw"
                             name="raw"
                             onChange={this.handleFile}
+                            info="Max 80mb"
                         />
                     </div>
 
@@ -239,6 +253,13 @@ class CreateEdit extends React.Component {
                     </div>
 
                     <div className="col-xs-12 center-xs">
+                        <TagInput
+                            onChange={this._onTagsChange}
+                            value={this.state.form.tags}
+                        />
+                    </div>
+
+                    <div className="col-xs-12 center-xs">
                         <div className="box">
                             <Button
                                 type="submit"
@@ -256,8 +277,8 @@ class CreateEdit extends React.Component {
 }
 
 const createEditMutation = gql`
-  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $beforeExif: exif, $afterExif: exif) {
-    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, beforeExif: $beforeExif, afterExif: $afterExif) {
+  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $tags: [String], $beforeExif: exif, $afterExif: exif) {
+    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, tags: $tags, beforeExif: $beforeExif, afterExif: $afterExif) {
         id,
         userId
     }

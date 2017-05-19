@@ -188,6 +188,18 @@ Promise.all([
             );
         });
 
+        server.get('/tag/:tags(*)', (req, res) => {
+            const actualPage = '/tag';
+            renderAndCache(
+                req,
+                res,
+                actualPage,
+                Object.assign({}, req.query, {
+                    tags: (req.params.tags || '').split('/')
+                })
+            );
+        });
+
         server.get('/e/:editId/r/create', (req, res) => {
             const actualPage = '/e/r/create';
             app.render(

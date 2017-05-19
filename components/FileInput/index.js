@@ -34,11 +34,19 @@ const progressText = p => {
     }
 };
 
-export default ({ progress = false, label = false, name, error, ...rest }) => (
+export default ({
+    progress = false,
+    label = false,
+    name,
+    info = null,
+    error,
+    ...rest
+}) => (
     <FileInputContainer htmlFor={name}>
         {label && <H3>{label} {progressText(progress)}</H3>}
         {error && <P>{error}</P>}
         <FileInput {...rest} name={name} id={name} />
-        <Button dummy>Select files</Button>
+        <Button dummy>Select file</Button>
+        {info && <div><small>{info}</small></div>}
     </FileInputContainer>
 );

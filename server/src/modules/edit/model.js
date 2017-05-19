@@ -16,6 +16,7 @@ module.exports = (sequelize, DataTypes) => {
             downs: DataTypes.INTEGER,
             score: DataTypes.DOUBLE,
             hot: DataTypes.DOUBLE,
+            tags: DataTypes.ARRAY(DataTypes.TEXT),
             id: {
                 primaryKey: true,
                 type: DataTypes.STRING,
@@ -32,6 +33,9 @@ module.exports = (sequelize, DataTypes) => {
                 },
                 {
                     fields: ['score', 'createdAt']
+                },
+                {
+                    fields: ['tags']
                 }
             ],
             classMethods: {

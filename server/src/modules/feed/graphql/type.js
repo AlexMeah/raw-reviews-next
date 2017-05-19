@@ -1,11 +1,6 @@
 const { sequelize: { models } } = require('../../../lib/sequelize');
 const { attributeFields } = require('graphql-sequelize');
-const {
-    GraphQLObjectType,
-    GraphQLInt,
-    GraphQLString,
-    GraphQLFloat
-} = require('graphql');
+const { GraphQLObjectType } = require('graphql');
 
 module.exports = new GraphQLObjectType({
     name: 'Feed',

@@ -15,7 +15,7 @@ export default {
         primaryColor: '#FFF',
         secondary: '#705afb',
         secondaryColor: '#FFF',
-        muted: '#D9F0FF',
+        muted: '#b8cbd4',
         mutedColor: '#333',
         error: '#C3272B',
         errorColor: '#fff',

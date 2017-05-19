@@ -40,7 +40,7 @@ class Welcome extends React.Component {
             show: false
         };
 
-        this._hide = this._hide.bind(this, this._hide);
+        this._hide = this._hide.bind(this);
     }
 
     componentDidMount() {
