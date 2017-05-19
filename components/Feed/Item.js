@@ -15,10 +15,6 @@ import Link from '../Link';
 const Container = styled.div`
     padding-bottom: 2rem;
     width: 100%;
-
-@media only screen and (min-width: ${styleVars.breakpoints.sm}) {
-    padding: 2rem;
-}
 `;
 
 const Inner = styled.div`
@@ -69,7 +65,7 @@ const Item = ({
     createdAt,
     userId
 }) => (
-    <Container className="col-sm-6 col-md-4 col-lg-3">
+    <Container className="col-xs-12 col-sm-6 col-md-4 col-lg-3">
         <Inner>
             <Top>
                 <Link href={`/e/view?editId=${id}`} as={`/e/${id}`}>
