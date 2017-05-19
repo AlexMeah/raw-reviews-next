@@ -28,7 +28,7 @@ const Index = () => (
         <QA question="Why can't we upload a screenshot of our settings?">
             Because anyone can copy some settings, we hope that you'll instead
             {' '}
-            study the edit and description and learn how achieve the edit
+            study the edit and description and learn how to achieve the edit
             {' '}
             yourself.
         </QA>
