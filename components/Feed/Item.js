@@ -81,7 +81,9 @@ const Item = ({
                     <small>
                         {parent ? 'Re-Edited' : 'Submitted'}
                         {' '}
-                        <strong>{distanceInWordsToNow(createdAt)}</strong>
+                        <strong title={createdAt}>
+                            {distanceInWordsToNow(createdAt)}
+                        </strong>
                         {' '}
                         ago by
                         {' '}

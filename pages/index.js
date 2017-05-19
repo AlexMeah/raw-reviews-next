@@ -21,7 +21,7 @@ const Index = props => (
             />
         </Helmet>
         <Welcome />
-        <FilterBar {...props.url.query} />
+        <FilterBar {...props.url.query} query={props.url.query} />
         <Ad slot={3129031971} />
         <Feed key="home-feed" {...props} />
     </BasicLayout>

@@ -17,7 +17,7 @@ const User = props => (
         <FilterBar
             {...props.url.query}
             pathname="/u/profile"
-            query={{ userId: props.url.query.userId }}
+            query={props.url.query}
             alias={`/u/${props.url.query.userId}`}
         />
         <Feed key={`feed-${props.url.query.userId}`} {...props} />

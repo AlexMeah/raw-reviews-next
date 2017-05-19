@@ -25,169 +25,129 @@ const track = val => () => {
     });
 };
 
-export default ({ order, time, query = {}, pathname = '/', alias = null }) => (
+const timeLinks = [
+    {
+        default: true,
+        name: 'all',
+        text: 'All'
+    },
+    {
+        default: false,
+        name: 'year',
+        text: 'Year'
+    },
+    {
+        default: false,
+        name: 'month',
+        text: 'Month'
+    },
+    {
+        default: false,
+        name: 'week',
+        text: 'Week'
+    },
+    {
+        default: false,
+        name: 'day',
+        text: 'Day'
+    },
+    {
+        default: false,
+        name: 'hour',
+        text: 'Hour'
+    }
+];
+
+const orderLinks = [
+    {
+        default: true,
+        name: 'hot',
+        text: 'Hot'
+    },
+    {
+        default: false,
+        name: 'best',
+        text: 'Best'
+    },
+    {
+        default: false,
+        name: 'latest',
+        text: 'Latest'
+    }
+];
+
+const makeOrderLinks = (pathname, alias, query) =>
+    orderLinks.map((link, i) => (
+        <span>
+            <Link
+                color="link"
+                active={
+                    (!query.order && link.default) || query.order === link.name
+                }
+                href={{
+                    pathname,
+                    query: {
+                        order: link.name,
+                        time: query.time,
+                        userId: query.userId
+                    }
+                }}
+                as={{
+                    pathname: alias,
+                    query: {
+                        order: link.name,
+                        time: query.time
+                    }
+                }}
+                onClick={track(link.name)}
+            >
+                {link.text}
+            </Link> {i < orderLinks.length - 1 && ' | '}
+        </span>
+    ));
+
+const makeTimeLinks = (pathname, alias, query) =>
+    timeLinks.map((link, i) => (
+        <span>
+            <Link
+                color="link"
+                active={
+                    (!query.time && link.default) || query.time === link.name
+                }
+                href={{
+                    pathname,
+                    query: {
+                        order: query.order,
+                        time: link.name,
+                        userId: query.userId
+                    }
+                }}
+                as={{
+                    pathname: alias,
+                    query: {
+                        order: query.order,
+                        time: link.name
+                    }
+                }}
+                onClick={track(link.name)}
+            >
+                {link.text}
+            </Link> {i < timeLinks.length - 1 && ' | '}
+        </span>
+    ));
+
+export default ({ query = {}, pathname = '/', alias = null }) => (
     <FilterBar className="row">
         <div className="col-xs-12">
             <Filter className="col">
-                <strong>Order by:</strong> <Link
-                    color="link"
-                    active={!order || order === 'hot'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                order: 'hot',
-                                time
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('hot')}
-                >
-                    Hot
-                </Link> | <Link
-                    color="link"
-                    active={order === 'best'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                order: 'best',
-                                time
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('best')}
-                >
-                    Best
-                </Link> | <Link
-                    color="link"
-                    active={order === 'latest'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                order: 'latest',
-                                time
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('latest')}
-                >
-                    Latest
-                </Link>
+                <strong>Order by:</strong>
+                {' '}
+                {makeOrderLinks(pathname, alias, query)}
             </Filter>
             <Filter className="col">
                 <strong>Time:</strong>
                 {' '}
-                <Link
-                    color="link"
-                    active={!time || time === 'all'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'all',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('all')}
-                >
-                    All
-                </Link> | <Link
-                    color="link"
-                    active={time === 'year'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'year',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('year')}
-                >
-                    Year
-                </Link> | <Link
-                    color="link"
-                    active={time === 'month'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'month',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('month')}
-                >
-                    Month
-                </Link> | <Link
-                    color="link"
-                    active={time === 'week'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'week',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('week')}
-                >
-                    Week
-                </Link> | <Link
-                    color="link"
-                    active={time === 'day'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'day',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('day')}
-                >
-                    Day
-                </Link> | <Link
-                    color="link"
-                    active={time === 'hour'}
-                    href={{
-                        pathname,
-                        query: Object.assign(
-                            {
-                                time: 'hour',
-                                order
-                            },
-                            query
-                        )
-                    }}
-                    as={alias}
-                    onClick={track('hour')}
-                >
-                    Hour
-                </Link>
+                {makeTimeLinks(pathname, alias, query)}
             </Filter>
         </div>
     </FilterBar>
