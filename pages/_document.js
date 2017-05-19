@@ -126,6 +126,7 @@ export default class MyDocument extends Document {
                         href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600"
                         rel="stylesheet"
                     />
+                    <script src="https://cdn.polyfill.io/v2/polyfill.min.js" />
                 </Head>
                 <body {...bodyAttrs}>
                     <Main />

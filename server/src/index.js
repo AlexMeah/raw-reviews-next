@@ -230,10 +230,7 @@ Promise.all([
 
         process.on('uncaughtException', error => {
             console.error(error);
-
-            setTimeout(() => {
-                server.close(() => process.exit(1));
-            }, 3000);
+            process.exit(1);
         });
 
         process.on('unhandledRejection', error => {
