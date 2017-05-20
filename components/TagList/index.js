@@ -8,7 +8,7 @@ export default ({ tags }) => (
         <H3>Tags</H3>
         {tags &&
             tags.map(t => (
-                <span>
+                <span key={t}>
                     <Link
                         to={`/tag?tags=${t}`}
                         as={`/tag/${t}`}

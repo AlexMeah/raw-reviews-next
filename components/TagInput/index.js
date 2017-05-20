@@ -39,6 +39,7 @@ const TagInputEl = styled.input`
     width: 100%;
     max-width: 50rem;
     margin-bottom: 2rem;
+    text-transform: uppercase;
 `;
 
 const settings = {
@@ -70,7 +71,7 @@ class TagInput extends React.Component {
     _onKeyPress(e) {
         const key = e.keyCode;
 
-        const val = e.target.value;
+        const val = (e.target.value || '').toUpperCase();
         const empty = val === '';
         const isRemoveKey = settings.removeKeys.indexOf(key) !== -1;
         const isAddKey = settings.addKeys.indexOf(key) !== -1;
