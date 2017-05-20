@@ -89,11 +89,10 @@ const Post = props => {
             <Ad slot={7323729177} />
 
             <div className="row">
-                {!edit.parent &&
-                    <div className="col-sm-6">
-                        <ReEditGrid reedits={reedits} />
-                        <TagList tags={edit.tags} />
-                    </div>}
+                <div className="col-sm-6">
+                    {!edit.parent && <ReEditGrid reedits={reedits} />}
+                    <TagList tags={edit.tags} />
+                </div>
 
                 <div className="col-sm-6">
                     <ExifView {...exif.tags} />

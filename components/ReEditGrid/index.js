@@ -33,6 +33,6 @@ export default ({ reedits = [] }) => (
             <H3>Re-Edits</H3>
             {reedits.length === 0 && <P>No re-edits yet :(</P>}
         </div>
-        {reedits.map(e => <Edit {...e} />)}
+        {reedits.map(e => <Edit {...e} key={e.id} />)}
     </Container>
 );

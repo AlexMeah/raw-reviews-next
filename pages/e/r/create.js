@@ -226,8 +226,8 @@ class CreateReEdit extends React.Component {
 }
 
 const createReEditMutation = gql`
-  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $afterExif: exif, $parent: String!) {
-    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, afterExif: $afterExif, parent: $parent) {
+  mutation edit_createEdit($before: String!, $raw: String, $after: String!, $title: String!, $description: String, $afterExif: exif, $tags: [String], $parent: String!) {
+    edit_createEdit(before: $before, raw: $raw, after: $after, title: $title, description: $description, afterExif: $afterExif, parent: $parent, tags: $tags) {
         id
     }
   }
@@ -239,7 +239,8 @@ const createReEditQuery = gql`
           edit(id: $editId) {
               before
               raw
-              title
+              title,
+              tags
           }
       }
   }
