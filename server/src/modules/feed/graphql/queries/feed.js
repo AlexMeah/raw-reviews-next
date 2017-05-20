@@ -29,7 +29,7 @@ const orders = {
 };
 
 const cacheKey = args =>
-    `feed${args.order || ''}${args.time || ''}${args.userId || ''}${args.limit || ''}${args.offset || ''}`;
+    `feed${args.order || ''}${args.time || ''}${args.userId || ''}${args.limit || ''}${args.offset || ''}${Array.isArray(args.tags) ? args.tags.join('-') : ''}`;
 
 function buildQuery(args) {
     const now = moment();
@@ -83,7 +83,7 @@ function buildQuery(args) {
         Object.assign(query, {
             where: Object.assign(query.where, {
                 tags: {
-                    $contains: args.tags
+                    $contains: args.tags.map(t => (t || '').toUpperCase())
                 }
             })
         });
