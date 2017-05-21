@@ -26,8 +26,8 @@ const checkAuth = () =>
         return _isAuthenticated;
     });
 
-export default function isAuthenticated() {
-    if (_isAuthenticated) {
+export default function isAuthenticated(force) {
+    if (_isAuthenticated && !force) {
         return Promise.resolve(true);
     }
 

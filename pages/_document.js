@@ -4,7 +4,6 @@ import styleSheet from 'styled-components/lib/models/StyleSheet';
 import Helmet from 'react-helmet';
 
 import '../css/global';
-import config from '../config';
 
 export default class MyDocument extends Document {
     static async getInitialProps({ renderPage }) {

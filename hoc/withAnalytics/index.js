@@ -2,9 +2,12 @@
 
 import React from 'react';
 
+import auth from '../../utils/auth';
+
 // TODO expose file as React component and wrap in a <NoSSR> component
 let ReactGA;
 let gaInitialised = false;
+
 if (process.browser) {
     ReactGA = require('react-ga'); // eslint-disable-line global-require
 }
@@ -24,8 +27,10 @@ export default ComposedComponent =>
 
         componentDidMount() {
             const page = window.location.pathname;
-            ReactGA.set({ page });
-            ReactGA.pageview(page);
+            auth(true).catch(() => '').then(() => {
+                ReactGA.set({ page });
+                ReactGA.pageview(page);
+            });
         }
 
         render() {
