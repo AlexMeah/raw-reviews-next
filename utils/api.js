@@ -17,8 +17,9 @@ const errorHandler = err => {
     return Promise.reject(err);
 };
 
-const statusCheck = resp => {
+const statusCheck = (resp, authRedirect) => {
     if (
+        authRedirect &&
         resp.status === 401 &&
         window.location.pathname.indexOf('login') === -1 &&
         window.location.pathname.indexOf('register') === -1
@@ -54,7 +55,7 @@ const extractToken = resp => {
     return resp;
 };
 
-export function get(url) {
+export function get(url, { authRedirect = true } = {}) {
     const token = getToken();
     const headers = {
         Accept: 'application/json',
@@ -73,7 +74,7 @@ export function get(url) {
         headers
     })
         .then(extractToken)
-        .then(statusCheck)
+        .then(resp => statusCheck(resp, authRedirect))
         .catch(errorHandler);
 }
 

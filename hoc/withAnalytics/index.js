@@ -27,10 +27,15 @@ export default ComposedComponent =>
 
         componentDidMount() {
             const page = window.location.pathname;
-            auth(true).catch(() => '').then(() => {
-                ReactGA.set({ page });
-                ReactGA.pageview(page);
-            });
+            auth({
+                force: true,
+                authRedirect: false
+            })
+                .catch(() => '')
+                .then(() => {
+                    ReactGA.set({ page });
+                    ReactGA.pageview(page);
+                });
         }
 
         render() {

@@ -6,8 +6,8 @@ import config from '../config';
 
 let _isAuthenticated;
 
-const checkAuth = () =>
-    get(`${config.host}/api/me`).then(status => {
+const checkAuth = options =>
+    get(`${config.host}/api/me`, options).then(status => {
         ReactGA.set({ userId: status.id });
         setTimeout(() => {
             _isAuthenticated = false;
@@ -26,10 +26,14 @@ const checkAuth = () =>
         return _isAuthenticated;
     });
 
-export default function isAuthenticated(force) {
+export default function isAuthenticated(
+    { force = false, authRedirect = true } = {}
+) {
     if (_isAuthenticated && !force) {
         return Promise.resolve(true);
     }
 
-    return checkAuth();
+    return checkAuth({
+        authRedirect
+    });
 }
