@@ -1,6 +1,7 @@
 import { gql, graphql, compose } from 'react-apollo';
 import React from 'react';
 import Helmet from 'react-helmet';
+import ReactGA from 'react-ga';
 import get from 'lodash.get';
 
 import BasicLayout from '../../layouts/Basic';
@@ -17,6 +18,14 @@ import ReEditGrid from '../../components/ReEditGrid';
 
 import withData from '../../hoc/withData';
 import config from '../../config';
+
+const trackButton = (action, label = null) => () => {
+    ReactGA.event({
+        category: 'Button',
+        action,
+        label
+    });
+};
 
 const Post = props => {
     if (props.EditQuery.loading) {
@@ -79,6 +88,7 @@ const Post = props => {
                         as={`/e/${edit.parent}`}
                         color="positive"
                         type="button"
+                        onClick={trackButton('View Original', edit.parent)}
                     >
                         View Original
                     </Button>}
@@ -109,6 +119,10 @@ const Post = props => {
                                 color="secondary"
                                 type="button"
                                 href={`${config.cdnOriginal}/${edit.raw}`}
+                                onClick={trackButton(
+                                    'Download',
+                                    edit.parent || edit.id
+                                )}
                                 download
                             >
                                 DOWNLOAD RAW
@@ -118,6 +132,10 @@ const Post = props => {
                                 color="secondary"
                                 type="button"
                                 href={`${config.cdn}/reduced/${edit.before}`}
+                                onClick={trackButton(
+                                    'Download',
+                                    edit.parent || edit.id
+                                )}
                                 download
                             >
                                 DOWNLOAD BEFORE JPG
@@ -129,6 +147,10 @@ const Post = props => {
                             as={`/e/${edit.parent || edit.id}/r/create`}
                             color="primary"
                             type="button"
+                            onClick={trackButton(
+                                'Submit Re-Edit',
+                                edit.parent || edit.id
+                            )}
                         >
                             SUBMIT RE-EDIT
                         </Button>
