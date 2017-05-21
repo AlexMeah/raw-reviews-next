@@ -17,14 +17,22 @@ const Image = styled.img`
     max-width: 15rem;
     border: 4px solid #fff;
     border-radius: ${vars.radius};
+    vertical-align: middle;
+    
+`;
+
+const EditContainer = styled.div`
+    margin-right: 2rem;
+    margin-bottom: 2rem;
+    display: inline-block;
 `;
 
 const Edit = ({ after, id }) => (
-    <div className="col">
+    <EditContainer>
         <Link to={'/e/view?editId={id}'} as={`/e/${id}`}>
             <Image src={`${config.cdn}/resized/square/${after}`} alt={id} />
         </Link>
-    </div>
+    </EditContainer>
 );
 
 export default ({ reedits = [] }) => (
@@ -32,7 +40,7 @@ export default ({ reedits = [] }) => (
         <div className="col-xs-12">
             <H3>Re-Edits</H3>
             {reedits.length === 0 && <P>No re-edits yet :(</P>}
+            {reedits.map(e => <Edit {...e} key={e.id} />)}
         </div>
-        {reedits.map(e => <Edit {...e} key={e.id} />)}
     </Container>
 );

@@ -102,35 +102,35 @@ const Post = props => {
             <br />
 
             <div className="col-xs-12 middle-xs">
-                <div className="row around-xs">
-                    <div className="col">
+                <div className="row center-xs">
+                    <div className="col-xs-12 mb2">
                         {edit.raw &&
                             <Button
                                 color="secondary"
-                                style={{ marginRight: '2rem' }}
                                 type="button"
                                 href={`${config.cdnOriginal}/${edit.raw}`}
                                 download
                             >
-                                Download Raw
+                                DOWNLOAD RAW
                             </Button>}
                         {!edit.raw &&
                             <Button
                                 color="secondary"
-                                style={{ marginRight: '2rem' }}
                                 type="button"
                                 href={`${config.cdn}/reduced/${edit.before}`}
                                 download
                             >
-                                Download Before JPG
+                                DOWNLOAD BEFORE JPG
                             </Button>}
+                    </div>
+                    <div className="col-xs-12 mb2">
                         <Button
                             to={`/e/r/create?editId=${edit.parent || edit.id}`}
                             as={`/e/${edit.parent || edit.id}/r/create`}
                             color="primary"
                             type="button"
                         >
-                            Submit Re-edit
+                            SUBMIT RE-EDIT
                         </Button>
                     </div>
 
