@@ -78,7 +78,7 @@ const orderLinks = [
 
 const makeOrderLinks = (pathname, alias, query) =>
     orderLinks.map((link, i) => (
-        <span>
+        <span key={link.name}>
             <Link
                 color="link"
                 active={
@@ -108,7 +108,7 @@ const makeOrderLinks = (pathname, alias, query) =>
 
 const makeTimeLinks = (pathname, alias, query) =>
     timeLinks.map((link, i) => (
-        <span>
+        <span key={link.name}>
             <Link
                 color="link"
                 active={
