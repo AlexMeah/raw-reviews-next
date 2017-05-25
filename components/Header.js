@@ -3,6 +3,7 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import Link from './Link';
+import Button from './Button';
 
 import styleVars from '../css/vars';
 
@@ -13,6 +14,11 @@ const logout = () => {
 
 const Container = styled.div`
     margin-bottom: 3rem;
+
+    a {
+        vertical-align: middle;
+        line-height: 1;
+    }
 `;
 
 const LogoContainer = styled.div`
@@ -52,7 +58,7 @@ export default class Header extends React.Component {
 
     render() {
         return (
-            <Container className="row">
+            <Container className="row middle-xs">
                 <LogoContainer className="col-xs-12 col-sm-6 center-xs start-sm">
                     <Link href="/">
                         <Logo color={styleVars.colors.primary} />
@@ -62,6 +68,9 @@ export default class Header extends React.Component {
                 <LinksContainer className="col-xs-12 col-sm-6 center-xs end-sm">
                     <Link color="link" href="/">
                         Home
+                    </Link>
+                    <Link color="link" href="/project-365">
+                        Project 365
                     </Link>
                     <Link color="link" href="/faq">
                         FAQ
@@ -75,9 +84,9 @@ export default class Header extends React.Component {
                             Login
                         </Link>}
                     {!this.state.auth &&
-                        <Link color="link" href="/register">
+                        <Button align="middle" size="sm" href="/register">
                             Register
-                        </Link>}
+                        </Button>}
                     {this.state.auth &&
                         <Link color="link" onClick={logout}>
                             Logout
