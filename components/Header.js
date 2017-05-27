@@ -3,7 +3,6 @@ import styled from 'styled-components';
 
 import Logo from './Logo';
 import Link from './Link';
-import Button from './Button';
 
 import styleVars from '../css/vars';
 
@@ -84,9 +83,9 @@ export default class Header extends React.Component {
                             Login
                         </Link>}
                     {!this.state.auth &&
-                        <Button align="middle" size="sm" href="/register">
+                        <Link color="link" href="/register">
                             Register
-                        </Button>}
+                        </Link>}
                     {this.state.auth &&
                         <Link color="link" onClick={logout}>
                             Logout

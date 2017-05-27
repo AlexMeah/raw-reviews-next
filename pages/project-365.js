@@ -39,6 +39,10 @@ const NextWrapper = styled.div`
     background: ${styleVars.colors.primary};
     color: #fff;
     font-family: Oswald, sans-serif;
+
+    #mask-rect {
+        transform: translate(-50%, -55%);
+    }
 `;
 
 const NextText = styled.svg`
@@ -244,8 +248,8 @@ function NextUp() {
                         <mask id="sample" maskUnits="userSpaceOnUse">
                             <rect
                                 id="mask-rect"
-                                x="35%"
-                                y="36%"
+                                x="50%"
+                                y="50%"
                                 height="38"
                                 width="80"
                                 fill="#fff"
