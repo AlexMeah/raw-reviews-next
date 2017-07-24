@@ -12,7 +12,8 @@
     "ava:nocoverage": "NODE_ENV=test ava --verbose src/**/test.js",
     "ava:watch": "NODE_ENV=test ava --verbose --watch src/**/test.js",
     "lint": "prettier-eslint --write \"src/**/*.js\"",
-    "postinstall": "npm run build"
+    "postinstall": "npm run build",
+    "deploy-embed": "cd embed && yarn build && aws s3 sync ./build/static/js s3://raw-reviews/embed && cd .."
   },
   "engines": {
     "node": "6.x.x",
@@ -68,7 +69,7 @@
     "mime-types": "^2.1.15",
     "module-alias": "^2.0.0",
     "moment": "^2.18.1",
-    "next": "2.3.1",
+    "next": "^2.4.1",
     "pg": "^6.1.5",
     "pg-hstore": "^2.3.2",
     "polished": "^1.1.0",

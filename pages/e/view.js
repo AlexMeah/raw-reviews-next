@@ -155,7 +155,10 @@ const Post = props => {
                             SUBMIT RE-EDIT
                         </Button>
                     </div>
-
+                    <div className="col-xs-12 mb2">
+                        <span
+                        >{`<div class="raw-progress-embed" data-id="${edit.id}" data-before="${edit.before}" data-after="${edit.after}"></div><script src="${config.embedUrl}"></script>`}</span>
+                    </div>
                 </div>
             </div>
         </BasicLayout>
