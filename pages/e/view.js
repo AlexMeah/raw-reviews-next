@@ -3,7 +3,6 @@ import React from 'react';
 import Helmet from 'react-helmet';
 import ReactGA from 'react-ga';
 import get from 'lodash.get';
-
 import BasicLayout from '../../layouts/Basic';
 import H1 from '../../components/H1';
 import ExifView from '../../components/ExifView';
@@ -14,6 +13,7 @@ import Ad from '../../components/Ad';
 import P from '../../components/P';
 import TagList from '../../components/TagList';
 import Button from '../../components/Button';
+import Embed from '../../components/Embed';
 import ReEditGrid from '../../components/ReEditGrid';
 
 import withData from '../../hoc/withData';
@@ -45,11 +45,7 @@ const Post = props => {
     const exif = get(props, 'EditQuery.exif.exif.afterExif', { tags: {} });
 
     if (!edit) {
-        return (
-            <BasicLayout>
-                Not found
-            </BasicLayout>
-        );
+        return <BasicLayout>Not found</BasicLayout>;
     }
 
     return (
@@ -59,8 +55,10 @@ const Post = props => {
             </Helmet>
 
             <H1 className="tac">
-                {edit.title} {edit.parent ? '(Re-Edit)' : null} <span>
-                    by <Link
+                {edit.title} {edit.parent ? '(Re-Edit)' : null}{' '}
+                <span>
+                    by{' '}
+                    <Link
                         to={`/u/profile?userId=${edit.userId}`}
                         as={`/u/${edit.userId}`}
                         color="primary"
@@ -72,7 +70,9 @@ const Post = props => {
 
             {edit.description &&
                 edit.description !== edit.title &&
-                <P copy>{edit.description}</P>}
+                <P copy>
+                    {edit.description}
+                </P>}
 
             <Vote
                 id={edit.id}
@@ -90,7 +90,7 @@ const Post = props => {
                         type="button"
                         onClick={trackButton('View Original', edit.parent)}
                     >
-                        View Original
+                        View Original Post
                     </Button>}
             </div>
 
@@ -156,8 +156,11 @@ const Post = props => {
                         </Button>
                     </div>
                     <div className="col-xs-12 mb2">
-                        <span
-                        >{`<div class="raw-progress-embed" data-id="${edit.id}" data-before="${edit.before}" data-after="${edit.after}"></div><script src="${config.embedUrl}"></script>`}</span>
+                        <Embed
+                            id={edit.id}
+                            before={edit.before}
+                            after={edit.after}
+                        />
                     </div>
                 </div>
             </div>
@@ -166,62 +169,62 @@ const Post = props => {
 };
 
 const editQuery = gql`
-  query edit($editId: String!) {
-      edit {
-          edit(id: $editId) {
-              id
-              before
-              after
-              raw
-              description
-              title
-              ups
-              downs
-              createdAt
-              userId
-              parent,
-              tags
-          }
-          reedits(parent: $editId) {
-              id
-              after
-          }
-      }
-      exif {
-          exif(editId: $editId) {
-              afterExif {
-                  imageSize {
-                      width
-                      height
-                  }
-                  tags {
-                      fNumber
-                      exposureTime
-                      focalLength
-                      focalLengthIn35mmFormat
-                      iSO
-                      lensModel
-                      make
-                      model
-                      shutterSpeedValue
-                      software
-                  }
-              }
-          }
-      }
-  }
+    query edit($editId: String!) {
+        edit {
+            edit(id: $editId) {
+                id
+                before
+                after
+                raw
+                description
+                title
+                ups
+                downs
+                createdAt
+                userId
+                parent
+                tags
+            }
+            reedits(parent: $editId) {
+                id
+                after
+            }
+        }
+        exif {
+            exif(editId: $editId) {
+                afterExif {
+                    imageSize {
+                        width
+                        height
+                    }
+                    tags {
+                        fNumber
+                        exposureTime
+                        focalLength
+                        focalLengthIn35mmFormat
+                        iSO
+                        lensModel
+                        make
+                        model
+                        shutterSpeedValue
+                        software
+                    }
+                }
+            }
+        }
+    }
 `;
 
 const voteQuery = gql`
-  query vote($editId: String!) {
-      vote {
-          votes(editId: [$editId]) {
-              id,
-              editId,
-              vote
-          }
-      }
-  }
+    query vote($editId: String!) {
+        vote {
+            votes(editId: [$editId]) {
+                id
+                editId
+                vote
+            }
+        }
+    }
 `;
 
 export default compose(
