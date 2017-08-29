@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 import buttonStyles from './buttonStyles';
 
-const B = styled.button`${buttonStyles}`;
+const B = styled.button`${buttonStyles};`;
 
 const Button = props => <B {...props} />;
 

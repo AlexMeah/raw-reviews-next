@@ -5,6 +5,7 @@ import styled from 'styled-components';
 import styleVars from '../../css/vars';
 import config from '../../config';
 import ReactCursorPosition from '../CursorPosition';
+import A from '../A';
 
 import Button from '../Button';
 
@@ -46,15 +47,14 @@ const SplitImage = styled.img`
     }
 `;
 
-const SplitView = ({ before, after }) => (
+const SplitView = ({ before, after }) =>
     <SplitContainer>
         <SplitImage
             src={`${config.cdn}/resized/large/${before}`}
             alt="before"
         />
         <SplitImage src={`${config.cdn}/resized/large/${after}`} alt="after" />
-    </SplitContainer>
-);
+    </SplitContainer>;
 
 const CompareContainer = styled.div`
     position: relative;
@@ -96,13 +96,7 @@ const Container = styled.div`
     margin-bottom: 20px;
 `;
 
-const CompareView = ({
-    before,
-    after,
-    update,
-    maskWidth,
-    onPositionChanged
-}) => (
+const CompareView = ({ before, after, update, maskWidth, onPositionChanged }) =>
     <CompareContainer>
         <CompareImageInner
             onPositionChanged={onPositionChanged}
@@ -132,28 +126,27 @@ const CompareView = ({
             max="100"
             step="1"
         />
-    </CompareContainer>
-);
+    </CompareContainer>;
 
 const WidthSlider = styled.input`
-    -webkit-appearance:none;
-    width:100%;
-    height:2px;
+    -webkit-appearance: none;
+    width: 100%;
+    height: 2px;
     background: ${styleVars.colors.body};
-    background-position:center;
-    background-repeat:no-repeat;
+    background-position: center;
+    background-repeat: no-repeat;
     margin: 40px auto;
     outline: none;
 
-    &::-webkit-slider-thumb{
-        -webkit-appearance:none;
-        width:40px;
-        height:40px;
+    &::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        width: 40px;
+        height: 40px;
         border-radius: 100%;
         background: ${styleVars.colors.bodyBackground};
-        position:relative;
+        position: relative;
         border: 3px solid ${styleVars.colors.body};
-        z-index:3;
+        z-index: 3;
         cursor: pointer;
     }
 `;
@@ -201,7 +194,7 @@ class ImageCompare extends React.Component {
     }
 
     render() {
-        const { before, after } = this.props;
+        const { id, before, after } = this.props;
 
         return (
             <Container>
@@ -222,6 +215,12 @@ class ImageCompare extends React.Component {
                     <Button onClick={this.toggle}>
                         {this.state.split ? 'Comparison' : 'Split'} View
                     </Button>}
+
+                <div>
+                    <A href={`https://rawprogress.com/e/${id}`}>
+                        View on Raw Progress
+                    </A>
+                </div>
             </Container>
         );
     }

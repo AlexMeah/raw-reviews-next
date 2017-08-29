@@ -7,6 +7,7 @@ const embeds = Array.from(document.querySelectorAll('.raw-progress-embed'));
 embeds.forEach(embed => {
     const before = embed.getAttribute('data-before');
     const after = embed.getAttribute('data-after');
+    const id = embed.getAttribute('data-id');
 
     const renderEl = document.createElement('span');
 
@@ -14,7 +15,7 @@ embeds.forEach(embed => {
 
     render(
         <div>
-            <ImageCompare before={before} after={after} />
+            <ImageCompare id={id} before={before} after={after} />
         </div>,
         renderEl
     );

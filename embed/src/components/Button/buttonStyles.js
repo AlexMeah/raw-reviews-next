@@ -31,13 +31,19 @@ const buttonStyles = css`
     outline: none !important;
     font-weight: 400;
     line-height: 1;
-    padding: ${props => `${(sizes[props.size] || 1) * 12}px ${(sizes[props.size] || 1) * 16}px`};
+    padding: ${props =>
+        `${(sizes[props.size] || 1) * 12}px ${(sizes[props.size] || 1) *
+            16}px`};
     font-size: 1em;
     border-radius: ${styleVars.radius};
-    font-family: "Source Sans Pro", inherit;
+    font-family: inherit;
     background: transparent;
-    ${props => `color: ${styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};`}
-    ${props => `background-color: ${styleVars.colors[props.color] || styleVars.colors.primary};`}
+    ${props =>
+        `color: ${styleVars.colors[`${props.color}Color`] ||
+            styleVars.colors.primaryColor};`}
+    ${props =>
+        `background-color: ${styleVars.colors[props.color] ||
+            styleVars.colors.primary};`}
     margin-bottom: 20px;
     ${props => props.block && 'width: 100%;'}
     ${props => props.align && `vertical-align: ${props.align};`}
@@ -47,25 +53,45 @@ const buttonStyles = css`
     }
 
     &:hover {
-        ${props => `color: ${styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};`}
-        ${props => `background-color: ${dark(styleVars.colors[props.color] || styleVars.colors.primary)};`}
+        ${props =>
+            `color: ${styleVars.colors[`${props.color}Color`] ||
+                styleVars.colors.primaryColor};`}
+        ${props =>
+            `background-color: ${dark(
+                styleVars.colors[props.color] || styleVars.colors.primary
+            )};`}
     }
 
     &:focus {
-        ${props => `color: ${styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};`}
-        ${props => `background-color: ${dark(styleVars.colors[props.color] || styleVars.colors.primary)};`}
+        ${props =>
+            `color: ${styleVars.colors[`${props.color}Color`] ||
+                styleVars.colors.primaryColor};`}
+        ${props =>
+            `background-color: ${dark(
+                styleVars.colors[props.color] || styleVars.colors.primary
+            )};`}
     }
 
     &:active {
-        ${props => `color: ${styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};`}
-        ${props => `background-color: ${dark(styleVars.colors[props.color] || styleVars.colors.primary)};`}
+        ${props =>
+            `color: ${styleVars.colors[`${props.color}Color`] ||
+                styleVars.colors.primaryColor};`}
+        ${props =>
+            `background-color: ${dark(
+                styleVars.colors[props.color] || styleVars.colors.primary
+            )};`}
         background-image: none;
         outline: 0;
 
         &:focus,
         &:hover {
-            ${props => `color: ${styleVars.colors[`${props.color}Color`] || styleVars.colors.primaryColor};`}
-            ${props => `background-color: ${darker(styleVars.colors[props.color] || styleVars.colors.primary)};`}
+            ${props =>
+                `color: ${styleVars.colors[`${props.color}Color`] ||
+                    styleVars.colors.primaryColor};`}
+            ${props =>
+                `background-color: ${darker(
+                    styleVars.colors[props.color] || styleVars.colors.primary
+                )};`}
         }
     }
 `;
