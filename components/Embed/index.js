@@ -3,12 +3,35 @@ import CopyToClipboard from 'react-copy-to-clipboard';
 import styled from 'styled-components';
 
 import config from '../../config';
-import Card from '../../components/Card';
 import Button from '../../components/Button';
+import styleVars from '../../css/vars';
 
-const Well = styled(Card)`
-    white-space: nowrap;
-    overflow-x: auto;
+const Well = styled.div`
+    background: #fff;
+    max-width: 40rem;
+    width: 100%;
+    position: relative;
+    padding: 2rem;
+    box-shadow: ${styleVars.shadow};
+    border-radius: ${styleVars.radius};
+    word-wrap: break-word;
+    hyphens: none;
+    margin: 0 auto;
+    user-select: none;
+`;
+
+const Pre = styled.pre`
+    white-space: normal;
+    cursor: default;
+    margin: 0;
+`;
+
+const FloatingButton = styled(Button)`
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate3d(-50%, -50%, 0);
+    width: 20rem;
 `;
 
 class Embed extends Component {
@@ -26,25 +49,29 @@ class Embed extends Component {
 
         return (
             <div>
-                <h4>Embed on your site</h4>
+                <h3>Embed on your site</h3>
                 <Well>
-                    {embedCode}
+                    <Pre>
+                        {embedCode}
+                    </Pre>
+                    <CopyToClipboard text={embedCode}>
+                        <FloatingButton
+                            color="positive"
+                            type="button"
+                            onClick={() => {
+                                this.setState({ copied: true }, () => {
+                                    setTimeout(() => {
+                                        this.setState({ copied: false });
+                                    }, 1500);
+                                });
+                            }}
+                        >
+                            {this.state.copied
+                                ? 'Copied!'
+                                : 'Copy to clipboard'}
+                        </FloatingButton>
+                    </CopyToClipboard>
                 </Well>
-                <CopyToClipboard text={embedCode}>
-                    <Button
-                        color="positive"
-                        type="button"
-                        onClick={() => {
-                            this.setState({ copied: true }, () => {
-                                setTimeout(() => {
-                                    this.setState({ copied: false });
-                                }, 1500);
-                            });
-                        }}
-                    >
-                        {this.state.copied ? 'Copied!' : 'Copy to clipboard'}
-                    </Button>
-                </CopyToClipboard>
             </div>
         );
     }
