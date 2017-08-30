@@ -21,11 +21,11 @@ const Container = styled.div`
 `;
 
 const LogoContainer = styled.div`
-margin-bottom: 1rem;
+    margin-bottom: 1rem;
 
-@media (min-width: ${styleVars.breakpoints.sm}) {
-    margin-bottom: 0;
-}
+    @media (min-width: ${styleVars.breakpoints.sm}) {
+        margin-bottom: 0;
+    }
 `;
 
 const LinksContainer = styled.div`
@@ -33,7 +33,7 @@ const LinksContainer = styled.div`
         margin-right: 2rem;
 
         &:last-child {
-            margin-right: 0
+            margin-right: 0;
         }
     }
 `;
@@ -67,9 +67,6 @@ export default class Header extends React.Component {
                 <LinksContainer className="col-xs-12 col-sm-6 center-xs end-sm">
                     <Link color="link" href="/">
                         Home
-                    </Link>
-                    <Link color="link" href="/project-365">
-                        Project 365
                     </Link>
                     <Link color="link" href="/faq">
                         FAQ
