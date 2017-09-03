@@ -4,6 +4,25 @@ const cache = require('../../lib/cache');
 const { sequelize: { models } } = require('../../lib/sequelize');
 const config = require('../../.././../config');
 
+const render = ({ id, before, after }) => `
+<html> 
+    <head>
+        <style>
+            html { font-family: sans-serif; }
+        </style>
+    </head>
+    <body>
+        <div
+            class="raw-progress-embed"
+            data-id="${id}"
+            data-before="${before}"
+            data-after="${after}"
+        ></div>
+        <script src="${config.embedUrl}"></script>
+    </body> 
+</html>
+`;
+
 function renderAndCache(req, res) {
     const key = `raw-reviews:embed-cache:${req.params.id}`;
 
@@ -28,7 +47,7 @@ function renderAndCache(req, res) {
                     return result.dataValues;
                 })
                 .then(result => {
-                    const html = `<html><body><div class="raw-progress-embed" data-id="${result.id}" data-before="${result.before}" data-after="${result.after}"></div><script src="${config.embedUrl}"></script></body></html>`;
+                    const html = render(result);
                     cache.set(key, html, 600);
                     return html;
                 });
