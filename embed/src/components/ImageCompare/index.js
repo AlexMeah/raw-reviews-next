@@ -48,13 +48,13 @@ const SplitImage = styled.img`
 `;
 
 const SplitView = ({ before, after }) =>
-    <SplitContainer>
+    (<SplitContainer>
         <SplitImage
             src={`${config.cdn}/resized/large/${before}`}
             alt="before"
         />
         <SplitImage src={`${config.cdn}/resized/large/${after}`} alt="after" />
-    </SplitContainer>;
+    </SplitContainer>);
 
 const CompareContainer = styled.div`
     position: relative;
@@ -97,7 +97,7 @@ const Container = styled.div`
 `;
 
 const CompareView = ({ before, after, update, maskWidth, onPositionChanged }) =>
-    <CompareContainer>
+    (<CompareContainer>
         <CompareImageInner
             onPositionChanged={onPositionChanged}
             shouldDecorateChildren={false}
@@ -126,7 +126,7 @@ const CompareView = ({ before, after, update, maskWidth, onPositionChanged }) =>
             max="100"
             step="1"
         />
-    </CompareContainer>;
+    </CompareContainer>);
 
 const WidthSlider = styled.input`
     -webkit-appearance: none;
@@ -217,7 +217,7 @@ class ImageCompare extends React.Component {
                     </Button>}
 
                 <div>
-                    <A href={`https://rawprogress.com/e/${id}`}>
+                    <A href={`https://rawprogress.com/e/${id}`} target="_blank">
                         View on Raw Progress
                     </A>
                 </div>
