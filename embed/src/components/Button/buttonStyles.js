@@ -19,7 +19,6 @@ const sizes = {
 };
 
 const buttonStyles = css`
-    box-shadow: ${styleVars.shadow};
     text-decoration: none;
     display: inline-block;
     text-align: center;

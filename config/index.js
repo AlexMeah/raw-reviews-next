@@ -16,5 +16,5 @@ module.exports = {
     cdnOriginal: getEnv({
         default: 'https://rawreviewsoriginals-7c42.kxcdn.com'
     }),
-    embedUrl: 'https://rawreviews-7c42.kxcdn.com/embed/main.2b7f36eb.js'
+    embedUrl: 'https://rawreviews-7c42.kxcdn.com/embed/main.69ef1411.js'
 };
