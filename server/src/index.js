@@ -28,9 +28,12 @@ const me = require('./modules/user/routes/me');
 const login = require('./modules/user/routes/login');
 const logout = require('./modules/user/routes/logout');
 const sign = require('./modules/s3/routes/sign');
+const embed = require('./modules/embed');
 const graphqlSchema = require('./graphqlSchema');
 const db = require('./lib/sequelize');
 const cache = require('./lib/cache');
+
+console.log(embed);
 
 /*
 * CRON like tasks
@@ -118,6 +121,7 @@ Promise.all([
 
         server.use('/api/login', login);
         server.use('/api/logout', logout);
+        server.use('/embed', embed);
 
         server.use(
             jwt({
